@@ -1,0 +1,143 @@
+{
+  "app": {
+    "name": "RxBD",
+    "tagline": "ডিজিটাল প্রেসক্রিপশন প্ল্যাটফর্ম"
+  },
+  "auth": {
+    "login": "লগইন",
+    "signup": "নিবন্ধন",
+    "email": "ইমেইল",
+    "password": "পাসওয়ার্ড",
+    "name": "পুরো নাম",
+    "specialty": "বিশেষজ্ঞতা",
+    "loginButton": "সাইন ইন",
+    "signupButton": "অ্যাকাউন্ট তৈরি করুন",
+    "noAccount": "অ্যাকাউন্ট নেই?",
+    "hasAccount": "ইতিমধ্যে অ্যাকাউন্ট আছে?",
+    "logout": "লগআউট"
+  },
+  "nav": {
+    "dashboard": "ড্যাশবোর্ড",
+    "newPrescription": "নতুন প্রেসক্রিপশন",
+    "patients": "রোগী",
+    "prescriptions": "প্রেসক্রিপশন",
+    "settings": "সেটিংস",
+    "subscription": "সাবস্ক্রিপশন"
+  },
+  "dashboard": {
+    "welcome": "স্বাগতম",
+    "totalPatients": "মোট রোগী",
+    "prescriptionsThisMonth": "এ মাসের প্রেসক্রিপশন",
+    "remaining": "অবশিষ্ট",
+    "newPrescription": "নতুন প্রেসক্রিপশন",
+    "addPatient": "রোগী যোগ করুন",
+    "recentPrescriptions": "সাম্প্রতিক প্রেসক্রিপশন"
+  },
+  "composer": {
+    "title": "নতুন প্রেসক্রিপশন",
+    "selectPatient": "রোগী নির্বাচন করুন",
+    "searchPatient": "নাম বা ফোন দিয়ে রোগী খুঁজুন...",
+    "addNewPatient": "নতুন রোগী যোগ করুন",
+    "vitals": "ভাইটাল সাইন",
+    "bloodPressure": "রক্তচাপ",
+    "pulse": "পালস",
+    "temperature": "তাপমাত্রা",
+    "weight": "ওজন",
+    "spO2": "স্পো২",
+    "medications": "ওষুধ",
+    "searchMedicine": "ওষুধ খুঁজুন...",
+    "addMedication": "ওষুধ যোগ করুন",
+    "brand": "ব্র্যান্ড",
+    "generic": "জেনেরিক",
+    "strength": "শক্তি",
+    "dosageForm": "ধরন",
+    "frequency": "ফ্রিকোয়েন্সি",
+    "duration": "মেয়াদ",
+    "instructions": "নির্দেশনা",
+    "diagnosis": "রোগ নির্ণয়",
+    "clinicalNotes": "ক্লিনিকাল নোট",
+    "advice": "পরামর্শ",
+    "followUp": "ফলো-আপ তারিখ",
+    "saveDraft": "ড্রাফট সংরক্ষণ করুন",
+    "saveAndPDF": "সংরক্ষণ ও পিডিএফ তৈরি করুন",
+    "autoSave": "স্বয়ংক্রিয় সংরক্ষিত",
+    "draftRecovered": "ড্রাফট পুনরুদ্ধার করা হয়েছে",
+    "prescriptionLimit": "এ মাসে অবশিষ্ট প্রেসক্রিপশন"
+  },
+  "patients": {
+    "title": "রোগী",
+    "search": "রোগী খুঁজুন...",
+    "addPatient": "রোগী যোগ করুন",
+    "name": "নাম",
+    "age": "বয়স",
+    "gender": "লিঙ্গ",
+    "phone": "ফোন",
+    "lastVisit": "শেষ ভিজিট",
+    "actions": "কার্যক্রম",
+    "allergies": "অ্যালার্জি",
+    "bloodGroup": "রক্তের গ্রুপ",
+    "consent": "রোগীকে ডিজিটাল সংরক্ষণ সম্পর্কে অবহিত করা হয়েছে",
+    "edit": "সম্পাদনা",
+    "delete": "মুছুন"
+  },
+  "prescriptions": {
+    "title": "প্রেসক্রিপশন ইতিহাস",
+    "date": "তারিখ",
+    "patient": "রোগী",
+    "diagnosis": "রোগ নির্ণয়",
+    "medications": "ওষুধ",
+    "status": "অবস্থা",
+    "actions": "কার্যক্রম",
+    "view": "দেখুন",
+    "print": "প্রিন্ট",
+    "delete": "মুছুন",
+    "completed": "সম্পন্ন",
+    "draft": "ড্রাফট"
+  },
+  "settings": {
+    "title": "সেটিংস",
+    "profile": "প্রোফাইল",
+    "chamber": "চেম্বার তথ্য",
+    "letterhead": "লেটারহেড",
+    "preferences": "পছন্দসমূহ",
+    "degrees": "ডিগ্রি",
+    "bmdcNumber": "বিএমডিসি নম্বর",
+    "chamberName": "চেম্বারের নাম",
+    "chamberAddress": "চেম্বারের ঠিকানা",
+    "chamberPhone": "চেম্বারের ফোন",
+    "chamberEmail": "চেম্বারের ইমেইল",
+    "logo": "লোগো",
+    "signature": "স্বাক্ষর",
+    "letterheadColor": "লেটারহেডের রং",
+    "includeQrCode": "কিউআর কোড অন্তর্ভুক্ত করুন",
+    "language": "ভাষা",
+    "theme": "থিম",
+    "fontSize": "ফন্ট সাইজ",
+    "save": "পরিবর্তন সংরক্ষণ করুন"
+  },
+  "subscription": {
+    "title": "সাবস্ক্রিপশন",
+    "currentPlan": "বর্তমান প্ল্যান",
+    "free": "ফ্রি",
+    "premium": "প্রিমিয়াম",
+    "prescriptionsUsed": "ব্যবহৃত প্রেসক্রিপশন",
+    "upgrade": "প্রিমিয়ামে আপগ্রেড করুন",
+    "perMonth": "/মাস",
+    "features": {
+      "free": {
+        "prescriptions": "৫০ প্রেসক্রিপশন/মাস",
+        "pdf": "স্ট্যান্ডার্ড পিডিএফ টেমপ্লেট",
+        "export": "সিএসভি এক্সপোর্ট",
+        "support": "ইমেইল সাপোর্ট"
+      },
+      "premium": {
+        "prescriptions": "আনলিমিটেড প্রেসক্রিপশন",
+        "pdf": "কাস্টম লেটারহেড ও স্বাক্ষর",
+        "templates": "প্রেসক্রিপশন টেমপ্লেট",
+        "export": "সিএসভি ও জেসন এক্সপোর্ট",
+        "support": "অগ্রাধিকার হোয়াটসঅ্যাপ সাপোর্ট",
+        "qr": "কিউআর ভেরিফিকেশন কোড"
+      }
+    }
+  }
+}

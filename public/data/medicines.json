@@ -1,0 +1,1302 @@
+[
+  {
+    "id": "med_001",
+    "brand": "Napa",
+    "generic": "Paracetamol",
+    "dosageForm": "Tablet",
+    "strength": "500mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Analgesic & Antipyretic",
+    "tags": ["pain", "fever", "headache", "paracetamol"]
+  },
+  {
+    "id": "med_002",
+    "brand": "Napa Extend",
+    "generic": "Paracetamol",
+    "dosageForm": "Tablet",
+    "strength": "665mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Analgesic & Antipyretic",
+    "tags": ["pain", "fever", "headache", "paracetamol", "extended release"]
+  },
+  {
+    "id": "med_003",
+    "brand": "Napa Suppository",
+    "generic": "Paracetamol",
+    "dosageForm": "Suppository",
+    "strength": "125mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Analgesic & Antipyretic",
+    "tags": ["pain", "fever", "pediatric", "paracetamol"]
+  },
+  {
+    "id": "med_004",
+    "brand": "Ace",
+    "generic": "Paracetamol",
+    "dosageForm": "Tablet",
+    "strength": "500mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Analgesic & Antipyretic",
+    "tags": ["pain", "fever", "headache", "paracetamol"]
+  },
+  {
+    "id": "med_005",
+    "brand": "Ace Plus",
+    "generic": "Paracetamol + Caffeine",
+    "dosageForm": "Tablet",
+    "strength": "500mg+65mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Analgesic & Antipyretic",
+    "tags": ["pain", "headache", "migraine", "paracetamol", "caffeine"]
+  },
+  {
+    "id": "med_006",
+    "brand": "Amodis",
+    "generic": "Metronidazole",
+    "dosageForm": "Tablet",
+    "strength": "400mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antibiotic",
+    "tags": ["infection", "protozoal", "anaerobic", "metronidazole"]
+  },
+  {
+    "id": "med_007",
+    "brand": "Cef-3",
+    "generic": "Cefixime",
+    "dosageForm": "Capsule",
+    "strength": "400mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antibiotic",
+    "tags": ["infection", "bacterial", "cefixime", "third generation cephalosporin"]
+  },
+  {
+    "id": "med_008",
+    "brand": "Fimoxyl",
+    "generic": "Amoxicillin",
+    "dosageForm": "Capsule",
+    "strength": "500mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antibiotic",
+    "tags": ["infection", "bacterial", "amoxicillin", "penicillin"]
+  },
+  {
+    "id": "med_009",
+    "brand": "Klavox",
+    "generic": "Amoxicillin + Clavulanic Acid",
+    "dosageForm": "Tablet",
+    "strength": "500mg+125mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antibiotic",
+    "tags": ["infection", "bacterial", "amoxicillin", "clavulanic acid", "beta-lactamase"]
+  },
+  {
+    "id": "med_010",
+    "brand": "Azithrin",
+    "generic": "Azithromycin",
+    "dosageForm": "Tablet",
+    "strength": "500mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antibiotic",
+    "tags": ["infection", "bacterial", "azithromycin", "macrolide"]
+  },
+  {
+    "id": "med_011",
+    "brand": "Oraday",
+    "generic": "Cefpodoxime",
+    "dosageForm": "Tablet",
+    "strength": "200mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antibiotic",
+    "tags": ["infection", "bacterial", "cefpodoxime", "cephalosporin"]
+  },
+  {
+    "id": "med_012",
+    "brand": "Levogen",
+    "generic": "Levofloxacin",
+    "dosageForm": "Tablet",
+    "strength": "500mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antibiotic",
+    "tags": ["infection", "bacterial", "levofloxacin", "fluoroquinolone"]
+  },
+  {
+    "id": "med_013",
+    "brand": "Moxaclav",
+    "generic": "Amoxicillin + Clavulanic Acid",
+    "dosageForm": "Tablet",
+    "strength": "625mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Antibiotic",
+    "tags": ["infection", "bacterial", "amoxicillin", "clavulanic acid"]
+  },
+  {
+    "id": "med_014",
+    "brand": "Zimax",
+    "generic": "Azithromycin",
+    "dosageForm": "Capsule",
+    "strength": "500mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Antibiotic",
+    "tags": ["infection", "bacterial", "azithromycin", "macrolide"]
+  },
+  {
+    "id": "med_015",
+    "brand": "Ceftriax",
+    "generic": "Ceftriaxone",
+    "dosageForm": "Injection",
+    "strength": "1g",
+    "manufacturer": "Beximco Pharma",
+    "category": "Antibiotic",
+    "tags": ["infection", "bacterial", "ceftriaxone", "injectable"]
+  },
+  {
+    "id": "med_016",
+    "brand": "Seclo",
+    "generic": "Omeprazole",
+    "dosageForm": "Capsule",
+    "strength": "20mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "PPI / Gastric",
+    "tags": ["gastric", "acidity", "ulcer", "omeprazole", "PPI"]
+  },
+  {
+    "id": "med_017",
+    "brand": "Pantoloc",
+    "generic": "Pantoprazole",
+    "dosageForm": "Tablet",
+    "strength": "40mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "PPI / Gastric",
+    "tags": ["gastric", "acidity", "ulcer", "pantoprazole", "PPI"]
+  },
+  {
+    "id": "med_018",
+    "brand": "Neutracid",
+    "generic": "Aluminum Hydroxide + Magnesium Hydroxide",
+    "dosageForm": "Suspension",
+    "strength": "170mg+200mg/5ml",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antacid",
+    "tags": ["gastric", "acidity", "antacid", "heartburn"]
+  },
+  {
+    "id": "med_019",
+    "brand": "Risek",
+    "generic": "Omeprazole",
+    "dosageForm": "Capsule",
+    "strength": "20mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "PPI / Gastric",
+    "tags": ["gastric", "acidity", "ulcer", "omeprazole", "PPI"]
+  },
+  {
+    "id": "med_020",
+    "brand": "Zefron",
+    "generic": "Ondansetron",
+    "dosageForm": "Tablet",
+    "strength": "4mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Anti-emetic",
+    "tags": ["nausea", "vomiting", "ondansetron", "anti-emetic"]
+  },
+  {
+    "id": "med_021",
+    "brand": "Ondasan",
+    "generic": "Ondansetron",
+    "dosageForm": "Tablet",
+    "strength": "4mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Anti-emetic",
+    "tags": ["nausea", "vomiting", "ondansetron"]
+  },
+  {
+    "id": "med_022",
+    "brand": "Maxolon",
+    "generic": "Metoclopramide",
+    "dosageForm": "Tablet",
+    "strength": "10mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Anti-emetic",
+    "tags": ["nausea", "vomiting", "metoclopramide", "prokinetic"]
+  },
+  {
+    "id": "med_023",
+    "brand": "Amdocal",
+    "generic": "Amlodipine",
+    "dosageForm": "Tablet",
+    "strength": "5mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antihypertensive",
+    "tags": ["hypertension", "blood pressure", "amlodipine", "calcium channel blocker"]
+  },
+  {
+    "id": "med_024",
+    "brand": "Amdocal-10",
+    "generic": "Amlodipine",
+    "dosageForm": "Tablet",
+    "strength": "10mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antihypertensive",
+    "tags": ["hypertension", "blood pressure", "amlodipine"]
+  },
+  {
+    "id": "med_025",
+    "brand": "Cilor",
+    "generic": "Cilnidipine",
+    "dosageForm": "Tablet",
+    "strength": "10mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antihypertensive",
+    "tags": ["hypertension", "blood pressure", "cilnidipine", "calcium channel blocker"]
+  },
+  {
+    "id": "med_026",
+    "brand": "Telpres",
+    "generic": "Telmisartan",
+    "dosageForm": "Tablet",
+    "strength": "40mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antihypertensive",
+    "tags": ["hypertension", "blood pressure", "telmisartan", "ARB"]
+  },
+  {
+    "id": "med_027",
+    "brand": "Telpres-AM",
+    "generic": "Telmisartan + Amlodipine",
+    "dosageForm": "Tablet",
+    "strength": "40mg+5mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antihypertensive",
+    "tags": ["hypertension", "blood pressure", "telmisartan", "amlodipine", "combination"]
+  },
+  {
+    "id": "med_028",
+    "brand": "Losartan",
+    "generic": "Losartan Potassium",
+    "dosageForm": "Tablet",
+    "strength": "50mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Antihypertensive",
+    "tags": ["hypertension", "blood pressure", "losartan", "ARB"]
+  },
+  {
+    "id": "med_029",
+    "brand": "Enalapril",
+    "generic": "Enalapril Maleate",
+    "dosageForm": "Tablet",
+    "strength": "5mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Antihypertensive",
+    "tags": ["hypertension", "blood pressure", "enalapril", "ACE inhibitor"]
+  },
+  {
+    "id": "med_030",
+    "brand": "Metolar",
+    "generic": "Metoprolol",
+    "dosageForm": "Tablet",
+    "strength": "50mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Antihypertensive",
+    "tags": ["hypertension", "blood pressure", "metoprolol", "beta blocker"]
+  },
+  {
+    "id": "med_031",
+    "brand": "Amlip",
+    "generic": "Amlodipine",
+    "dosageForm": "Tablet",
+    "strength": "5mg",
+    "manufacturer": "Incepta Pharmaceuticals",
+    "category": "Antihypertensive",
+    "tags": ["hypertension", "blood pressure", "amlodipine"]
+  },
+  {
+    "id": "med_032",
+    "brand": "Telmisartan",
+    "generic": "Telmisartan",
+    "dosageForm": "Tablet",
+    "strength": "40mg",
+    "manufacturer": "Incepta Pharmaceuticals",
+    "category": "Antihypertensive",
+    "tags": ["hypertension", "blood pressure", "telmisartan", "ARB"]
+  },
+  {
+    "id": "med_033",
+    "brand": "Glimepiride",
+    "generic": "Glimepiride",
+    "dosageForm": "Tablet",
+    "strength": "2mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antidiabetic",
+    "tags": ["diabetes", "blood sugar", "glimepiride", "sulfonylurea"]
+  },
+  {
+    "id": "med_034",
+    "brand": "Metformin",
+    "generic": "Metformin Hydrochloride",
+    "dosageForm": "Tablet",
+    "strength": "500mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antidiabetic",
+    "tags": ["diabetes", "blood sugar", "metformin", "biguanide"]
+  },
+  {
+    "id": "med_035",
+    "brand": "Siofor",
+    "generic": "Metformin Hydrochloride",
+    "dosageForm": "Tablet",
+    "strength": "500mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Antidiabetic",
+    "tags": ["diabetes", "blood sugar", "metformin"]
+  },
+  {
+    "id": "med_036",
+    "brand": "Diaben",
+    "generic": "Gliclazide",
+    "dosageForm": "Tablet",
+    "strength": "80mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Antidiabetic",
+    "tags": ["diabetes", "blood sugar", "gliclazide", "sulfonylurea"]
+  },
+  {
+    "id": "med_037",
+    "brand": "Januvia",
+    "generic": "Sitagliptin",
+    "dosageForm": "Tablet",
+    "strength": "100mg",
+    "manufacturer": "Incepta Pharmaceuticals",
+    "category": "Antidiabetic",
+    "tags": ["diabetes", "blood sugar", "sitagliptin", "DPP-4 inhibitor"]
+  },
+  {
+    "id": "med_038",
+    "brand": "Sitaglip",
+    "generic": "Sitagliptin + Metformin",
+    "dosageForm": "Tablet",
+    "strength": "50mg+500mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antidiabetic",
+    "tags": ["diabetes", "blood sugar", "sitagliptin", "metformin", "combination"]
+  },
+  {
+    "id": "med_039",
+    "brand": "Insulin Glargine",
+    "generic": "Insulin Glargine",
+    "dosageForm": "Injection",
+    "strength": "100IU/ml",
+    "manufacturer": "Beximco Pharma",
+    "category": "Antidiabetic",
+    "tags": ["diabetes", "insulin", "injection", "basal insulin"]
+  },
+  {
+    "id": "med_040",
+    "brand": "Amaryl",
+    "generic": "Glimepiride",
+    "dosageForm": "Tablet",
+    "strength": "2mg",
+    "manufacturer": "Renata Limited",
+    "category": "Antidiabetic",
+    "tags": ["diabetes", "blood sugar", "glimepiride"]
+  },
+  {
+    "id": "med_041",
+    "brand": "Ovaclip",
+    "generic": "Clomiphene Citrate",
+    "dosageForm": "Tablet",
+    "strength": "50mg",
+    "manufacturer": "Renata Limited",
+    "category": "Gynecological",
+    "tags": ["fertility", "ovulation", "clomiphene", "PCOS"]
+  },
+  {
+    "id": "med_042",
+    "brand": "Ovacare",
+    "generic": "Clomiphene Citrate",
+    "dosageForm": "Tablet",
+    "strength": "50mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Gynecological",
+    "tags": ["fertility", "ovulation", "clomiphene"]
+  },
+  {
+    "id": "med_043",
+    "brand": "Fixon",
+    "generic": "Cefixime",
+    "dosageForm": "Suspension",
+    "strength": "100mg/5ml",
+    "manufacturer": "Renata Limited",
+    "category": "Antibiotic",
+    "tags": ["infection", "bacterial", "cefixime", "pediatric", "suspension"]
+  },
+  {
+    "id": "med_044",
+    "brand": "Ciprocin",
+    "generic": "Ciprofloxacin",
+    "dosageForm": "Tablet",
+    "strength": "500mg",
+    "manufacturer": "Renata Limited",
+    "category": "Antibiotic",
+    "tags": ["infection", "bacterial", "ciprofloxacin", "fluoroquinolone"]
+  },
+  {
+    "id": "med_045",
+    "brand": "Roximail",
+    "generic": "Roxithromycin",
+    "dosageForm": "Tablet",
+    "strength": "150mg",
+    "manufacturer": "Renata Limited",
+    "category": "Antibiotic",
+    "tags": ["infection", "bacterial", "roxithromycin", "macrolide"]
+  },
+  {
+    "id": "med_046",
+    "brand": "Ventolin",
+    "generic": "Salbutamol",
+    "dosageForm": "Inhaler",
+    "strength": "100mcg/puff",
+    "manufacturer": "ACI Limited",
+    "category": "Bronchodilator",
+    "tags": ["asthma", "bronchospasm", "salbutamol", "inhaler", "COPD"]
+  },
+  {
+    "id": "med_047",
+    "brand": "Salbutamol",
+    "generic": "Salbutamol",
+    "dosageForm": "Syrup",
+    "strength": "2mg/5ml",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Bronchodilator",
+    "tags": ["asthma", "bronchospasm", "salbutamol", "syrup", "pediatric"]
+  },
+  {
+    "id": "med_048",
+    "brand": "Bricanyl",
+    "generic": "Terbutaline",
+    "dosageForm": "Tablet",
+    "strength": "2.5mg",
+    "manufacturer": "ACI Limited",
+    "category": "Bronchodilator",
+    "tags": ["asthma", "bronchospasm", "terbutaline"]
+  },
+  {
+    "id": "med_049",
+    "brand": "Montair",
+    "generic": "Montelukast",
+    "dosageForm": "Tablet",
+    "strength": "10mg",
+    "manufacturer": "ACI Limited",
+    "category": "Bronchodilator",
+    "tags": ["asthma", "allergy", "montelukast", "leukotriene antagonist"]
+  },
+  {
+    "id": "med_050",
+    "brand": "Monteluk",
+    "generic": "Montelukast",
+    "dosageForm": "Tablet",
+    "strength": "10mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Bronchodilator",
+    "tags": ["asthma", "allergy", "montelukast"]
+  },
+  {
+    "id": "med_051",
+    "brand": "Alerfix",
+    "generic": "Cetirizine",
+    "dosageForm": "Tablet",
+    "strength": "10mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antihistamine",
+    "tags": ["allergy", "itching", "cetirizine", "antihistamine", "rhinitis"]
+  },
+  {
+    "id": "med_052",
+    "brand": "Zyrtec",
+    "generic": "Cetirizine",
+    "dosageForm": "Tablet",
+    "strength": "10mg",
+    "manufacturer": "ACI Limited",
+    "category": "Antihistamine",
+    "tags": ["allergy", "itching", "cetirizine", "antihistamine"]
+  },
+  {
+    "id": "med_053",
+    "brand": "Fexofenadine",
+    "generic": "Fexofenadine",
+    "dosageForm": "Tablet",
+    "strength": "120mg",
+    "manufacturer": "Incepta Pharmaceuticals",
+    "category": "Antihistamine",
+    "tags": ["allergy", "itching", "fexofenadine", "antihistamine", "non-drowsy"]
+  },
+  {
+    "id": "med_054",
+    "brand": "Loratadine",
+    "generic": "Loratadine",
+    "dosageForm": "Tablet",
+    "strength": "10mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Antihistamine",
+    "tags": ["allergy", "itching", "loratadine", "antihistamine", "non-drowsy"]
+  },
+  {
+    "id": "med_055",
+    "brand": "Avil",
+    "generic": "Pheniramine",
+    "dosageForm": "Injection",
+    "strength": "22.5mg/ml",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antihistamine",
+    "tags": ["allergy", "itching", "pheniramine", "injectable"]
+  },
+  {
+    "id": "med_056",
+    "brand": "Atorva",
+    "generic": "Atorvastatin",
+    "dosageForm": "Tablet",
+    "strength": "10mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Statin",
+    "tags": ["cholesterol", "lipid", "atorvastatin", "statin", "cardiovascular"]
+  },
+  {
+    "id": "med_057",
+    "brand": "Storvas",
+    "generic": "Atorvastatin",
+    "dosageForm": "Tablet",
+    "strength": "10mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Statin",
+    "tags": ["cholesterol", "lipid", "atorvastatin", "statin"]
+  },
+  {
+    "id": "med_058",
+    "brand": "Rovista",
+    "generic": "Rosuvastatin",
+    "dosageForm": "Tablet",
+    "strength": "10mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Statin",
+    "tags": ["cholesterol", "lipid", "rosuvastatin", "statin"]
+  },
+  {
+    "id": "med_059",
+    "brand": "Xovast",
+    "generic": "Rosuvastatin",
+    "dosageForm": "Tablet",
+    "strength": "20mg",
+    "manufacturer": "Incepta Pharmaceuticals",
+    "category": "Statin",
+    "tags": ["cholesterol", "lipid", "rosuvastatin", "statin"]
+  },
+  {
+    "id": "med_060",
+    "brand": "Betadine",
+    "generic": "Povidone Iodine",
+    "dosageForm": "Ointment",
+    "strength": "5%",
+    "manufacturer": "ACI Limited",
+    "category": "Antiseptic",
+    "tags": ["antiseptic", "wound", "infection prevention", "iodine"]
+  },
+  {
+    "id": "med_061",
+    "brand": "Miconazole",
+    "generic": "Miconazole Nitrate",
+    "dosageForm": "Cream",
+    "strength": "2%",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antifungal",
+    "tags": ["fungal", "infection", "miconazole", "cream", "dermatology"]
+  },
+  {
+    "id": "med_062",
+    "brand": "Fluconazole",
+    "generic": "Fluconazole",
+    "dosageForm": "Capsule",
+    "strength": "150mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Antifungal",
+    "tags": ["fungal", "infection", "fluconazole", "systemic"]
+  },
+  {
+    "id": "med_063",
+    "brand": "Ketoconazole",
+    "generic": "Ketoconazole",
+    "dosageForm": "Shampoo",
+    "strength": "2%",
+    "manufacturer": "Renata Limited",
+    "category": "Antifungal",
+    "tags": ["fungal", "dandruff", "ketoconazole", "shampoo", "dermatology"]
+  },
+  {
+    "id": "med_064",
+    "brand": "Nizoral",
+    "generic": "Ketoconazole",
+    "dosageForm": "Cream",
+    "strength": "2%",
+    "manufacturer": "ACI Limited",
+    "category": "Antifungal",
+    "tags": ["fungal", "infection", "ketoconazole", "cream"]
+  },
+  {
+    "id": "med_065",
+    "brand": "Bactroban",
+    "generic": "Mupirocin",
+    "dosageForm": "Ointment",
+    "strength": "2%",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antibiotic (Topical)",
+    "tags": ["bacterial", "skin", "mupirocin", "topical", "impetigo"]
+  },
+  {
+    "id": "med_066",
+    "brand": "Dexona",
+    "generic": "Dexamethasone",
+    "dosageForm": "Tablet",
+    "strength": "0.5mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Corticosteroid",
+    "tags": ["inflammation", "allergy", "dexamethasone", "steroid"]
+  },
+  {
+    "id": "med_067",
+    "brand": "Prednisolone",
+    "generic": "Prednisolone",
+    "dosageForm": "Tablet",
+    "strength": "5mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Corticosteroid",
+    "tags": ["inflammation", "allergy", "prednisolone", "steroid"]
+  },
+  {
+    "id": "med_068",
+    "brand": "Betamethasone",
+    "generic": "Betamethasone",
+    "dosageForm": "Cream",
+    "strength": "0.05%",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Corticosteroid (Topical)",
+    "tags": ["inflammation", "skin", "betamethasone", "steroid", "topical"]
+  },
+  {
+    "id": "med_069",
+    "brand": "Clobetasol",
+    "generic": "Clobetasol Propionate",
+    "dosageForm": "Cream",
+    "strength": "0.05%",
+    "manufacturer": "Incepta Pharmaceuticals",
+    "category": "Corticosteroid (Topical)",
+    "tags": ["inflammation", "skin", "clobetasol", "steroid", "topical", "psoriasis"]
+  },
+  {
+    "id": "med_070",
+    "brand": "Calsed",
+    "generic": "Calcium + Vitamin D3",
+    "dosageForm": "Tablet",
+    "strength": "500mg+200IU",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Vitamin / Supplement",
+    "tags": ["calcium", "vitamin D", "bone", "supplement", "osteoporosis"]
+  },
+  {
+    "id": "med_071",
+    "brand": "D-Care",
+    "generic": "Vitamin D3",
+    "dosageForm": "Capsule",
+    "strength": "400IU",
+    "manufacturer": "Beximco Pharma",
+    "category": "Vitamin / Supplement",
+    "tags": ["vitamin D", "supplement", "bone health"]
+  },
+  {
+    "id": "med_072",
+    "brand": "Optineuron",
+    "generic": "Vitamin B Complex",
+    "dosageForm": "Tablet",
+    "strength": "B1+B6+B12",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Vitamin / Supplement",
+    "tags": ["vitamin B", "neuropathy", "supplement", "nerve"]
+  },
+  {
+    "id": "med_073",
+    "brand": "Neurobion",
+    "generic": "Vitamin B1+B6+B12",
+    "dosageForm": "Tablet",
+    "strength": "10mg+10mg+10mg",
+    "manufacturer": "ACI Limited",
+    "category": "Vitamin / Supplement",
+    "tags": ["vitamin B", "neuropathy", "supplement", "nerve"]
+  },
+  {
+    "id": "med_074",
+    "brand": "Fefol",
+    "generic": "Iron + Folic Acid",
+    "dosageForm": "Capsule",
+    "strength": "150mg+0.5mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Vitamin / Supplement",
+    "tags": ["iron", "folic acid", "anemia", "pregnancy", "supplement"]
+  },
+  {
+    "id": "med_075",
+    "brand": "Spatin",
+    "generic": "Iron + Folic Acid + Zinc",
+    "dosageForm": "Tablet",
+    "strength": "100mg+0.5mg+22mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Vitamin / Supplement",
+    "tags": ["iron", "folic acid", "zinc", "anemia", "supplement"]
+  },
+  {
+    "id": "med_076",
+    "brand": "Maxical",
+    "generic": "Calcium + Vitamin D3",
+    "dosageForm": "Tablet",
+    "strength": "500mg+200IU",
+    "manufacturer": "Incepta Pharmaceuticals",
+    "category": "Vitamin / Supplement",
+    "tags": ["calcium", "vitamin D", "bone", "supplement"]
+  },
+  {
+    "id": "med_077",
+    "brand": "Mega-C",
+    "generic": "Vitamin C",
+    "dosageForm": "Tablet",
+    "strength": "500mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Vitamin / Supplement",
+    "tags": ["vitamin C", "immunity", "supplement", "antioxidant"]
+  },
+  {
+    "id": "med_078",
+    "brand": "Buscopan",
+    "generic": "Hyoscine Butylbromide",
+    "dosageForm": "Tablet",
+    "strength": "10mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antispasmodic",
+    "tags": ["spasm", "abdominal pain", "hyoscine", "cramp", "antispasmodic"]
+  },
+  {
+    "id": "med_079",
+    "brand": "Spasmo",
+    "generic": "Hyoscine Butylbromide",
+    "dosageForm": "Tablet",
+    "strength": "10mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Antispasmodic",
+    "tags": ["spasm", "abdominal pain", "hyoscine", "cramp"]
+  },
+  {
+    "id": "med_080",
+    "brand": "Flagyl",
+    "generic": "Metronidazole",
+    "dosageForm": "Tablet",
+    "strength": "400mg",
+    "manufacturer": "ACI Limited",
+    "category": "Antibiotic",
+    "tags": ["infection", "protozoal", "anaerobic", "metronidazole"]
+  },
+  {
+    "id": "med_081",
+    "brand": "Tryclor",
+    "generic": "Clotrimazole",
+    "dosageForm": "Cream",
+    "strength": "1%",
+    "manufacturer": "Eskayef Bangladesh",
+    "category": "Antifungal",
+    "tags": ["fungal", "infection", "clotrimazole", "cream", "dermatology"]
+  },
+  {
+    "id": "med_082",
+    "brand": "Eskazole",
+    "generic": "Albendazole",
+    "dosageForm": "Tablet",
+    "strength": "400mg",
+    "manufacturer": "Eskayef Bangladesh",
+    "category": "Anthelmintic",
+    "tags": ["worm", "parasite", "albendazole", "anthelmintic"]
+  },
+  {
+    "id": "med_083",
+    "brand": "Secnil",
+    "generic": "Secnidazole",
+    "dosageForm": "Tablet",
+    "strength": "1g",
+    "manufacturer": "Eskayef Bangladesh",
+    "category": "Antibiotic",
+    "tags": ["infection", "protozoal", "secnidazole"]
+  },
+  {
+    "id": "med_084",
+    "brand": "Lopril",
+    "generic": "Lisinopril",
+    "dosageForm": "Tablet",
+    "strength": "5mg",
+    "manufacturer": "Eskayef Bangladesh",
+    "category": "Antihypertensive",
+    "tags": ["hypertension", "blood pressure", "lisinopril", "ACE inhibitor"]
+  },
+  {
+    "id": "med_085",
+    "brand": "Eskayflox",
+    "generic": "Ciprofloxacin",
+    "dosageForm": "Tablet",
+    "strength": "500mg",
+    "manufacturer": "Eskayef Bangladesh",
+    "category": "Antibiotic",
+    "tags": ["infection", "bacterial", "ciprofloxacin", "fluoroquinolone"]
+  },
+  {
+    "id": "med_086",
+    "brand": "Seronil",
+    "generic": "Fluoxetine",
+    "dosageForm": "Capsule",
+    "strength": "20mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antidepressant",
+    "tags": ["depression", "anxiety", "fluoxetine", "SSRI"]
+  },
+  {
+    "id": "med_087",
+    "brand": "Daonil",
+    "generic": "Glibenclamide",
+    "dosageForm": "Tablet",
+    "strength": "5mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antidiabetic",
+    "tags": ["diabetes", "blood sugar", "glibenclamide", "sulfonylurea"]
+  },
+  {
+    "id": "med_088",
+    "brand": "Voglibose",
+    "generic": "Voglibose",
+    "dosageForm": "Tablet",
+    "strength": "0.2mg",
+    "manufacturer": "Drug International",
+    "category": "Antidiabetic",
+    "tags": ["diabetes", "blood sugar", "voglibose", "alpha-glucosidase inhibitor"]
+  },
+  {
+    "id": "med_089",
+    "brand": "Oprex",
+    "generic": "Olopatadine",
+    "dosageForm": "Eye Drop",
+    "strength": "0.1%",
+    "manufacturer": "Drug International",
+    "category": "Antihistamine (Ophthalmic)",
+    "tags": ["allergy", "eye", "olopatadine", "eye drop"]
+  },
+  {
+    "id": "med_090",
+    "brand": "Ciprobid",
+    "generic": "Ciprofloxacin",
+    "dosageForm": "Eye Drop",
+    "strength": "0.3%",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antibiotic (Ophthalmic)",
+    "tags": ["infection", "eye", "ciprofloxacin", "eye drop"]
+  },
+  {
+    "id": "med_091",
+    "brand": "Timolol",
+    "generic": "Timolol Maleate",
+    "dosageForm": "Eye Drop",
+    "strength": "0.5%",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antiglaucoma",
+    "tags": ["glaucoma", "eye pressure", "timolol", "eye drop"]
+  },
+  {
+    "id": "med_092",
+    "brand": "Latnoprost",
+    "generic": "Latanoprost",
+    "dosageForm": "Eye Drop",
+    "strength": "0.005%",
+    "manufacturer": "Beximco Pharma",
+    "category": "Antiglaucoma",
+    "tags": ["glaucoma", "eye pressure", "latanoprost", "eye drop", "prostaglandin"]
+  },
+  {
+    "id": "med_093",
+    "brand": "Orajel",
+    "generic": "Chlorhexidine Gluconate",
+    "dosageForm": "Mouthwash",
+    "strength": "0.2%",
+    "manufacturer": "Opsonin Pharma",
+    "category": "Antiseptic (Oral)",
+    "tags": ["oral", "antiseptic", "chlorhexidine", "mouthwash", "dental"]
+  },
+  {
+    "id": "med_094",
+    "brand": "Opsonin Metronidazole",
+    "generic": "Metronidazole",
+    "dosageForm": "Tablet",
+    "strength": "400mg",
+    "manufacturer": "Opsonin Pharma",
+    "category": "Antibiotic",
+    "tags": ["infection", "protozoal", "metronidazole"]
+  },
+  {
+    "id": "med_095",
+    "brand": "Rabeca",
+    "generic": "Rabeprazole",
+    "dosageForm": "Tablet",
+    "strength": "20mg",
+    "manufacturer": "Aristopharma",
+    "category": "PPI / Gastric",
+    "tags": ["gastric", "acidity", "ulcer", "rabeprazole", "PPI"]
+  },
+  {
+    "id": "med_096",
+    "brand": "Esomeprazole",
+    "generic": "Esomeprazole",
+    "dosageForm": "Capsule",
+    "strength": "40mg",
+    "manufacturer": "Aristopharma",
+    "category": "PPI / Gastric",
+    "tags": ["gastric", "acidity", "ulcer", "esomeprazole", "PPI"]
+  },
+  {
+    "id": "med_097",
+    "brand": "Risedronate",
+    "generic": "Risedronate Sodium",
+    "dosageForm": "Tablet",
+    "strength": "35mg",
+    "manufacturer": "Aristopharma",
+    "category": "Bone Health",
+    "tags": ["osteoporosis", "bone", "risedronate", "bisphosphonate"]
+  },
+  {
+    "id": "med_098",
+    "brand": "Baclof",
+    "generic": "Baclofen",
+    "dosageForm": "Tablet",
+    "strength": "10mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Muscle Relaxant",
+    "tags": ["muscle spasm", "baclofen", "muscle relaxant", "spasticity"]
+  },
+  {
+    "id": "med_099",
+    "brand": "Tolperis",
+    "generic": "Tolperisone",
+    "dosageForm": "Tablet",
+    "strength": "50mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Muscle Relaxant",
+    "tags": ["muscle spasm", "tolperisone", "muscle relaxant"]
+  },
+  {
+    "id": "med_100",
+    "brand": "Naproxen",
+    "generic": "Naproxen Sodium",
+    "dosageForm": "Tablet",
+    "strength": "550mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Analgesic & Antipyretic",
+    "tags": ["pain", "inflammation", "naproxen", "NSAID"]
+  },
+  {
+    "id": "med_101",
+    "brand": "Diclofenac",
+    "generic": "Diclofenac Sodium",
+    "dosageForm": "Tablet",
+    "strength": "50mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Analgesic & Antipyretic",
+    "tags": ["pain", "inflammation", "diclofenac", "NSAID"]
+  },
+  {
+    "id": "med_102",
+    "brand": "Ibuprofen",
+    "generic": "Ibuprofen",
+    "dosageForm": "Tablet",
+    "strength": "400mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Analgesic & Antipyretic",
+    "tags": ["pain", "inflammation", "ibuprofen", "NSAID"]
+  },
+  {
+    "id": "med_103",
+    "brand": "Movalis",
+    "generic": "Meloxicam",
+    "dosageForm": "Tablet",
+    "strength": "15mg",
+    "manufacturer": "Incepta Pharmaceuticals",
+    "category": "Analgesic & Antipyretic",
+    "tags": ["pain", "inflammation", "meloxicam", "NSAID"]
+  },
+  {
+    "id": "med_104",
+    "brand": "Diazepam",
+    "generic": "Diazepam",
+    "dosageForm": "Tablet",
+    "strength": "5mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Sedative / Anxiolytic",
+    "tags": ["anxiety", "sedation", "diazepam", "benzodiazepine", "sleep"]
+  },
+  {
+    "id": "med_105",
+    "brand": "Bromazepam",
+    "generic": "Bromazepam",
+    "dosageForm": "Tablet",
+    "strength": "3mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Sedative / Anxiolytic",
+    "tags": ["anxiety", "sedation", "bromazepam", "benzodiazepine"]
+  },
+  {
+    "id": "med_106",
+    "brand": "Lorazepam",
+    "generic": "Lorazepam",
+    "dosageForm": "Tablet",
+    "strength": "1mg",
+    "manufacturer": "ACI Limited",
+    "category": "Sedative / Anxiolytic",
+    "tags": ["anxiety", "sedation", "lorazepam", "benzodiazepine"]
+  },
+  {
+    "id": "med_107",
+    "brand": "Zolpidem",
+    "generic": "Zolpidem",
+    "dosageForm": "Tablet",
+    "strength": "10mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Sedative / Anxiolytic",
+    "tags": ["insomnia", "sleep", "zolpidem", "non-benzodiazepine"]
+  },
+  {
+    "id": "med_108",
+    "brand": "Warfarin",
+    "generic": "Warfarin Sodium",
+    "dosageForm": "Tablet",
+    "strength": "5mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Anticoagulant",
+    "tags": ["blood clot", "anticoagulant", "warfarin", "thrombosis"]
+  },
+  {
+    "id": "med_109",
+    "brand": "Clopidogrel",
+    "generic": "Clopidogrel",
+    "dosageForm": "Tablet",
+    "strength": "75mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Antiplatelet",
+    "tags": ["blood clot", "antiplatelet", "clopidogrel", "cardiovascular"]
+  },
+  {
+    "id": "med_110",
+    "brand": "Aspirin",
+    "generic": "Aspirin",
+    "dosageForm": "Tablet",
+    "strength": "75mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antiplatelet",
+    "tags": ["blood clot", "antiplatelet", "aspirin", "cardiovascular", "NSAID"]
+  },
+  {
+    "id": "med_111",
+    "brand": "Domperidone",
+    "generic": "Domperidone",
+    "dosageForm": "Tablet",
+    "strength": "10mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Anti-emetic / Prokinetic",
+    "tags": ["nausea", "vomiting", "domperidone", "prokinetic"]
+  },
+  {
+    "id": "med_112",
+    "brand": "Cinnarizine",
+    "generic": "Cinnarizine",
+    "dosageForm": "Tablet",
+    "strength": "25mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Antivertigo",
+    "tags": ["vertigo", "dizziness", "cinnarizine", "motion sickness"]
+  },
+  {
+    "id": "med_113",
+    "brand": "Loperamide",
+    "generic": "Loperamide Hydrochloride",
+    "dosageForm": "Capsule",
+    "strength": "2mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antidiarrheal",
+    "tags": ["diarrhea", "loperamide", "antidiarrheal"]
+  },
+  {
+    "id": "med_114",
+    "brand": "ORS Saline",
+    "generic": "Oral Rehydration Salts",
+    "dosageForm": "Powder",
+    "strength": "22.5g/L",
+    "manufacturer": "ACI Limited",
+    "category": "Rehydration",
+    "tags": ["dehydration", "diarrhea", "ORS", "rehydration", "electrolyte"]
+  },
+  {
+    "id": "med_115",
+    "brand": "Zinc",
+    "generic": "Zinc Sulfate",
+    "dosageForm": "Tablet",
+    "strength": "20mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Vitamin / Supplement",
+    "tags": ["zinc", "supplement", "diarrhea", "immunity"]
+  },
+  {
+    "id": "med_116",
+    "brand": "Albuterol",
+    "generic": "Salbutamol",
+    "dosageForm": "Tablet",
+    "strength": "4mg",
+    "manufacturer": "Healthcare Pharmaceuticals",
+    "category": "Bronchodilator",
+    "tags": ["asthma", "bronchospasm", "salbutamol"]
+  },
+  {
+    "id": "med_117",
+    "brand": "Econazole",
+    "generic": "Econazole Nitrate",
+    "dosageForm": "Cream",
+    "strength": "1%",
+    "manufacturer": "Healthcare Pharmaceuticals",
+    "category": "Antifungal",
+    "tags": ["fungal", "infection", "econazole", "cream"]
+  },
+  {
+    "id": "med_118",
+    "brand": "Cetrid",
+    "generic": "Cetrimide",
+    "dosageForm": "Cream",
+    "strength": "0.5%",
+    "manufacturer": "Sun Pharma (Bangladesh)",
+    "category": "Antiseptic",
+    "tags": ["antiseptic", "wound", "cetrimide"]
+  },
+  {
+    "id": "med_119",
+    "brand": "Ondasan MD",
+    "generic": "Ondansetron",
+    "dosageForm": "Tablet (Mouth Dissolving)",
+    "strength": "4mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Anti-emetic",
+    "tags": ["nausea", "vomiting", "ondansetron", "mouth dissolving"]
+  },
+  {
+    "id": "med_120",
+    "brand": "Levocetirizine",
+    "generic": "Levocetirizine",
+    "dosageForm": "Tablet",
+    "strength": "5mg",
+    "manufacturer": "Delta Pharma",
+    "category": "Antihistamine",
+    "tags": ["allergy", "itching", "levocetirizine", "antihistamine"]
+  },
+  {
+    "id": "med_121",
+    "brand": "Azithral",
+    "generic": "Azithromycin",
+    "dosageForm": "Suspension",
+    "strength": "200mg/5ml",
+    "manufacturer": "Popular Pharmaceuticals",
+    "category": "Antibiotic",
+    "tags": ["infection", "bacterial", "azithromycin", "pediatric", "suspension"]
+  },
+  {
+    "id": "med_122",
+    "brand": "Ranitidine",
+    "generic": "Ranitidine",
+    "dosageForm": "Tablet",
+    "strength": "150mg",
+    "manufacturer": "Popular Pharmaceuticals",
+    "category": "H2 Blocker",
+    "tags": ["gastric", "acidity", "ranitidine", "H2 blocker"]
+  },
+  {
+    "id": "med_123",
+    "brand": "Alprazolam",
+    "generic": "Alprazolam",
+    "dosageForm": "Tablet",
+    "strength": "0.5mg",
+    "manufacturer": "Delta Pharma",
+    "category": "Sedative / Anxiolytic",
+    "tags": ["anxiety", "panic", "alprazolam", "benzodiazepine"]
+  },
+  {
+    "id": "med_124",
+    "brand": "Carbocisteine",
+    "generic": "Carbocisteine",
+    "dosageForm": "Syrup",
+    "strength": "2%",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Mucolytic",
+    "tags": ["cough", "mucus", "carbocisteine", "mucolytic"]
+  },
+  {
+    "id": "med_125",
+    "brand": "Ambroxol",
+    "generic": "Ambroxol Hydrochloride",
+    "dosageForm": "Syrup",
+    "strength": "30mg/5ml",
+    "manufacturer": "Beximco Pharma",
+    "category": "Mucolytic",
+    "tags": ["cough", "mucus", "ambroxol", "mucolytic"]
+  },
+  {
+    "id": "med_126",
+    "brand": "Doxycycline",
+    "generic": "Doxycycline",
+    "dosageForm": "Capsule",
+    "strength": "100mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antibiotic",
+    "tags": ["infection", "bacterial", "doxycycline", "tetracycline"]
+  },
+  {
+    "id": "med_127",
+    "brand": "Aciclovir",
+    "generic": "Aciclovir",
+    "dosageForm": "Tablet",
+    "strength": "200mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antiviral",
+    "tags": ["viral", "herpes", "aciclovir", "antiviral"]
+  },
+  {
+    "id": "med_128",
+    "brand": "Oseltamivir",
+    "generic": "Oseltamivir",
+    "dosageForm": "Capsule",
+    "strength": "75mg",
+    "manufacturer": "Beximco Pharma",
+    "category": "Antiviral",
+    "tags": ["viral", "influenza", "oseltamivir", "antiviral", "flu"]
+  },
+  {
+    "id": "med_129",
+    "brand": "Hemaccel",
+    "generic": "Polygeline",
+    "dosageForm": "Injection",
+    "strength": "500ml",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Plasma Volume Expander",
+    "tags": ["shock", "volume expander", "polygeline", "IV"]
+  },
+  {
+    "id": "med_130",
+    "brand": "Haloperidol",
+    "generic": "Haloperidol",
+    "dosageForm": "Tablet",
+    "strength": "5mg",
+    "manufacturer": "Square Pharmaceuticals",
+    "category": "Antipsychotic",
+    "tags": ["psychosis", "schizophrenia", "haloperidol", "antipsychotic"]
+  }
+]

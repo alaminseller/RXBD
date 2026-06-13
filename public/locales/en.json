@@ -1,0 +1,143 @@
+{
+  "app": {
+    "name": "RxBD",
+    "tagline": "Digital Prescription Platform"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "name": "Full Name",
+    "specialty": "Specialty",
+    "loginButton": "Sign In",
+    "signupButton": "Create Account",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "logout": "Logout"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "newPrescription": "New Prescription",
+    "patients": "Patients",
+    "prescriptions": "Prescriptions",
+    "settings": "Settings",
+    "subscription": "Subscription"
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "totalPatients": "Total Patients",
+    "prescriptionsThisMonth": "Prescriptions This Month",
+    "remaining": "Remaining",
+    "newPrescription": "New Prescription",
+    "addPatient": "Add Patient",
+    "recentPrescriptions": "Recent Prescriptions"
+  },
+  "composer": {
+    "title": "New Prescription",
+    "selectPatient": "Select Patient",
+    "searchPatient": "Search patient by name or phone...",
+    "addNewPatient": "Add New Patient",
+    "vitals": "Vitals",
+    "bloodPressure": "Blood Pressure",
+    "pulse": "Pulse",
+    "temperature": "Temperature",
+    "weight": "Weight",
+    "spO2": "SpO2",
+    "medications": "Medications",
+    "searchMedicine": "Search medicine...",
+    "addMedication": "Add Medication",
+    "brand": "Brand",
+    "generic": "Generic",
+    "strength": "Strength",
+    "dosageForm": "Form",
+    "frequency": "Frequency",
+    "duration": "Duration",
+    "instructions": "Instructions",
+    "diagnosis": "Diagnosis",
+    "clinicalNotes": "Clinical Notes",
+    "advice": "Advice",
+    "followUp": "Follow-up Date",
+    "saveDraft": "Save Draft",
+    "saveAndPDF": "Save & Generate PDF",
+    "autoSave": "Auto-saved",
+    "draftRecovered": "Draft recovered",
+    "prescriptionLimit": "Prescriptions remaining this month"
+  },
+  "patients": {
+    "title": "Patients",
+    "search": "Search patients...",
+    "addPatient": "Add Patient",
+    "name": "Name",
+    "age": "Age",
+    "gender": "Gender",
+    "phone": "Phone",
+    "lastVisit": "Last Visit",
+    "actions": "Actions",
+    "allergies": "Allergies",
+    "bloodGroup": "Blood Group",
+    "consent": "Patient has been informed about digital storage",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "prescriptions": {
+    "title": "Prescription History",
+    "date": "Date",
+    "patient": "Patient",
+    "diagnosis": "Diagnosis",
+    "medications": "Medications",
+    "status": "Status",
+    "actions": "Actions",
+    "view": "View",
+    "print": "Print",
+    "delete": "Delete",
+    "completed": "Completed",
+    "draft": "Draft"
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": "Profile",
+    "chamber": "Chamber Information",
+    "letterhead": "Letterhead",
+    "preferences": "Preferences",
+    "degrees": "Degrees",
+    "bmdcNumber": "BMDC Number",
+    "chamberName": "Chamber Name",
+    "chamberAddress": "Chamber Address",
+    "chamberPhone": "Chamber Phone",
+    "chamberEmail": "Chamber Email",
+    "logo": "Logo",
+    "signature": "Signature",
+    "letterheadColor": "Letterhead Color",
+    "includeQrCode": "Include QR Code",
+    "language": "Language",
+    "theme": "Theme",
+    "fontSize": "Font Size",
+    "save": "Save Changes"
+  },
+  "subscription": {
+    "title": "Subscription",
+    "currentPlan": "Current Plan",
+    "free": "Free",
+    "premium": "Premium",
+    "prescriptionsUsed": "Prescriptions Used",
+    "upgrade": "Upgrade to Premium",
+    "perMonth": "/month",
+    "features": {
+      "free": {
+        "prescriptions": "50 prescriptions/month",
+        "pdf": "Standard PDF template",
+        "export": "CSV export",
+        "support": "Email support"
+      },
+      "premium": {
+        "prescriptions": "Unlimited prescriptions",
+        "pdf": "Custom letterhead & signature",
+        "templates": "Prescription templates",
+        "export": "CSV & JSON export",
+        "support": "Priority WhatsApp support",
+        "qr": "QR verification code"
+      }
+    }
+  }
+}

@@ -1,0 +1,502 @@
+   500→[]{#_Toc100008 .anchor}**2.5.1 Error Tracking**
+   501→
+   502→Sentry is integrated at both the frontend and API route levels. The
+   503→Sentry Next.js SDK captures unhandled exceptions, React component
+   504→errors, and API route failures with full stack traces and source maps.
+   505→The free Sentry tier provides 5,000 events per month and 1-day
+   506→retention, which is sufficient for an initial user base of up to 1,000
+   507→doctors. Error events are tagged with the doctor\'s subscription tier
+   508→and the API route involved, enabling rapid triage. Critical errors,
+   509→defined as any error in the prescription creation or PDF generation
+   510→flow, trigger immediate Slack notifications via Sentry\'s integration
+   511→webhooks.
+   512→
+   513→[]{#_Toc100009 .anchor}**2.5.2 Analytics**
+   514→
+   515→PostHog is chosen as the product analytics platform for its generous
+   516→free tier (1 million events per month) and self-hosting option for
+   517→future migration. Key tracking events include prescription_created,
+   518→medicine_search_used, pdf_generated, upgrade_modal_shown, and
+   519→onboarding_step_completed. These events feed into funnel analysis for
+   520→the onboarding flow and conversion tracking for the freemium-to-premium
+   521→upgrade path. PostHog\'s session replay feature provides qualitative
+   522→insight into user behavior without requiring a separate tool like
+   523→LogRocket, consolidating the observability stack.
+   524→
+   525→[]{#_Toc100010 .anchor}**2.5.3 Uptime Monitoring**
+   526→
+   527→UptimeRobot\'s free tier provides 50 monitors with 5-minute check
+   528→intervals. Two monitors are configured: one for the main application URL
+   529→(rxbd.com.bd) verifying HTTP 200 responses, and one for the Supabase
+   530→health endpoint. Alert channels include email and Slack integration.
+   531→This provides basic availability monitoring sufficient for the launch
+   532→phase, with migration to Vercel\'s built-in analytics and Synthetics on
+   533→the Pro plan as the platform scales.
+   534→
+   535→[]{#_Toc100011 .anchor}**2.6 Data Resilience**
+   536→
+   537→Data resilience in RxBD operates at three levels, ensuring that no
+   538→single point of failure can result in permanent data loss.
+   539→
+   540→[]{#_Toc100012 .anchor}**2.6.1 Local-First Auto-Save**
+   541→
+   542→Prescription drafts are automatically persisted to the browser\'s
+   543→localStorage every 10 seconds using a debounced Zustand middleware. The
+   544→auto-save captures the full prescription state including patient
+   545→context, medications added, clinical notes, and form dirty state. Upon
+   546→reconnection after a connectivity loss, the application detects local
+   547→drafts by comparing the localStorage timestamp against the server\'s
+   548→last-known save time and prompts the user to resume their work. This
+   549→mechanism prevents data loss even during extended internet outages,
+   550→which are common in semi-urban Bangladesh, and requires zero server
+   551→infrastructure.
+   552→
+   553→[]{#_Toc100013 .anchor}**2.6.2 Database Backup Strategy**
+   554→
+   555→The primary backup mechanism uses Supabase\'s built-in daily automated
+   556→backups, which are available on the Pro plan. During the free-tier
+   557→launch phase, a GitHub Actions workflow performs a daily pg_dump of the
+   558→Supabase database, encrypts the dump using AES-256 encryption with a key
+   559→stored in GitHub Secrets, and commits the encrypted backup to a private
+   560→repository. This approach provides 7-day retention without additional
+   561→cost. The encryption key is managed separately from the backup storage,
+   562→ensuring that even if the repository is compromised, the backup data
+   563→remains unreadable without the key. On migration to Supabase Pro, the
+   564→daily automated backups with 7-day Point-In-Time Recovery become the
+   565→primary mechanism, and the GitHub Actions backup is retained as a
+   566→secondary off-site copy.
+   567→
+   568→[]{#_Toc100014 .anchor}**2.6.3 Subscription Gating**
+   569→
+   570→Access control and tier-based feature restrictions are enforced via
+   571→Next.js Middleware, which runs on Vercel\'s edge network before any page
+   572→renders. The middleware extracts the Supabase Auth JWT from the request
+   573→cookie, decodes the user\'s plan metadata (stored as a custom claim in
+   574→the JWT), and checks the current prescription count against the plan
+   575→limit. If a Free-tier user has reached their 50-prescription monthly
+   576→limit, the middleware redirects them to an upgrade prompt page rather
+   577→than the prescription composer. Premium features such as custom
+   578→letterhead branding and digital signature upload are gated by checking
+   579→the plan claim before rendering the relevant UI components, and API
+   580→routes perform a secondary server-side plan check to prevent client-side
+   581→bypass.
+   582→
+   583→[]{#_Toc100015 .anchor}**3. Database Schema**
+   584→
+   585→The database is structured to support multi-tenancy where each doctor
+   586→owns their specific settings and patient records. The schema uses
+   587→Supabase PostgreSQL with Row Level Security (RLS) enforced on every
+   588→table. All tables include standard audit columns (created_at,
+   589→updated_at) and use UUID primary keys for global uniqueness and to
+   590→prevent enumeration attacks.
+   591→
+   592→[]{#_Toc100016 .anchor}**3.1 Entity Relationship Overview**
+   593→
+   594→The core data model revolves around the doctor entity as the tenant
+   595→root. Each doctor owns their settings, patients, and prescriptions. A
+   596→patient belongs to exactly one doctor (to maintain data isolation), and
+   597→a prescription belongs to one patient and one doctor. The subscriptions
+   598→table tracks the doctor\'s current plan and usage counters, while the
+   599→medicine_feedback table supports crowdsourced improvement of the
+   600→medicine database.
+   601→
+   602→[]{#_Toc100017 .anchor}**3.2 Table Definitions**
+   603→
+   604→[]{#_Toc100018 .anchor}**3.2.1 doctors**
+   605→
+   606→  -----------------------------------------------------------------------
+   607→  **Column**        **Type**          **Constraints**   **Description**
+   608→  ----------------- ----------------- ----------------- -----------------
+   609→  id                UUID              PK, DEFAULT       Links to Supabase
+   610→                                      auth.uid()        Auth user;
+   611→                                                        ensures RLS
+   612→                                                        alignment
+   613→
+   614→  email             TEXT              NOT NULL, UNIQUE  Doctor\'s
+   615→                                                        registered email
+   616→                                                        address
+   617→
+   618→  full_name         TEXT              NOT NULL          Doctor\'s display
+   619→                                                        name (e.g., Dr.
+   620→                                                        Aminul Islam)
+   621→
+   622→  degrees           TEXT\[\]          DEFAULT \'{}\'    Array of degree
+   623→                                                        strings (e.g.,
+   624→                                                        MBBS, FCPS, MD)
+   625→
+   626→  specialty         TEXT              NULL              Medical specialty
+   627→                                                        (e.g.,
+   628→                                                        Cardiology,
+   629→                                                        General Practice)
+   630→
+   631→  bmdc_number       TEXT              UNIQUE            Bangladesh
+   632→                                                        Medical and
+   633→                                                        Dental Council
+   634→                                                        registration
+   635→                                                        number
+   636→
+   637→  phone             TEXT              NULL              Contact phone
+   638→                                                        number in +880
+   639→                                                        format
+   640→
+   641→  chamber_address   TEXT              NULL              Primary chamber
+   642→                                                        address for
+   643→                                                        prescription
+   644→                                                        header
+   645→
+   646→  chamber_name      TEXT              NULL              Chamber/clinic
+   647→                                                        name
+   648→
+   649→  avatar_url        TEXT              NULL              Supabase Storage
+   650→                                                        URL for profile
+   651→                                                        photo
+   652→
+   653→  locale            TEXT              DEFAULT \'en\'    Interface
+   654→                                                        language
+   655→                                                        preference:
+   656→                                                        \'en\' or \'bn\'
+   657→
+   658→  created_at        TIMESTAMPTZ       DEFAULT now()     Account creation
+   659→                                                        timestamp
+   660→
+   661→  updated_at        TIMESTAMPTZ       DEFAULT now()     Last profile
+   662→                                                        update timestamp
+   663→  -----------------------------------------------------------------------
+   664→
+   665→[]{#_Toc100019 .anchor}**3.2.2 doctor_settings**
+   666→
+   667→  ---------------------------------------------------------------------------
+   668→  **Column**           **Type**          **Constraints**   **Description**
+   669→  -------------------- ----------------- ----------------- ------------------
+   670→  doctor_id            UUID              PK, FK -\>        One-to-one with
+   671→                                         doctors.id ON     doctors table
+   672→                                         DELETE CASCADE    
+   673→
+   674→  header_template      TEXT              DEFAULT           Prescription
+   675→                                         \'standard\'      header layout:
+   676→                                                           \'standard\',
+   677→                                                           \'compact\',
+   678→                                                           \'custom\'
+   679→
+   680→  footer_text          TEXT              NULL              Custom footer text
+   681→                                                           (e.g., follow-up
+   682→                                                           instructions)
+   683→
+   684→  logo_url             TEXT              NULL              Supabase Storage
+   685→                                                           URL for
+   686→                                                           chamber/practice
+   687→                                                           logo
+   688→
+   689→  signature_url        TEXT              NULL              Supabase Storage
+   690→                                                           URL for digital
+   691→                                                           signature image
+   692→                                                           (Premium)
+   693→
+   694→  show_qr_code         BOOLEAN           DEFAULT true      Whether to include
+   695→                                                           verification QR
+   696→                                                           code on
+   697→                                                           prescriptions
+   698→
+   699→  prescription_theme   TEXT              DEFAULT           Visual theme:
+   700→                                         \'classic\'       \'classic\',
+   701→                                                           \'modern\',
+   702→                                                           \'minimal\'
+   703→
+   704→  font_size            INTEGER           DEFAULT 12        Base font size for
+   705→                                                           prescription print
+   706→                                                           (10-14 pt range)
+   707→
+   708→  created_at           TIMESTAMPTZ       DEFAULT now()     Settings creation
+   709→                                                           timestamp
+   710→
+   711→  updated_at           TIMESTAMPTZ       DEFAULT now()     Last settings
+   712→                                                           update timestamp
+   713→  ---------------------------------------------------------------------------
+   714→
+   715→[]{#_Toc100020 .anchor}**3.2.3 patients**
+   716→
+   717→  ----------------------------------------------------------------------------------------
+   718→  **Column**        **Type**          **Constraints**                    **Description**
+   719→  ----------------- ----------------- ---------------------------------- -----------------
+   720→  id                UUID              PK, DEFAULT gen_random_uuid()      Unique patient
+   721→                                                                         identifier
+   722→
+   723→  doctor_id         UUID              FK -\> doctors.id ON DELETE        Owning doctor for
+   724→                                      CASCADE, NOT NULL                  multi-tenant
+   725→                                                                         isolation
+   726→
+   727→  name              TEXT              NOT NULL                           Patient\'s full
+   728→                                                                         name
+   729→
+   730→  phone             TEXT              NULL                               Contact phone
+   731→                                                                         number
+   732→
+   733→  age_years         INTEGER           NULL                               Age in years
+   734→                                                                         (alternative to
+   735→                                                                         date_of_birth for
+   736→                                                                         convenience)
+   737→
+   738→  date_of_birth     DATE              NULL                               Date of birth for
+   739→                                                                         precise age
+   740→                                                                         calculation
+   741→
+   742→  gender            TEXT              CHECK (gender IN                   Gender for dosage
+   743→                                      (\'male\',\'female\',\'other\'))   calculations and
+   744→                                                                         clinical context
+   745→
+   746→  blood_group       TEXT              NULL                               Blood group
+   747→                                                                         (e.g., A+, O-)
+   748→
+   749→  address           TEXT              NULL                               Patient address
+   750→
+   751→  medical_notes     TEXT              NULL                               Persistent notes
+   752→                                                                         (allergies,
+   753→                                                                         chronic
+   754→                                                                         conditions)
+   755→                                                                         carried across
+   756→                                                                         visits
+   757→
+   758→  created_at        TIMESTAMPTZ       DEFAULT now()                      First
+   759→                                                                         registration
+   760→                                                                         timestamp
+   761→
+   762→  updated_at        TIMESTAMPTZ       DEFAULT now()                      Last update
+   763→                                                                         timestamp
+   764→  ----------------------------------------------------------------------------------------
+   765→
+   766→[]{#_Toc100021 .anchor}**3.2.4 prescriptions**
+   767→
+   768→  --------------------------------------------------------------------------
+   769→  **Column**         **Type**          **Constraints**     **Description**
+   770→  ------------------ ----------------- ------------------- -----------------
+   771→  id                 UUID              PK, DEFAULT         Unique
+   772→                                       gen_random_uuid()   prescription
+   773→                                                           identifier (used
+   774→                                                           in QR
+   775→                                                           verification URL)
+   776→
+   777→  doctor_id          UUID              FK -\> doctors.id   Prescribing
+   778→                                       ON DELETE CASCADE,  doctor
+   779→                                       NOT NULL            
+   780→
+   781→  patient_id         UUID              FK -\> patients.id  Patient receiving
+   782→                                       ON DELETE CASCADE,  prescription
+   783→                                       NOT NULL            
+   784→
+   785→  visit_date         DATE              DEFAULT             Date of
+   786→                                       CURRENT_DATE, NOT   consultation
+   787→                                       NULL                
+   788→
+   789→  chief_complaints   TEXT\[\]          DEFAULT \'{}\'      Array of chief
+   790→                                                           complaints (CC)
+   791→
+   792→  vitals             JSONB             DEFAULT \'{}\'      Vital signs: {bp,
+   793→                                                           pulse, temp,
+   794→                                                           weight, spo2}
+   795→
+   796→  on_examination     TEXT              NULL                Clinical
+   797→                                                           examination
+   798→                                                           findings
+   799→
+   800→  investigations     TEXT\[\]          DEFAULT \'{}\'      Ordered
+   801→                                                           investigations
+   802→                                                           and lab tests
+   803→
+   804→  diagnosis          TEXT\[\]          DEFAULT \'{}\'      Diagnosis entries
+   805→                                                           (ICD-10 codes
+   806→                                                           optional)
+   807→
+   808→  medications        JSONB             NOT NULL, DEFAULT   Array of
+   809→                                       \'\[\]\'            medication
+   810→                                                           objects: \[{name,
+   811→                                                           generic, dosage,
+   812→                                                           frequency,
+   813→                                                           duration,
+   814→                                                           instructions}\]
+   815→
+   816→  advice             TEXT              NULL                General advice
+   817→                                                           and follow-up
+   818→                                                           instructions
+   819→
+   820→  follow_up_date     DATE              NULL                Next visit date
+   821→
+   822→  pdf_url            TEXT              NULL                Supabase Storage
+   823→                                                           URL for saved PDF
+   824→                                                           (if stored
+   825→                                                           server-side)
+   826→
+   827→  qr_verified_at     TIMESTAMPTZ       NULL                Timestamp when QR
+   828→                                                           code was last
+   829→                                                           scanned for
+   830→                                                           verification
+   831→
+   832→  is_draft           BOOLEAN           DEFAULT true        Whether
+   833→                                                           prescription is
+   834→                                                           still in draft
+   835→                                                           state
+   836→
+   837→  created_at         TIMESTAMPTZ       DEFAULT now()       Creation
+   838→                                                           timestamp
+   839→
+   840→  updated_at         TIMESTAMPTZ       DEFAULT now()       Last modification
+   841→                                                           timestamp
+   842→  --------------------------------------------------------------------------
+   843→
+   844→[]{#_Toc100022 .anchor}**3.2.5 subscriptions**
+   845→
+   846→  ----------------------------------------------------------------------------------------
+   847→  **Column**                 **Type**          **Constraints**           **Description**
+   848→  -------------------------- ----------------- ------------------------- -----------------
+   849→  doctor_id                  UUID              PK, FK -\> doctors.id ON  One-to-one with
+   850→                                               DELETE CASCADE            doctors
+   851→
+   852→  plan                       TEXT              NOT NULL, DEFAULT         Current
+   853→                                               \'free\', CHECK (plan IN  subscription tier
+   854→                                               (\'free\',\'premium\'))   
+   855→
+   856→  prescriptions_this_month   INTEGER           DEFAULT 0                 Counter for
+   857→                                                                         monthly
+   858→                                                                         prescription
+   859→                                                                         usage on Free
+   860→                                                                         tier
+   861→
+   862→  counter_reset_at           DATE              NOT NULL, DEFAULT         Date when counter
+   863→                                               CURRENT_DATE              was last reset
+   864→                                                                         (monthly)
+   865→
+   866→  premium_since              TIMESTAMPTZ       NULL                      Timestamp of
+   867→                                                                         first Premium
+   868→                                                                         upgrade
+   869→
+   870→  premium_expires_at         TIMESTAMPTZ       NULL                      Expiration date
+   871→                                                                         for Premium
+   872→                                                                         subscription
+   873→
+   874→  sslcommerz_tran_id         TEXT              NULL                      Last SSLCommerz
+   875→                                                                         transaction ID
+   876→                                                                         for payment
+   877→                                                                         reference
+   878→
+   879→  created_at                 TIMESTAMPTZ       DEFAULT now()             Subscription
+   880→                                                                         record creation
+   881→
+   882→  updated_at                 TIMESTAMPTZ       DEFAULT now()             Last subscription
+   883→                                                                         change
+   884→  ----------------------------------------------------------------------------------------
+   885→
+   886→[]{#_Toc100023 .anchor}**3.2.6 medicine_feedback**
+   887→
+   888→  -----------------------------------------------------------------------------------------------------------------
+   889→  **Column**        **Type**          **Constraints**                                             **Description**
+   890→  ----------------- ----------------- ----------------------------------------------------------- -----------------
+   891→  id                UUID              PK, DEFAULT gen_random_uuid()                               Unique feedback
+   892→                                                                                                  entry identifier
+   893→
+   894→  doctor_id         UUID              FK -\> doctors.id ON DELETE SET NULL                        Submitting doctor
+   895→                                                                                                  (nullable for
+   896→                                                                                                  anonymous)
+   897→
+   898→  medicine_name     TEXT              NOT NULL                                                    Name of the
+   899→                                                                                                  medicine being
+   900→                                                                                                  reported
+   901→
+   902→  feedback_type     TEXT              NOT NULL, CHECK (type IN                                    Category of
+   903→                                      (\'missing\',\'incorrect\',\'duplicate\',\'suggestion\'))   feedback
+   904→
+   905→  description       TEXT              NOT NULL                                                    Detailed
+   906→                                                                                                  description of
+   907→                                                                                                  the issue or
+   908→                                                                                                  suggestion
+   909→
+   910→  status            TEXT              DEFAULT \'pending\', CHECK (status IN                       Review status for
+   911→                                      (\'pending\',\'reviewed\',\'resolved\',\'rejected\'))       admin workflow
+   912→
+   913→  resolved_at       TIMESTAMPTZ       NULL                                                        Timestamp when
+   914→                                                                                                  feedback was
+   915→                                                                                                  resolved
+   916→
+   917→  created_at        TIMESTAMPTZ       DEFAULT now()                                               Feedback
+   918→                                                                                                  submission
+   919→                                                                                                  timestamp
+   920→  -----------------------------------------------------------------------------------------------------------------
+   921→
+   922→[]{#_Toc100024 .anchor}**3.2.7 audit_log**
+   923→
+   924→  -----------------------------------------------------------------------------------
+   925→  **Column**        **Type**          **Constraints**     **Description**
+   926→  ----------------- ----------------- ------------------- ---------------------------
+   927→  id                UUID              PK, DEFAULT         Unique log entry identifier
+   928→                                      gen_random_uuid()   
+   929→
+   930→  doctor_id         UUID              FK -\> doctors.id   Acting doctor
+   931→                                      ON DELETE SET NULL  
+   932→
+   933→  action            TEXT              NOT NULL            Action performed (e.g.,
+   934→                                                          \'prescription.created\',
+   935→                                                          \'patient.exported\')
+   936→
+   937→  entity_type       TEXT              NOT NULL            Entity type (e.g.,
+   938→                                                          \'prescription\',
+   939→                                                          \'patient\',
+   940→                                                          \'subscription\')
+   941→
+   942→  entity_id         UUID              NULL                ID of the affected entity
+   943→
+   944→  metadata          JSONB             DEFAULT \'{}\'      Additional context (IP
+   945→                                                          address, user agent,
+   946→                                                          changed fields)
+   947→
+   948→  created_at        TIMESTAMPTZ       DEFAULT now()       Action timestamp
+   949→  -----------------------------------------------------------------------------------
+   950→
+   951→[]{#_Toc100025 .anchor}**3.3 Row Level Security Policies**
+   952→
+   953→Every table in the database is protected by RLS policies ensuring that a
+   954→logged-in doctor can only select, insert, or update data where the
+   955→doctor_id matches their authenticated session UID. The RLS policies are
+   956→defined as follows for each table, using the auth.uid() function to
+   957→extract the current user\'s ID from the JWT token. For the doctors
+   958→table, the policy verifies that the id column matches auth.uid(). For
+   959→all other tables with a doctor_id column, the policy checks that
+   960→doctor_id equals auth.uid(). The audit_log table is write-only for
+   961→doctors (INSERT allowed, SELECT restricted to admin roles) to prevent
+   962→tampering with activity records.
+   963→
+   964→Additionally, RLS policies enforce subscription limits on the
+   965→prescriptions table. An INSERT policy on prescriptions checks the
+   966→subscriptions table to verify that the doctor has not exceeded their
+   967→monthly prescription limit before allowing a new prescription to be
+   968→created. This database-level enforcement prevents bypass through API
+   969→route vulnerabilities or direct Supabase client access.
+   970→
+   971→[]{#_Toc100026 .anchor}**3.4 Indexes**
+   972→
+   973→The following indexes are created to optimize the most frequent query
+   974→patterns. An index on patients(doctor_id, name) supports the patient
+   975→search dropdown in the prescription composer. An index on
+   976→prescriptions(doctor_id, created_at DESC) enables efficient history
+   977→retrieval sorted by most recent visit. An index on
+   978→prescriptions(patient_id, created_at DESC) supports the patient history
+   979→view. An index on subscriptions(doctor_id) provides fast lookups for
+   980→subscription gating middleware. A GIN index on
+   981→prescriptions(medications) allows JSONB queries for analytics (e.g.,
+   982→most prescribed medications). An index on medicine_feedback(status)
+   983→supports the admin review queue for pending feedback items.
+   984→
+   985→[]{#_Toc100027 .anchor}**3.5 Database Migrations**
+   986→
+   987→Schema migrations are managed through Supabase\'s built-in migration
+   988→system, which tracks migration files in a supabase/migrations/ directory
+   989→within the project repository. Each migration is an up-only SQL file
+   990→with a timestamp prefix (e.g., 20260614000000_create_subscriptions.sql).
+   991→The supabase CLI is used to apply migrations to local development
+   992→instances and to push changes to the remote Supabase project. Rollback
+   993→is handled by creating a new migration that reverses the previous
+   994→change, rather than using down migrations, ensuring a consistent and
+   995→auditable migration history.
+   996→
+   997→[]{#_Toc100028 .anchor}**4. Medicine Data Strategy**
+   998→
+   999→RxBD employs a hybrid static-dynamic medicine data strategy that
+
+[showing lines 500-999 of 2307; use offset=1000 with limit to continue reading]

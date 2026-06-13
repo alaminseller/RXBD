@@ -1,0 +1,502 @@
+  1000→prioritizes search speed and zero API latency while maintaining a clear
+  1001→path for data updates. This approach recognizes that the Bangladesh
+  1002→pharmaceutical market, while containing approximately 8,000 registered
+  1003→brand-name products across 300+ generic molecules, is small enough to be
+  1004→indexed entirely in client memory, yet large enough that manual curation
+  1005→is impractical.
+  1006→
+  1007→[]{#_Toc100029 .anchor}**4.1 Data Source**
+  1008→
+  1009→The initial medicine database is sourced from the Directorate General of
+  1010→Drug Administration (DGDA) of Bangladesh, which publishes a regularly
+  1011→updated registry of all approved pharmaceutical products. This registry
+  1012→includes brand names, generic compositions, dosage forms, strengths,
+  1013→manufacturers, and retail prices. The raw DGDA data is processed through
+  1014→an ETL (Extract, Transform, Load) pipeline that normalizes brand name
+  1015→spellings, maps each brand to its generic molecule, and structures the
+  1016→data into the JSON format required by Fuse.js. The pipeline is
+  1017→version-controlled in the repository and can be re-run whenever the DGDA
+  1018→publishes updated data.
+  1019→
+  1020→[]{#_Toc100030 .anchor}**4.2 Static JSON Dataset Architecture**
+  1021→
+  1022→Medicine data is stored as optimized static JSON files in the
+  1023→/public/data/ directory. The primary file, medicines.json, contains an
+  1024→array of objects, each with the following structure: { id, brand,
+  1025→generic, dosageForm, strength, manufacturer, category, tags }. A
+  1026→secondary file, generics.json, provides a mapping of generic molecule
+  1027→names to their pharmacological categories, common side effects, and
+  1028→typical dosage ranges. Both files are loaded once when the prescription
+  1029→composer page mounts, and Fuse.js creates in-memory indices over the
+  1030→brand, generic, and tags fields.
+  1031→
+  1032→The estimated file size for medicines.json is approximately 2MB for
+  1033→8,000 entries, which compresses to under 400KB with Vercel\'s automatic
+  1034→Brotli compression. This size is well within acceptable limits for a
+  1035→one-time page-load fetch and has negligible impact on the user\'s
+  1036→initial bandwidth, even on slow mobile connections common in Bangladesh.
+  1037→
+  1038→[]{#_Toc100031 .anchor}**4.3 Search Behavior**
+  1039→
+  1040→Fuse.js is configured with a threshold of 0.3 (balancing precision and
+  1041→recall), keys indexed on brand (weight 2), generic (weight 1.5), and
+  1042→tags (weight 1). This configuration ensures that a partial brand name
+  1043→like \'amo\' returns \'Amoxicillin\' brands as top results, while a
+  1044→generic search for \'paracetamol\' returns all paracetamol-containing
+  1045→brands. Results are displayed in a dropdown with the brand name
+  1046→highlighted and the generic composition shown as a secondary line,
+  1047→enabling doctors to quickly identify the correct medication even when
+  1048→multiple brands share similar names.
+  1049→
+  1050→[]{#_Toc100032 .anchor}**4.4 Data Update Pipeline**
+  1051→
+  1052→Updates to the medicine database follow a two-tier strategy. Tier 1 (Hot
+  1053→Updates) uses a Supabase table called medicine_hotfixes that stores
+  1054→corrections and additions submitted through the crowdsourced feedback
+  1055→system. When the prescription composer loads, it fetches any hotfixes
+  1056→created since the last JSON deployment date and merges them into the
+  1057→in-memory Fuse.js index. This ensures that critical corrections (e.g., a
+  1058→dangerous dosage error) are available within minutes without requiring a
+  1059→full deployment. Tier 2 (Cold Updates) involves periodic re-runs of the
+  1060→DGDA ETL pipeline, regeneration of the static JSON files, and deployment
+  1061→of a new version via Vercel. This happens on a monthly cadence or when
+  1062→the hotfix table accumulates more than 50 entries, at which point the
+  1063→hotfixes are folded into the main JSON dataset.
+  1064→
+  1065→[]{#_Toc100033 .anchor}**4.5 Crowdsourced Feedback Workflow**
+  1066→
+  1067→The prescription composer includes a feedback button that allows doctors
+  1068→to flag incorrect or missing medicine data. When clicked, it opens a
+  1069→lightweight form pre-populated with the current medicine name and a
+  1070→dropdown for feedback type (missing, incorrect, duplicate, suggestion).
+  1071→The submission is stored in the medicine_feedback table with a status of
+  1072→\'pending\'. An admin dashboard, accessible only to the RxBD operations
+  1073→team, displays pending feedback items sorted by submission date.
+  1074→Reviewed items are either resolved (by creating a hotfix entry in the
+  1075→medicine_hotfixes table) or rejected (with a reason recorded in the
+  1076→audit_log). The submitting doctor receives a notification when their
+  1077→feedback is resolved, encouraging continued participation in the
+  1078→improvement process.
+  1079→
+  1080→[]{#_Toc100034 .anchor}**5. SaaS Subscription Model**
+  1081→
+  1082→RxBD follows a freemium SaaS model designed to maximize adoption among
+  1083→Bangladeshi doctors while generating sustainable revenue from power
+  1084→users. The model is intentionally simple, with only two tiers to
+  1085→minimize decision friction during signup and to make the upgrade path
+  1086→obvious and compelling.
+  1087→
+  1088→[]{#_Toc100035 .anchor}**5.1 Tier Definitions**
+  1089→
+  1090→  -----------------------------------------------------------------------
+  1091→  **Feature**             **Free Tier**           **Premium Tier**
+  1092→  ----------------------- ----------------------- -----------------------
+  1093→  Monthly prescription    50 prescriptions/month  Unlimited prescriptions
+  1094→  limit                                           
+  1095→
+  1096→  Prescription PDF        Standard template with  Custom letterhead
+  1097→  template                RxBD watermark          branding (logo, colors,
+  1098→                                                  footer)
+  1099→
+  1100→  Digital signature       Not available           Upload and embed
+  1101→                                                  digital signature image
+  1102→
+  1103→  Prescription templates  Not available           Create and use reusable
+  1104→  (Macros)                                        clinical protocol
+  1105→                                                  templates
+  1106→
+  1107→  Patient history depth   Last 10 prescriptions   Full, unlimited history
+  1108→                          per patient             
+  1109→
+  1110→  Data export             CSV only                CSV and JSON formats
+  1111→
+  1112→  Medicine database       Full access with        Full access with
+  1113→                          standard search         priority hotfix
+  1114→                                                  delivery
+  1115→
+  1116→  Support channel         Community forum and     Priority WhatsApp and
+  1117→                          email                   email support (24h SLA)
+  1118→
+  1119→  QR verification         Included                Included with custom
+  1120→                                                  branding on
+  1121→                                                  verification page
+  1122→  -----------------------------------------------------------------------
+  1123→
+  1124→[]{#_Toc100036 .anchor}**5.2 Monthly Prescription Counter Mechanism**
+  1125→
+  1126→The 50-prescription monthly limit for Free-tier users is enforced
+  1127→through a combination of database-level and application-level checks.
+  1128→The subscriptions table maintains a prescriptions_this_month counter and
+  1129→a counter_reset_at date. Every time a Free-tier doctor creates a new
+  1130→prescription (transitions from draft to final), the API route increments
+  1131→the counter. Before allowing the creation, it checks whether the counter
+  1132→has reached the 50-prescription limit. If counter_reset_at is older than
+  1133→30 days, the counter is reset to 1 and the date is updated to the
+  1134→current date.
+  1135→
+  1136→A scheduled Supabase Edge Function runs daily at midnight Bangladesh
+  1137→time (UTC+6) to reset all Free-tier counters where counter_reset_at is
+  1138→older than 30 days. This ensures that the counter resets even if a
+  1139→doctor does not visit the platform on their reset date. Additionally,
+  1140→the RLS policy on the prescriptions table includes a subquery check
+  1141→against the subscriptions table, providing a secondary enforcement layer
+  1142→that prevents counter bypass through direct database access.
+  1143→
+  1144→[]{#_Toc100037 .anchor}**5.3 Free-to-Premium Upgrade Flow**
+  1145→
+  1146→When a Free-tier doctor approaches their monthly limit (at 40
+  1147→prescriptions), a non-intrusive banner appears at the top of the
+  1148→prescription composer reading \'You have 10 prescriptions remaining this
+  1149→month. Upgrade to Premium for unlimited access.\' At 48 prescriptions,
+  1150→the banner becomes more prominent with a yellow highlight. At 50
+  1151→prescriptions, the composer is disabled and replaced with a full-screen
+  1152→upgrade prompt that explains the Premium benefits and includes a direct
+  1153→\'Upgrade Now\' button. This graduated approach provides multiple
+  1154→touchpoints for conversion without alienating users with hard paywalls
+  1155→at the first sign of friction.
+  1156→
+  1157→The upgrade flow itself redirects the doctor to a Stripe Checkout-like
+  1158→page powered by SSLCommerz. After successful payment, a webhook from
+  1159→SSLCommerz hits the /api/webhooks/sslcommerz API route, which verifies
+  1160→the payment signature using the store\'s secret key, updates the
+  1161→subscriptions table to set plan=\'premium\', records the SSLCommerz
+  1162→transaction ID, and sets the premium_expires_at date. The doctor\'s JWT
+  1163→is refreshed on their next request to include the updated plan claim,
+  1164→immediately unlocking Premium features.
+  1165→
+  1166→[]{#_Toc100038 .anchor}**5.4 Payment Integration via SSLCommerz**
+  1167→
+  1168→SSLCommerz is the leading payment gateway in Bangladesh, supporting all
+  1169→local payment methods including bKash, Nagad, Rocket, DBBL Nexus, and
+  1170→international Visa/Mastercard. Integration follows SSLCommerz\'s hosted
+  1171→checkout flow: the RxBD backend generates a payment session by calling
+  1172→SSLCommerz\'s /gwprocess/v4/api.php endpoint with the doctor\'s
+  1173→information and payment amount, receives a redirect URL, and sends the
+  1174→doctor to SSLCommerz\'s hosted payment page. After payment completion,
+  1175→SSLCommerz sends an IPN (Instant Payment Notification) webhook to the
+  1176→/api/webhooks/sslcommerz endpoint, which is the authoritative source of
+  1177→payment confirmation. The Premium tier is priced at BDT 499 per month
+  1178→(approximately USD 4.50), a price point validated through interviews
+  1179→with 15 pilot doctors who indicated willingness to pay between BDT 300
+  1180→and BDT 800 for premium prescription features.
+  1181→
+  1182→[]{#_Toc100039 .anchor}**5.5 Downgrade and Cancellation Policy**
+  1183→
+  1184→When a Premium subscription expires (premium_expires_at passes without
+  1185→renewal), the system automatically reverts the doctor to the Free tier.
+  1186→The prescriptions_this_month counter is initialized to the count of
+  1187→prescriptions created in the current calendar month, ensuring that the
+  1188→doctor does not receive a fresh 50-prescription allocation upon
+  1189→downgrade. Existing Premium features (custom letterhead, digital
+  1190→signature) are preserved in the doctor_settings table but are no longer
+  1191→rendered in the PDF output. The doctor\'s data, including all
+  1192→prescription history, remains fully accessible. A 3-day grace period
+  1193→after expiration allows continued Premium access while a renewal
+  1194→reminder is sent via email and in-app notification.
+  1195→
+  1196→[]{#_Toc100040 .anchor}**6. Implementation Plan**
+  1197→
+  1198→The implementation follows a five-phase plan with explicit timelines,
+  1199→dependencies, and deliverables. Each phase produces a deployable
+  1200→increment, enabling continuous feedback from beta users throughout the
+  1201→development process.
+  1202→
+  1203→[]{#_Toc100041 .anchor}**6.1 Phase Overview**
+  1204→
+  1205→  ------------------------------------------------------------------------
+  1206→  **Phase**         **Duration**      **Key             **Dependencies**
+  1207→                                      Deliverables**    
+  1208→  ----------------- ----------------- ----------------- ------------------
+  1209→  Phase 1:          3 weeks (Weeks    Next.js project   None
+  1210→  Foundation & Auth 1-3)              scaffold,         
+  1211→                                      Supabase setup,   
+  1212→                                      Auth flow, RLS    
+  1213→                                      policies,         
+  1214→                                      subscription      
+  1215→                                      model             
+  1216→
+  1217→  Phase 2:          4 weeks (Weeks    Composer form,    Phase 1
+  1218→  Prescription      4-7)              Zustand state,    
+  1219→  Engine                              medicine search,  
+  1220→                                      auto-save,        
+  1221→                                      subscription      
+  1222→                                      enforcement       
+  1223→
+  1224→  Phase 3: Print &  3 weeks (Weeks    PDF template, QR  Phase 2
+  1225→  PDF Output        8-10)             code generation,  
+  1226→                                      print layout,     
+  1227→                                      verification page 
+  1228→
+  1229→  Phase 4: Patient  2 weeks (Weeks    Patient CRUD,     Phase 2
+  1230→  Management        11-12)            history view,     
+  1231→                                      data export       
+  1232→                                      (CSV/JSON)        
+  1233→
+  1234→  Phase 5: Polish & 3 weeks (Weeks    Onboarding        Phase 3, Phase 4
+  1235→  Launch            13-15)            walkthrough, i18n 
+  1236→                                      (Bengali), E2E    
+  1237→                                      testing, Vercel   
+  1238→                                      deployment,       
+  1239→                                      analytics setup   
+  1240→  ------------------------------------------------------------------------
+  1241→
+  1242→[]{#_Toc100042 .anchor}**6.2 Phase 1: Foundation & Authentication (Weeks
+  1243→1-3)**
+  1244→
+  1245→This phase establishes the technical foundation upon which all
+  1246→subsequent features are built. The primary goal is to have a deployed,
+  1247→authenticated application with functional multi-tenant data isolation
+  1248→and a working subscription model.
+  1249→
+  1250→-   Week 1: Initialize Next.js 15 project with TypeScript, Tailwind CSS
+  1251→    4, and shadcn/ui. Configure ESLint, Prettier, and Husky pre-commit
+  1252→    hooks. Set up Supabase project, create all database tables with RLS
+  1253→    policies, and implement the migration system. Deploy the initial
+  1254→    scaffold to Vercel with a placeholder landing page.
+  1255→
+  1256→-   Week 2: Implement Supabase Auth with email/password signup and
+  1257→    login. Build the registration flow with email verification. Create
+  1258→    the doctor profile onboarding form (name, degrees, specialty,
+  1259→    chamber info). Implement the /api/auth/callback route for OAuth and
+  1260→    session management. Set up the Next.js Middleware for
+  1261→    subscription-aware route protection.
+  1262→
+  1263→-   Week 3: Build the subscription system. Create the subscriptions
+  1264→    table triggers and the monthly counter reset Edge Function.
+  1265→    Implement the Free-tier prescription counter API route. Build the
+  1266→    upgrade prompt UI components. Integrate SSLCommerz sandbox
+  1267→    environment for payment testing. Deploy and verify the complete
+  1268→    auth + subscription flow end-to-end.
+  1269→
+  1270→[]{#_Toc100043 .anchor}**6.3 Phase 2: Prescription Engine (Weeks 4-7)**
+  1271→
+  1272→This phase builds the core product value: the prescription composer.
+  1273→This is the most complex phase, involving a multi-section form with
+  1274→real-time search, state management, and auto-save functionality.
+  1275→
+  1276→-   Week 4: Design and implement the three-panel composer layout
+  1277→    (patient sidebar, Rx pad center, search sidebar). Build the React
+  1278→    Hook Form structure for the prescription form with Zod validation
+  1279→    schemas. Create the Zustand store for prescription session state
+  1280→    with localStorage persistence middleware.
+  1281→
+  1282→-   Week 5: Integrate the static medicine JSON dataset and configure
+  1283→    Fuse.js for client-side search. Build the medicine search dropdown
+  1284→    component with brand/generic display and keyboard navigation.
+  1285→    Implement the medication entry flow (add, edit, remove, reorder)
+  1286→    with dosage, frequency, duration, and special instruction fields.
+  1287→
+  1288→-   Week 6: Implement the auto-save mechanism. Build the localStorage
+  1289→    draft detection and resume flow. Add the CC (Chief Complaints),
+  1290→    findings, and investigation sections to the composer. Implement the
+  1291→    diagnosis entry with optional ICD-10 code lookup. Build the vitals
+  1292→    input panel with validation for blood pressure, pulse, temperature,
+  1293→    weight, and SpO2 values.
+  1294→
+  1295→-   Week 7: Implement the prescription finalization flow (draft to
+  1296→    final). Build the API route for saving prescriptions to Supabase
+  1297→    with subscription counter increment. Add the advice and follow-up
+  1298→    date fields. Implement the prescription templates (Macros) feature
+  1299→    for Premium users, allowing one-click loading of predefined
+  1300→    medication sets. Test the complete composer workflow end-to-end.
+  1301→
+  1302→[]{#_Toc100044 .anchor}**6.4 Phase 3: Print & PDF Output (Weeks 8-10)**
+  1303→
+  1304→This phase transforms the digital prescription data into a professional,
+  1305→print-ready document that conforms to the Bangladesh medical
+  1306→prescription format.
+  1307→
+  1308→-   Week 8: Build the \@react-pdf/renderer prescription template
+  1309→    conforming to the standard A4 Bangladesh medical format. Implement
+  1310→    the header section (doctor name, degrees, specialty, chamber info,
+  1311→    logo). Build the left sidebar (vitals, CC, investigations) and the
+  1312→    main Rx section (medications with formatting for generic names in
+  1313→    bold, dosage, frequency, duration, and instructions).
+  1314→
+  1315→-   Week 9: Implement the footer section with doctor signature area and
+  1316→    QR code generation. Build the QR code embedding logic using
+  1317→    qrcode.react, encoding the verification URL
+  1318→    (rxbd.com.bd/verify/\[prescription_id\]). Implement PDF download and
+  1319→    browser print functionality. Test print scaling across Chrome,
+  1320→    Firefox, and Safari.
+  1321→
+  1322→-   Week 10: Build the public prescription verification page at
+  1323→    /verify/\[id\]. This is a server-side rendered page that fetches the
+  1324→    prescription by ID from Supabase (using a service role key,
+  1325→    bypassing RLS for read-only access), verifies the prescription
+  1326→    exists and is not in draft state, and displays a read-only summary
+  1327→    with doctor name, patient name, visit date, and a tamper-evident
+  1328→    hash indicator. Implement the Premium custom letterhead feature,
+  1329→    allowing doctors to upload logos and configure header/footer
+  1330→    layouts. Deploy and test on mobile devices.
+  1331→
+  1332→[]{#_Toc100045 .anchor}**6.5 Phase 4: Patient Management & History
+  1333→(Weeks 11-12)**
+  1334→
+  1335→This phase adds the patient management layer that enables longitudinal
+  1336→care tracking and returning-patient workflows.
+  1337→
+  1338→-   Week 11: Build the patient CRUD API routes with search
+  1339→    functionality. Implement the patient list view with search by name
+  1340→    and phone number. Build the patient creation form with validation.
+  1341→    Implement the returning-patient flow in the composer: when a doctor
+  1342→    selects an existing patient, their persistent medical notes
+  1343→    (allergies, chronic conditions) are auto-populated, and their visit
+  1344→    history is displayed in the left sidebar.
+  1345→
+  1346→-   Week 12: Build the patient history view showing all past
+  1347→    prescriptions in reverse chronological order. Implement the
+  1348→    prescription detail view for historical prescriptions (read-only,
+  1349→    with PDF download). Build the data export feature: CSV export for
+  1350→    Free-tier doctors (patient list and prescription summary), JSON
+  1351→    export for Premium doctors (full prescription payload including
+  1352→    medications JSONB). Test data export with large datasets to ensure
+  1353→    performance.
+  1354→
+  1355→[]{#_Toc100046 .anchor}**6.6 Phase 5: Polish & Deployment (Weeks
+  1356→13-15)**
+  1357→
+  1358→This phase focuses on user experience refinement, internationalization,
+  1359→testing, and production readiness.
+  1360→
+  1361→-   Week 13: Implement the 3-step onboarding walkthrough (complete
+  1362→    profile, upload branding, write test prescription). Build the
+  1363→    Bengali (Bangla) language translation using next-intl. Create and
+  1364→    review message catalogs for all UI strings. Implement locale
+  1365→    detection based on browser language and manual toggle in settings.
+  1366→    Test all UI states in both English and Bengali.
+  1367→
+  1368→-   Week 14: Conduct comprehensive cross-browser testing (Chrome,
+  1369→    Firefox, Safari, Edge) and mobile testing (iOS Safari, Android
+  1370→    Chrome). Fix layout issues on tablet and mobile form factors.
+  1371→    Implement the responsive composer layout: on screens narrower than
+  1372→    1024px, the three-panel layout collapses to a tabbed interface with
+  1373→    Patient, Rx Pad, and Search tabs. Optimize PDF rendering performance
+  1374→    for older devices.
+  1375→
+  1376→-   Week 15: Set up Sentry error tracking with Next.js SDK integration.
+  1377→    Configure PostHog analytics with custom event tracking. Set up
+  1378→    UptimeRobot monitors for the application URL and Supabase health
+  1379→    endpoint. Configure the custom domain (rxbd.com.bd) with SSL
+  1380→    certificate via Vercel. Deploy to Vercel production environment.
+  1381→    Conduct final security review (RLS policy verification, environment
+  1382→    variable audit, rate limiting). Launch beta with 3-5 pilot doctors.
+  1383→
+  1384→[]{#_Toc100047 .anchor}**7. UX Blueprint**
+  1385→
+  1386→The UX design prioritizes speed and clarity for a user base that is
+  1387→time-pressured, varies widely in technical literacy, and operates in an
+  1388→environment where internet connectivity is unreliable. Every design
+  1389→decision is tested against the benchmark of enabling a doctor to
+  1390→complete a prescription in under two minutes.
+  1391→
+  1392→[]{#_Toc100048 .anchor}**7.1 Composer Layout (Desktop)**
+  1393→
+  1394→The prescription composer uses a three-panel split-screen layout
+  1395→optimized for the clinical workflow of a chamber doctor. The Left
+  1396→Sidebar (25% width) displays the patient context: selected patient
+  1397→demographics, persistent medical notes (allergies, chronic conditions),
+  1398→and quick access to the last 5 prescriptions for returning patients. The
+  1399→Center Workspace (50% width) is the Rx Pad, containing the multi-section
+  1400→prescription form arranged in clinical order: Chief Complaints, Vitals,
+  1401→On Examination, Investigations, Diagnosis, Medications, Advice, and
+  1402→Follow-Up. Each section is collapsible to reduce visual clutter. The
+  1403→Right Sidebar (25% width) provides the medicine search input at the top,
+  1404→followed by a diagnosis template picker and a list of the doctor\'s
+  1405→frequently prescribed medications for quick access.
+  1406→
+  1407→[]{#_Toc100049 .anchor}**7.2 Composer Layout (Mobile & Tablet)**
+  1408→
+  1409→On screens narrower than 1024px, the three-panel layout transforms into
+  1410→a tabbed interface to preserve all functionality without horizontal
+  1411→scrolling. Three tabs are displayed at the bottom of the screen: Patient
+  1412→(left sidebar content), Rx Pad (center workspace), and Search (right
+  1413→sidebar content). The active tab takes the full screen width. The
+  1414→medication search results appear as a modal overlay from the Search tab,
+  1415→allowing the doctor to select a medication and be returned to the Rx Pad
+  1416→tab with the medication pre-filled. On phones narrower than 640px, the
+  1417→form sections within the Rx Pad are displayed as an accordion rather
+  1418→than collapsible panels, ensuring that only one section is expanded at a
+  1419→time to maximize usable screen space.
+  1420→
+  1421→[]{#_Toc100050 .anchor}**7.3 Print Layout**
+  1422→
+  1423→The prescription print layout adheres to the standard Bangladesh medical
+  1424→prescription format on A4 paper (210mm x 297mm). The header section
+  1425→occupies the top 15% of the page, displaying the doctor\'s name (in
+  1426→large bold font), degrees (comma-separated), specialty, chamber name and
+  1427→address, and optional logo aligned to the right. The left column (30%
+  1428→width) contains Chief Complaints, Vitals, On Examination, and
+  1429→Investigations, each with a labeled heading and the entered data. The
+  1430→main section (70% width) displays the Rx symbol followed by the
+  1431→medications list, where each medication is formatted with the brand
+  1432→name, generic name in parentheses (bold), dosage, frequency, duration,
+  1433→and any special instructions on subsequent lines. The advice section and
+  1434→follow-up date appear below the medications. The footer section contains
+  1435→the doctor\'s signature (or uploaded digital signature image for
+  1436→Premium), the prescription date, and the QR code (2cm x 2cm) in the
+  1437→bottom-right corner.
+  1438→
+  1439→[]{#_Toc100051 .anchor}**7.4 Onboarding & Trust**
+  1440→
+  1441→The onboarding experience is designed to achieve the \'Aha!\' moment
+  1442→within 5 minutes of signup. A 3-step guided walkthrough leads the new
+  1443→doctor through: Step 1 (Complete Your Profile) entering their name,
+  1444→degrees, specialty, and chamber information; Step 2 (Customize Your
+  1445→Prescription) uploading a logo and configuring the header layout with a
+  1446→live preview; Step 3 (Write Your First Prescription) completing a test
+  1447→prescription with a dummy patient to experience the full workflow. Each
+  1448→step includes contextual tooltips and a progress indicator. The
+  1449→walkthrough can be skipped and resumed later from the Settings page, but
+  1450→completing it unlocks a \'Verified Doctor\' badge on their prescription
+  1451→header.
+  1452→
+  1453→The QR code verification system serves as both a trust mechanism and an
+  1454→anti-forgery safeguard. Every prescription PDF includes a unique QR code
+  1455→in the footer that encodes the URL
+  1456→rxbd.com.bd/verify/\[prescription_id\]. Scanning the QR code opens a
+  1457→public, read-only verification page that displays the doctor\'s name,
+  1458→patient\'s name, visit date, and a tamper-evident status indicator
+  1459→(green checkmark for verified, red warning if the prescription has been
+  1460→modified since issuance). The verification page is implemented as a
+  1461→server-side rendered Next.js page with ISR (Incremental Static
+  1462→Regeneration) for performance, using a 60-second revalidation period to
+  1463→balance freshness with cache efficiency.
+  1464→
+  1465→[]{#_Toc100052 .anchor}**7.5 Internationalization (i18n)**
+  1466→
+  1467→RxBD supports two languages: English (default) and Bengali (Bangla). The
+  1468→interface language is determined first by the user\'s browser
+  1469→Accept-Language header, then by the locale preference stored in the
+  1470→doctor\'s profile, and finally by a manual toggle in the navigation bar.
+  1471→All UI strings, form labels, button text, error messages, and onboarding
+  1472→content are externalized into message catalogs using next-intl. The
+  1473→prescription content itself (chief complaints, diagnosis, medication
+  1474→instructions) is entered by the doctor in their preferred language and
+  1475→is not auto-translated, as medical terminology requires precision that
+  1476→machine translation cannot guarantee. The PDF template layout adapts to
+  1477→the selected locale, adjusting for Bengali text direction
+  1478→(left-to-right, same as English) and font rendering using Noto Sans
+  1479→Bengali.
+  1480→
+  1481→[]{#_Toc100053 .anchor}**8. Recommended Folder Structure**
+  1482→
+  1483→The project follows a feature-organized Next.js 15 App Router structure
+  1484→that groups related files by domain rather than by file type. This
+  1485→organization improves developer navigation and makes it easier to locate
+  1486→all files related to a specific feature.
+  1487→
+  1488→  -------------------------------------------------------------------------
+  1489→  **Directory**            **Contents**            **Purpose**
+  1490→  ------------------------ ----------------------- ------------------------
+  1491→  /app                     Next.js 15 App Router   Route definitions, page
+  1492→                           pages and layouts       components, loading
+  1493→                                                   states, error boundaries
+  1494→
+  1495→  /app/(auth)              Authentication pages    Login, register, forgot
+  1496→                                                   password, email
+  1497→                                                   verification
+  1498→
+  1499→  /app/(dashboard)         Authenticated doctor    Composer, patients,
+
+[showing lines 1000-1499 of 2307; use offset=1500 with limit to continue reading]

@@ -1,0 +1,368 @@
+[
+  {
+    "name": "Paracetamol",
+    "category": "Analgesic & Antipyretic",
+    "sideEffects": "Nausea, liver damage (overdose), rash, allergic reactions",
+    "typicalDosage": "500mg-1g every 4-6 hours, max 4g/day"
+  },
+  {
+    "name": "Ibuprofen",
+    "category": "Analgesic & Antipyretic",
+    "sideEffects": "Gastric irritation, nausea, dizziness, renal impairment, GI bleeding",
+    "typicalDosage": "400-800mg every 6-8 hours, max 2.4g/day"
+  },
+  {
+    "name": "Diclofenac Sodium",
+    "category": "Analgesic & Antipyretic",
+    "sideEffects": "Gastric ulcer, nausea, headache, elevated liver enzymes, cardiovascular risk",
+    "typicalDosage": "50mg 2-3 times daily, max 150mg/day"
+  },
+  {
+    "name": "Naproxen Sodium",
+    "category": "Analgesic & Antipyretic",
+    "sideEffects": "GI upset, nausea, dizziness, headache, edema",
+    "typicalDosage": "250-550mg every 8-12 hours"
+  },
+  {
+    "name": "Meloxicam",
+    "category": "Analgesic & Antipyretic",
+    "sideEffects": "GI disturbance, headache, dizziness, edema",
+    "typicalDosage": "7.5-15mg once daily"
+  },
+  {
+    "name": "Amoxicillin",
+    "category": "Antibiotic",
+    "sideEffects": "Diarrhea, nausea, skin rash, allergic reactions, candidiasis",
+    "typicalDosage": "250-500mg every 8 hours for 5-7 days"
+  },
+  {
+    "name": "Amoxicillin + Clavulanic Acid",
+    "category": "Antibiotic",
+    "sideEffects": "Diarrhea, nausea, vomiting, skin rash, hepatotoxicity",
+    "typicalDosage": "625mg every 8 hours or 1g every 12 hours"
+  },
+  {
+    "name": "Cefixime",
+    "category": "Antibiotic",
+    "sideEffects": "Diarrhea, abdominal pain, nausea, headache, rash",
+    "typicalDosage": "400mg once daily or 200mg every 12 hours"
+  },
+  {
+    "name": "Ceftriaxone",
+    "category": "Antibiotic",
+    "sideEffects": "Diarrhea, injection site reaction, rash, elevated liver enzymes",
+    "typicalDosage": "1-2g IV/IM once daily"
+  },
+  {
+    "name": "Azithromycin",
+    "category": "Antibiotic",
+    "sideEffects": "Nausea, diarrhea, abdominal pain, headache, QT prolongation",
+    "typicalDosage": "500mg on day 1, then 250mg daily for 4 days"
+  },
+  {
+    "name": "Ciprofloxacin",
+    "category": "Antibiotic",
+    "sideEffects": "Nausea, diarrhea, dizziness, tendon damage, photosensitivity",
+    "typicalDosage": "500mg every 12 hours for 5-7 days"
+  },
+  {
+    "name": "Levofloxacin",
+    "category": "Antibiotic",
+    "sideEffects": "Nausea, diarrhea, headache, insomnia, tendon damage",
+    "typicalDosage": "500-750mg once daily"
+  },
+  {
+    "name": "Metronidazole",
+    "category": "Antibiotic",
+    "sideEffects": "Nausea, metallic taste, disulfiram-like reaction with alcohol, peripheral neuropathy",
+    "typicalDosage": "400mg every 8 hours for 5-7 days"
+  },
+  {
+    "name": "Doxycycline",
+    "category": "Antibiotic",
+    "sideEffects": "GI upset, photosensitivity, esophageal ulceration, teeth discoloration (children)",
+    "typicalDosage": "100mg every 12 hours on day 1, then 100mg daily"
+  },
+  {
+    "name": "Amlodipine",
+    "category": "Antihypertensive",
+    "sideEffects": "Edema, headache, dizziness, flushing, fatigue",
+    "typicalDosage": "5-10mg once daily"
+  },
+  {
+    "name": "Telmisartan",
+    "category": "Antihypertensive",
+    "sideEffects": "Dizziness, back pain, diarrhea, hypotension, hyperkalemia",
+    "typicalDosage": "40-80mg once daily"
+  },
+  {
+    "name": "Losartan Potassium",
+    "category": "Antihypertensive",
+    "sideEffects": "Dizziness, hypotension, hyperkalemia, fatigue",
+    "typicalDosage": "50-100mg once daily"
+  },
+  {
+    "name": "Enalapril Maleate",
+    "category": "Antihypertensive",
+    "sideEffects": "Dry cough, dizziness, hypotension, hyperkalemia, angioedema",
+    "typicalDosage": "5-20mg once or twice daily"
+  },
+  {
+    "name": "Metoprolol",
+    "category": "Antihypertensive",
+    "sideEffects": "Fatigue, bradycardia, dizziness, cold extremities, sexual dysfunction",
+    "typicalDosage": "50-100mg once or twice daily"
+  },
+  {
+    "name": "Cilnidipine",
+    "category": "Antihypertensive",
+    "sideEffects": "Edema, headache, flushing, dizziness, tachycardia",
+    "typicalDosage": "10-20mg once daily"
+  },
+  {
+    "name": "Lisinopril",
+    "category": "Antihypertensive",
+    "sideEffects": "Dry cough, dizziness, hypotension, hyperkalemia, renal impairment",
+    "typicalDosage": "5-20mg once daily"
+  },
+  {
+    "name": "Metformin Hydrochloride",
+    "category": "Antidiabetic",
+    "sideEffects": "Nausea, diarrhea, abdominal discomfort, lactic acidosis (rare), vitamin B12 deficiency",
+    "typicalDosage": "500mg twice daily, max 2g/day"
+  },
+  {
+    "name": "Glimepiride",
+    "category": "Antidiabetic",
+    "sideEffects": "Hypoglycemia, weight gain, nausea, headache, rash",
+    "typicalDosage": "1-4mg once daily with breakfast"
+  },
+  {
+    "name": "Gliclazide",
+    "category": "Antidiabetic",
+    "sideEffects": "Hypoglycemia, weight gain, GI upset, skin rash",
+    "typicalDosage": "40-80mg daily, max 320mg/day"
+  },
+  {
+    "name": "Sitagliptin",
+    "category": "Antidiabetic",
+    "sideEffects": "Nasopharyngitis, headache, hypoglycemia (with other agents), pancreatitis (rare)",
+    "typicalDosage": "100mg once daily"
+  },
+  {
+    "name": "Voglibose",
+    "category": "Antidiabetic",
+    "sideEffects": "Flatulence, diarrhea, abdominal discomfort, hypoglycemia (with other agents)",
+    "typicalDosage": "0.2mg three times daily with meals"
+  },
+  {
+    "name": "Insulin Glargine",
+    "category": "Antidiabetic",
+    "sideEffects": "Hypoglycemia, injection site reactions, weight gain, lipodystrophy",
+    "typicalDosage": "10-40 units subcutaneously once daily"
+  },
+  {
+    "name": "Omeprazole",
+    "category": "PPI / Gastric",
+    "sideEffects": "Headache, nausea, diarrhea, abdominal pain, vitamin B12 deficiency (long-term)",
+    "typicalDosage": "20mg once daily before breakfast"
+  },
+  {
+    "name": "Pantoprazole",
+    "category": "PPI / Gastric",
+    "sideEffects": "Headache, diarrhea, nausea, abdominal pain, dizziness",
+    "typicalDosage": "40mg once daily before breakfast"
+  },
+  {
+    "name": "Rabeprazole",
+    "category": "PPI / Gastric",
+    "sideEffects": "Headache, diarrhea, nausea, abdominal pain, myalgia",
+    "typicalDosage": "20mg once daily before breakfast"
+  },
+  {
+    "name": "Esomeprazole",
+    "category": "PPI / Gastric",
+    "sideEffects": "Headache, diarrhea, nausea, flatulence, abdominal pain",
+    "typicalDosage": "40mg once daily before breakfast"
+  },
+  {
+    "name": "Cetirizine",
+    "category": "Antihistamine",
+    "sideEffects": "Drowsiness, dry mouth, headache, fatigue, dizziness",
+    "typicalDosage": "10mg once daily"
+  },
+  {
+    "name": "Levocetirizine",
+    "category": "Antihistamine",
+    "sideEffects": "Drowsiness, dry mouth, headache, fatigue",
+    "typicalDosage": "5mg once daily"
+  },
+  {
+    "name": "Fexofenadine",
+    "category": "Antihistamine",
+    "sideEffects": "Headache, drowsiness, nausea, dizziness",
+    "typicalDosage": "120mg once daily"
+  },
+  {
+    "name": "Loratadine",
+    "category": "Antihistamine",
+    "sideEffects": "Headache, drowsiness (rare), dry mouth, fatigue",
+    "typicalDosage": "10mg once daily"
+  },
+  {
+    "name": "Salbutamol",
+    "category": "Bronchodilator",
+    "sideEffects": "Tremor, tachycardia, headache, hypokalemia, palpitation",
+    "typicalDosage": "2-4mg 3-4 times daily (oral); 1-2 puffs as needed (inhaler)"
+  },
+  {
+    "name": "Montelukast",
+    "category": "Bronchodilator",
+    "sideEffects": "Headache, abdominal pain, mood changes, sleep disturbance",
+    "typicalDosage": "10mg once daily at bedtime"
+  },
+  {
+    "name": "Atorvastatin",
+    "category": "Statin",
+    "sideEffects": "Myalgia, elevated liver enzymes, GI upset, headache, rhabdomyolysis (rare)",
+    "typicalDosage": "10-40mg once daily at bedtime"
+  },
+  {
+    "name": "Rosuvastatin",
+    "category": "Statin",
+    "sideEffects": "Myalgia, elevated liver enzymes, headache, nausea, proteinuria",
+    "typicalDosage": "10-20mg once daily"
+  },
+  {
+    "name": "Ondansetron",
+    "category": "Anti-emetic",
+    "sideEffects": "Headache, constipation, dizziness, QT prolongation",
+    "typicalDosage": "4-8mg every 8 hours as needed"
+  },
+  {
+    "name": "Domperidone",
+    "category": "Anti-emetic / Prokinetic",
+    "sideEffects": "Dry mouth, headache, diarrhea, QT prolongation, galactorrhea",
+    "typicalDosage": "10mg 3-4 times daily before meals"
+  },
+  {
+    "name": "Hyoscine Butylbromide",
+    "category": "Antispasmodic",
+    "sideEffects": "Dry mouth, blurred vision, urinary retention, tachycardia, constipation",
+    "typicalDosage": "10-20mg 3-4 times daily"
+  },
+  {
+    "name": "Dexamethasone",
+    "category": "Corticosteroid",
+    "sideEffects": "Weight gain, hyperglycemia, osteoporosis, immunosuppression, GI upset",
+    "typicalDosage": "0.5-10mg daily depending on condition"
+  },
+  {
+    "name": "Prednisolone",
+    "category": "Corticosteroid",
+    "sideEffects": "Weight gain, hyperglycemia, osteoporosis, mood changes, GI upset",
+    "typicalDosage": "5-60mg daily depending on condition"
+  },
+  {
+    "name": "Fluoxetine",
+    "category": "Antidepressant",
+    "sideEffects": "Nausea, insomnia, headache, anxiety, sexual dysfunction, weight loss",
+    "typicalDosage": "20mg once daily, max 80mg/day"
+  },
+  {
+    "name": "Diazepam",
+    "category": "Sedative / Anxiolytic",
+    "sideEffects": "Drowsiness, dependence, ataxia, amnesia, respiratory depression",
+    "typicalDosage": "2-10mg 2-4 times daily"
+  },
+  {
+    "name": "Alprazolam",
+    "category": "Sedative / Anxiolytic",
+    "sideEffects": "Drowsiness, dependence, dizziness, memory impairment, withdrawal",
+    "typicalDosage": "0.25-0.5mg 3 times daily"
+  },
+  {
+    "name": "Aciclovir",
+    "category": "Antiviral",
+    "sideEffects": "Nausea, headache, diarrhea, renal impairment (IV), rash",
+    "typicalDosage": "200mg 5 times daily for 5 days"
+  },
+  {
+    "name": "Oseltamivir",
+    "category": "Antiviral",
+    "sideEffects": "Nausea, vomiting, headache, abdominal pain, neuropsychiatric events",
+    "typicalDosage": "75mg twice daily for 5 days"
+  },
+  {
+    "name": "Clopidogrel",
+    "category": "Antiplatelet",
+    "sideEffects": "Bleeding, bruising, diarrhea, rash, abdominal pain",
+    "typicalDosage": "75mg once daily"
+  },
+  {
+    "name": "Baclofen",
+    "category": "Muscle Relaxant",
+    "sideEffects": "Drowsiness, dizziness, weakness, confusion, hypotension",
+    "typicalDosage": "5-10mg 3 times daily"
+  },
+  {
+    "name": "Tolperisone",
+    "category": "Muscle Relaxant",
+    "sideEffects": "Dizziness, headache, nausea, hypotension, weakness",
+    "typicalDosage": "50-150mg 3 times daily"
+  },
+  {
+    "name": "Fluconazole",
+    "category": "Antifungal",
+    "sideEffects": "Nausea, headache, abdominal pain, elevated liver enzymes, rash",
+    "typicalDosage": "150mg single dose (vaginal candidiasis); 50-400mg daily (systemic)"
+  },
+  {
+    "name": "Albendazole",
+    "category": "Anthelmintic",
+    "sideEffects": "Abdominal pain, nausea, headache, dizziness, elevated liver enzymes",
+    "typicalDosage": "400mg single dose (roundworm); 400mg twice daily for 3 days (hookworm)"
+  },
+  {
+    "name": "Metoclopramide",
+    "category": "Anti-emetic / Prokinetic",
+    "sideEffects": "Drowsiness, extrapyramidal symptoms, dystonia, restlessness",
+    "typicalDosage": "10mg 3-4 times daily before meals"
+  },
+  {
+    "name": "Cinnarizine",
+    "category": "Antivertigo",
+    "sideEffects": "Drowsiness, weight gain, extrapyramidal symptoms, dry mouth",
+    "typicalDosage": "25mg 3 times daily"
+  },
+  {
+    "name": "Loperamide",
+    "category": "Antidiarrheal",
+    "sideEffects": "Constipation, abdominal cramp, nausea, dizziness",
+    "typicalDosage": "4mg initially, then 2mg after each loose stool, max 16mg/day"
+  },
+  {
+    "name": "Warfarin Sodium",
+    "category": "Anticoagulant",
+    "sideEffects": "Bleeding, bruising, skin necrosis (rare), purple toe syndrome",
+    "typicalDosage": "2-10mg daily (dose adjusted by INR)"
+  },
+  {
+    "name": "Haloperidol",
+    "category": "Antipsychotic",
+    "sideEffects": "Extrapyramidal symptoms, drowsiness, weight gain, QT prolongation, tardive dyskinesia",
+    "typicalDosage": "2-10mg 2-3 times daily"
+  },
+  {
+    "name": "Ranitidine",
+    "category": "H2 Blocker",
+    "sideEffects": "Headache, dizziness, diarrhea, constipation, rare: hepatitis",
+    "typicalDosage": "150mg twice daily or 300mg at bedtime"
+  },
+  {
+    "name": "Clomiphene Citrate",
+    "category": "Gynecological",
+    "sideEffects": "Hot flashes, abdominal discomfort, ovarian hyperstimulation, visual disturbances",
+    "typicalDosage": "50mg daily for 5 days (from day 2-5 of cycle)"
+  }
+]
