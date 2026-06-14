@@ -11,7 +11,9 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
 import { Label } from '@/components/ui/label'
-import { Search, FileText, Download, Trash2, Eye, Calendar, Filter } from 'lucide-react'
+import { Search, FileText, Download, Trash2, Eye, Calendar, Filter, FilePlus2 } from 'lucide-react'
+import { TableSkeleton } from '@/components/ui/loading-skeleton'
+import { EmptyState } from '@/components/ui/empty-state'
 import type { Prescription } from '@/types'
 import { authHeaders } from '@/store/auth-store'
 
@@ -118,13 +120,17 @@ export function PrescriptionList() {
       <Card>
         <CardContent className="p-0">
           {isLoading ? (
-            <div className="text-center py-12 text-muted-foreground">Loading prescriptions...</div>
-          ) : prescriptions.length === 0 ? (
-            <div className="text-center py-12 text-muted-foreground">
-              <FileText className="h-10 w-10 mx-auto mb-2 opacity-30" />
-              <p className="text-sm">No prescriptions found.</p>
-              <p className="text-xs mt-1">Create your first prescription from the composer.</p>
+            <div className="p-4">
+              <TableSkeleton rows={5} columns={6} />
             </div>
+          ) : prescriptions.length === 0 ? (
+            <EmptyState
+              icon={FileText}
+              title="No prescriptions yet"
+              description="Create your first prescription from the composer."
+              actionLabel="New Prescription"
+              onAction={() => {}}
+            />
           ) : (
             <ScrollArea className="max-h-[calc(100vh-280px)]">
               <Table>

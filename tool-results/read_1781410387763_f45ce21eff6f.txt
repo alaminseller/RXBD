@@ -1,0 +1,502 @@
+  1801→  exceptions              Sentry dashboard        
+  1802→
+  1803→  Load test: 100          Run Artillery.js load   QA
+  1804→  concurrent users        test; verify \<2s p95   
+  1805→  creating prescriptions  response time           
+  1806→  -----------------------------------------------------------------------
+  1807→
+  1808→[]{#_Toc100066 .anchor}**10.4 Accessibility**
+  1809→
+  1810→  -----------------------------------------------------------------------
+  1811→  **Item**                **Verification Method** **Owner**
+  1812→  ----------------------- ----------------------- -----------------------
+  1813→  All form inputs have    Automated axe-core      Frontend
+  1814→  associated labels       audit + manual screen   
+  1815→                          reader test             
+  1816→
+  1817→  Keyboard navigation     Tab through all         Frontend
+  1818→  works for composer and  interactive elements;   
+  1819→  search                  verify focus indicators 
+  1820→
+  1821→  Color contrast meets    Automated Lighthouse    Frontend
+  1822→  WCAG 2.1 AA (4.5:1 for  accessibility audit     
+  1823→  text)                                           
+  1824→
+  1825→  shadcn/ui components    Component-level audit   Frontend
+  1826→  maintain ARIA           with React Testing      
+  1827→  attributes              Library                 
+  1828→  -----------------------------------------------------------------------
+  1829→
+  1830→[]{#_Toc100067 .anchor}**11. Operational Readiness**
+  1831→
+  1832→Operational readiness ensures that the RxBD team has the tools,
+  1833→processes, and information needed to support doctors effectively from
+  1834→day one. This section covers support infrastructure, beta testing
+  1835→strategy, and analytics implementation.
+  1836→
+  1837→[]{#_Toc100068 .anchor}**11.1 Support Strategy**
+  1838→
+  1839→RxBD implements a tiered support model aligned with the subscription
+  1840→tiers. Free-tier doctors receive support through a community forum
+  1841→(built with GitHub Discussions for zero cost) and email support with a
+  1842→72-hour response SLA. Premium doctors receive priority support via
+  1843→WhatsApp Business API and email with a 24-hour response SLA.
+  1844→
+  1845→The WhatsApp Business API integration is implemented using the WhatsApp
+  1846→Business Platform (Cloud API, free tier: 1,000 conversations per month).
+  1847→A dedicated business number is configured through Meta\'s Business
+  1848→Manager. When a Premium doctor sends a WhatsApp message to the RxBD
+  1849→support number, the message is received via webhook, logged in a support
+  1850→tracking spreadsheet, and routed to the on-call support team member.
+  1851→Responses are sent through the same WhatsApp channel, maintaining a
+  1852→conversational context. For the launch phase, the support team consists
+  1853→of the founding members, with a plan to hire a dedicated support agent
+  1854→once Premium subscriptions exceed 50 active users.
+  1855→
+  1856→[]{#_Toc100069 .anchor}**11.2 Beta Feedback Loop**
+  1857→
+  1858→The beta program targets 3 to 5 pilot doctors selected through direct
+  1859→outreach to the founding team\'s professional network. Selection
+  1860→criteria include: active private chamber practice with a minimum of 20
+  1861→patients per day, willingness to provide structured feedback via a
+  1862→dedicated Google Form after each session, representation of at least 2
+  1863→different medical specialties (to test specialty-specific prescription
+  1864→patterns), and varying levels of technical literacy (from tech-savvy to
+  1865→minimal computer experience).
+  1866→
+  1867→Feedback is collected through three channels: a structured Google Form
+  1868→distributed after each day of use (covering ease of use, search
+  1869→accuracy, PDF quality, and feature requests), a dedicated WhatsApp group
+  1870→for real-time issues and suggestions, and automated analytics tracking
+  1871→of key usage metrics. The feedback is reviewed weekly by the founding
+  1872→team, prioritized using a RICE (Reach, Impact, Confidence, Effort)
+  1873→framework, and incorporated into the next sprint. A centralized feedback
+  1874→tracker spreadsheet maintains a public changelog visible to all beta
+  1875→participants, ensuring transparency and demonstrating responsiveness.
+  1876→
+  1877→[]{#_Toc100070 .anchor}**11.3 Analytics Strategy**
+  1878→
+  1879→PostHog is the primary analytics platform, chosen for its generous free
+  1880→tier (1 million events per month), session replay capability, and
+  1881→self-hosting option for future data sovereignty compliance. The
+  1882→following key events are tracked with associated properties:
+  1883→
+  1884→  -----------------------------------------------------------------------------
+  1885→  **Event Name**                **Properties Tracked**  **Business Purpose**
+  1886→  ----------------------------- ----------------------- -----------------------
+  1887→  prescription_created          plan_tier,              Core activation metric;
+  1888→                                medication_count,       measure product
+  1889→                                is_returning_patient    stickiness
+  1890→
+  1891→  medicine_search_used          query_length,           Measure search quality
+  1892→                                results_count,          and usage patterns
+  1893→                                selected_index          
+  1894→
+  1895→  pdf_generated                 plan_tier, has_qr,      Track PDF as the
+  1896→                                template_type           primary output action
+  1897→
+  1898→  upgrade_modal_shown           trigger_reason          Measure conversion
+  1899→                                (limit_reached,         funnel entry points
+  1900→                                feature_gated,          
+  1901→                                proactive)              
+  1902→
+  1903→  upgrade_completed             plan_from, plan_to,     Track conversion and
+  1904→                                payment_method          preferred payment
+  1905→                                                        methods
+  1906→
+  1907→  onboarding_step_completed     step_number,            Identify onboarding
+  1908→                                time_spent_seconds      drop-off points
+  1909→
+  1910→  auto_save_triggered           draft_size_kb,          Monitor auto-save
+  1911→                                connection_status       reliability
+  1912→
+  1913→  medicine_feedback_submitted   feedback_type,          Track crowdsourced
+  1914→                                medicine_name           improvement velocity
+  1915→  -----------------------------------------------------------------------------
+  1916→
+  1917→Funnel analysis is configured for three key flows: Signup to First
+  1918→Prescription (target: 80% completion within first session), First
+  1919→Prescription to Fifth Prescription (target: 60% within first week), and
+  1920→Free Tier Limit to Premium Upgrade (target: 15% conversion within 3
+  1921→months of hitting limit). These targets are based on benchmarks from
+  1922→similar SaaS products in emerging markets and will be adjusted based on
+  1923→actual data during the beta period.
+  1924→
+  1925→[]{#_Toc100071 .anchor}**12. Future Roadmap (Post-Launch)**
+  1926→
+  1927→The post-launch roadmap is organized into three priority tiers based on
+  1928→expected impact, implementation complexity, and alignment with the core
+  1929→product vision. Items in Tier 1 are planned for implementation within 3
+  1930→to 6 months after launch, Tier 2 within 6 to 12 months, and Tier 3
+  1931→beyond 12 months, subject to user demand and resource availability.
+  1932→
+  1933→[]{#_Toc100072 .anchor}**12.1 Tier 1: High Priority (3-6 Months)**
+  1934→
+  1935→  -------------------------------------------------------------------------
+  1936→  **Feature**       **Description**     **Business        **Estimated
+  1937→                                        Value**           Effort**
+  1938→  ----------------- ------------------- ----------------- -----------------
+  1939→  PWA Offline       Implement Service   Critical for      3 weeks
+  1940→  Support           Worker and Cache    rural areas with  
+  1941→                    API for offline     poor internet;    
+  1942→                    prescription        eliminates        
+  1943→                    creation; sync      biggest usage     
+  1944→                    drafts when         barrier           
+  1945→                    connectivity                          
+  1946→                    returns                               
+  1947→
+  1948→  Drug Interaction  Real-time warnings  Patient safety    4 weeks
+  1949→  Checker           for                 differentiator;   
+  1950→                    contraindications   builds trust with 
+  1951→                    between prescribed  doctors and       
+  1952→                    medications using a regulators        
+  1953→                    local interaction                     
+  1954→                    rules engine                          
+  1955→
+  1956→  Prescription      Create reusable     Major time-saver  2 weeks
+  1957→  Templates         clinical protocols  for high-volume   
+  1958→  (Macros)          (e.g., Gastritis,   doctors;          
+  1959→                    Flu, Cold) for      strongest Premium 
+  1960→                    1-click             conversion driver 
+  1961→                    prescription                          
+  1962→                    generation                            
+  1963→
+  1964→  Bengali Voice     Integrate Web       Reduces typing    2 weeks
+  1965→  Input             Speech API for      burden;           
+  1966→                    Bengali             especially        
+  1967→                    voice-to-text in    valuable for      
+  1968→                    the CC and Advice   older doctors     
+  1969→                    fields                                
+  1970→  -------------------------------------------------------------------------
+  1971→
+  1972→[]{#_Toc100073 .anchor}**12.2 Tier 2: Medium Priority (6-12 Months)**
+  1973→
+  1974→  -----------------------------------------------------------------------
+  1975→  **Feature**       **Description**   **Business        **Estimated
+  1976→                                      Value**           Effort**
+  1977→  ----------------- ----------------- ----------------- -----------------
+  1978→  Patient Portal    Secure link for   Patient           6 weeks
+  1979→                    patients to view  engagement;       
+  1980→                    their             reduces doctor\'s 
+  1981→                    prescriptions     manual            
+  1982→                    online via        prescription      
+  1983→                    SMS-delivered     sharing workload  
+  1984→                    one-time access                     
+  1985→                    token                               
+  1986→
+  1987→  SMS Integration   Automatically     Reduces paper     3 weeks
+  1988→                    send prescription usage; improves   
+  1989→                    PDF links to      patient           
+  1990→                    patient mobile    compliance and    
+  1991→                    numbers via       record-keeping    
+  1992→                    BulkSMSBD API                       
+  1993→
+  1994→  Visual History    Patient visit     Better            4 weeks
+  1995→  Timeline          timeline with     longitudinal care 
+  1996→                    graphical trend   tracking;         
+  1997→                    charts for vitals justifies Premium 
+  1998→                    (BP, weight,      subscription      
+  1999→                    blood sugar)                        
+  2000→                    across visits                       
+  2001→
+  2002→  Multi-Chamber     Allow a single    Serves doctors    3 weeks
+  2003→  Support           doctor account to with multiple     
+  2004→                    manage multiple   practice          
+  2005→                    chamber locations locations         
+  2006→                    with separate                       
+  2007→                    settings and                        
+  2008→                    schedules                           
+  2009→  -----------------------------------------------------------------------
+  2010→
+  2011→[]{#_Toc100074 .anchor}**12.3 Tier 3: Long-Term Vision (12+ Months)**
+  2012→
+  2013→  ---------------------------------------------------------------------------
+  2014→  **Feature**       **Description**       **Business        **Estimated
+  2015→                                          Value**           Effort**
+  2016→  ----------------- --------------------- ----------------- -----------------
+  2017→  Lab Integration   Receive lab results   Closes the        8 weeks
+  2018→  API               directly from         diagnostic loop;  
+  2019→                    diagnostic centers    positions RxBD as 
+  2020→                    via                   a clinical hub    
+  2021→                    HL7/FHIR-compatible                     
+  2022→                    API                                     
+  2023→
+  2024→  Telemedicine      Video consultation    Addresses         10 weeks
+  2025→  Module            integration with      post-COVID        
+  2026→                    prescription          telehealth        
+  2027→                    generation in the     demand; high      
+  2028→                    same session          revenue potential 
+  2029→
+  2030→  Pharmacy Network  Connect prescriptions Commission        12 weeks
+  2031→                    to partner pharmacies revenue stream;   
+  2032→                    for home delivery of  patient           
+  2033→                    medications           convenience       
+  2034→
+  2035→  AI-Assisted       Suggest differential  Competitive moat; 16 weeks
+  2036→  Diagnosis         diagnoses based on    positions RxBD as 
+  2037→                    entered symptoms      intelligent       
+  2038→                    using a fine-tuned    clinical          
+  2039→                    LLM                   assistant         
+  2040→  ---------------------------------------------------------------------------
+  2041→
+  2042→[]{#_Toc100075 .anchor}**13. Support FAQ**
+  2043→
+  2044→This section provides answers to the most frequently asked questions,
+  2045→organized by topic. These answers are also available on the RxBD website
+  2046→at rxbd.com.bd/faq.
+  2047→
+  2048→[]{#_Toc100076 .anchor}**13.1 Getting Started**
+  2049→
+  2050→-   **Is RxBD truly free to use?** Yes. The core features of RxBD are
+  2051→    completely free for up to 50 prescriptions per month. This limit
+  2052→    resets automatically every 30 days. No credit card is required to
+  2053→    sign up, and there are no hidden fees or trial periods that expire.
+  2054→
+  2055→-   **Do I need to install any software?** No. RxBD is a web-based
+  2056→    application accessible from any modern browser (Chrome, Firefox,
+  2057→    Safari, Edge) on desktop, tablet, or phone. There is nothing to
+  2058→    download or install. An offline-capable Progressive Web App (PWA)
+  2059→    version is planned for future release.
+  2060→
+  2061→-   **How do I get started with my first prescription?** After signing
+  2062→    up with your email, complete your profile on the Settings page
+  2063→    (name, degrees, specialty, chamber information). The guided
+  2064→    onboarding walkthrough will then help you write a test prescription
+  2065→    with a dummy patient. The entire setup takes less than 5 minutes.
+  2066→
+  2067→-   **Is RxBD available in Bengali?** Yes. RxBD supports both English
+  2068→    and Bengali (Bangla) interfaces. The language is automatically
+  2069→    detected from your browser settings, and you can also switch
+  2070→    manually using the language toggle in the navigation bar.
+  2071→
+  2072→[]{#_Toc100077 .anchor}**13.2 Prescriptions & Usage**
+  2073→
+  2074→-   **What happens if my internet connection is slow or drops?** RxBD
+  2075→    has a Local-First auto-save feature that persists your draft
+  2076→    prescription to your browser every 10 seconds. If you lose
+  2077→    connectivity, your work is safe. When you reconnect, RxBD will
+  2078→    detect your local draft and prompt you to resume exactly where you
+  2079→    left off.
+  2080→
+  2081→-   **How can I verify if a prescription is authentic?** Every
+  2082→    prescription PDF includes a unique QR code in the footer. Scanning
+  2083→    the QR code with any smartphone camera opens the official RxBD
+  2084→    verification page, which displays the doctor\'s name, patient\'s
+  2085→    name, visit date, and a verified status indicator. This ensures the
+  2086→    prescription has not been tampered with.
+  2087→
+  2088→-   **Can I save my frequent medicine lists?** Yes. Premium plan users
+  2089→    can create Prescription Templates (Macros) for common conditions
+  2090→    like Gastritis, Flu, or Cold. A Macro saves your entire medication
+  2091→    set (with dosages and instructions) so you can load it with a single
+  2092→    click during a consultation, saving significant time during
+  2093→    high-volume sessions.
+  2094→
+  2095→-   **What prescription formats are available?** RxBD generates
+  2096→    prescriptions in PDF format that can be downloaded, printed on any
+  2097→    standard A4 printer, or shared digitally. The print layout follows
+  2098→    the standard Bangladesh medical prescription format that pharmacies
+  2099→    expect.
+  2100→
+  2101→[]{#_Toc100078 .anchor}**13.3 Security & Privacy**
+  2102→
+  2103→-   **Is my patient data private and secure?** Yes. RxBD uses Row Level
+  2104→    Security (RLS) at the database level to ensure that you have
+  2105→    exclusive access to your patient records. No other doctor, nor even
+  2106→    the RxBD team, can view your patient data. All data is encrypted
+  2107→    both at rest (AES-256) and in transit (TLS 1.3). RxBD maintains a
+  2108→    strict policy against selling or sharing patient or doctor data with
+  2109→    third parties.
+  2110→
+  2111→-   **Can I export my patient records?** Yes. You can export your entire
+  2112→    patient list and prescription history from the Settings page.
+  2113→    Free-tier users can export in CSV format, and Premium users can
+  2114→    additionally export in JSON format for migration to other EMR
+  2115→    systems.
+  2116→
+  2117→-   **What happens to my data if I delete my account?** When you delete
+  2118→    your account, a 30-day grace period allows you to change your mind
+  2119→    and restore it. After 30 days, all your data (profile, patients,
+  2120→    prescriptions, uploaded files) is permanently deleted from our
+  2121→    servers. Anonymized audit records are retained for 7 years as
+  2122→    required by law.
+  2123→
+  2124→[]{#_Toc100079 .anchor}**13.4 Billing & Subscription**
+  2125→
+  2126→-   **What is the difference between Free and Premium?** The Free plan
+  2127→    includes 50 prescriptions per month with the standard PDF template.
+  2128→    The Premium plan (BDT 499/month) unlocks unlimited prescriptions,
+  2129→    custom letterhead branding with your logo and colors, digital
+  2130→    signature embedding, Prescription Templates (Macros), full patient
+  2131→    history, JSON data export, and priority WhatsApp support.
+  2132→
+  2133→-   **How do I pay for the Premium plan?** We use SSLCommerz,
+  2134→    Bangladesh\'s leading payment gateway, which supports bKash, Nagad,
+  2135→    Rocket, DBBL Nexus, and Visa/Mastercard. You can pay directly from
+  2136→    the upgrade page without leaving the application.
+  2137→
+  2138→-   **Will I lose my data if my Premium subscription expires?** No. All
+  2139→    your data remains fully accessible even after your Premium
+  2140→    subscription expires. You simply revert to the Free tier with a
+  2141→    50-prescription monthly limit. Your custom letterhead and digital
+  2142→    signature settings are preserved and will reactivate if you
+  2143→    resubscribe.
+  2144→
+  2145→[]{#_Toc100080 .anchor}**14. Infrastructure Cost Analysis**
+  2146→
+  2147→This appendix provides a detailed breakdown of infrastructure costs
+  2148→under the free-tier strategy and the projected costs when scaling
+  2149→requires paid plans. All figures are in USD unless otherwise noted.
+  2150→
+  2151→[]{#_Toc100081 .anchor}**14.1 Free-Tier Cost Breakdown**
+  2152→
+  2153→  ---------------------------------------------------------------------------
+  2154→  **Service**       **Provider**      **Free Tier       **Estimated
+  2155→                                      Allowance**       Capacity**
+  2156→  ----------------- ----------------- ----------------- ---------------------
+  2157→  Hosting & CDN     Vercel Hobby      100GB bandwidth,  \~2,000 doctors at 25
+  2158→                                      6K build          prescriptions/month
+  2159→                                      min/month         each
+  2160→
+  2161→  Database          Supabase Free     500MB PostgreSQL, \~50,000
+  2162→                                      5GB bandwidth     prescriptions
+  2163→                                                        (average 10KB per
+  2164→                                                        JSON payload)
+  2165→
+  2166→  Authentication    Supabase Free     50K MAU, 500      Sufficient for entire
+  2167→                                      email sends/day   initial user base
+  2168→
+  2169→  File Storage      Supabase Free     1GB storage, 5GB  \~500 doctor
+  2170→                                      bandwidth         avatars + 200
+  2171→                                                        signatures at 1.5MB
+  2172→                                                        each
+  2173→
+  2174→  Error Tracking    Sentry Free       5K events/month,  Sufficient for
+  2175→                                      1-day retention   initial monitoring
+  2176→
+  2177→  Analytics         PostHog Free      1M events/month   Sufficient for 2,000+
+  2178→                                                        daily active doctors
+  2179→
+  2180→  Uptime Monitoring UptimeRobot Free  50 monitors,      2 monitors (app +
+  2181→                                      5-min intervals   Supabase health)
+  2182→
+  2183→  CI/CD             GitHub Actions    2,000             \~1,000 builds + 30
+  2184→                    Free              minutes/month     daily backup runs
+  2185→
+  2186→  Total Monthly                       \$0               
+  2187→  Cost                                                  
+  2188→  ---------------------------------------------------------------------------
+  2189→
+  2190→[]{#_Toc100082 .anchor}**14.2 Scaling Cost Projections**
+  2191→
+  2192→  ---------------------------------------------------------------------------
+  2193→  **Users**      **Vercel       **Supabase     **Other Costs** **Total
+  2194→                 Plan**         Plan**                         Monthly**
+  2195→  -------------- -------------- -------------- --------------- --------------
+  2196→  0-1,000        Hobby (Free)   Free           \$0             \$0
+  2197→
+  2198→  1,000-5,000    Pro (\$20/mo)  Pro (\$25/mo)  Sentry Team     \~\$71
+  2199→                                               (\$26/mo)       
+  2200→
+  2201→  5,000-20,000   Pro (\$20/mo)  Pro            Sentry +        \~\$150-300
+  2202→                                (\$25/mo) +    PostHog paid    
+  2203→                                extra                          
+  2204→                                bandwidth                      
+  2205→
+  2206→  20,000+        Enterprise     Team or custom Full            \$500+
+  2207→                 (custom)                      observability   
+  2208→                                               stack           
+  2209→  ---------------------------------------------------------------------------
+  2210→
+  2211→The break-even point, where Premium subscription revenue covers
+  2212→infrastructure costs, is estimated at approximately 150 Premium
+  2213→subscribers (150 x BDT 499 = BDT 74,850 = approximately USD 680/month).
+  2214→At 1,000 total registered doctors with a 15% Premium conversion rate
+  2215→(150 Premium users), the platform becomes self-sustaining. This is
+  2216→achievable within the first 6 to 9 months based on conservative growth
+  2217→projections.
+  2218→
+  2219→[]{#_Toc100083 .anchor}**15. Risk Register**
+  2220→
+  2221→This appendix documents the identified risks to the RxBD project, their
+  2222→likelihood, potential impact, and mitigation strategies. Risks are
+  2223→reviewed and updated monthly during the development phase and quarterly
+  2224→after launch.
+  2225→
+  2226→  ------------------------------------------------------------------------------------
+  2227→  **Risk ID**    **Risk          **Likelihood**   **Impact**     **Mitigation
+  2228→                 Description**                                   Strategy**
+  2229→  -------------- --------------- ---------------- -------------- ---------------------
+  2230→  R01            Supabase free   Medium           High           Implement data
+  2231→                 tier DB exceeds                                 archiving for
+  2232→                 500MB before                                    prescriptions older
+  2233→                 revenue                                         than 12 months;
+  2234→                 supports Pro                                    compress JSONB
+  2235→                 plan                                            payloads; monitor DB
+  2236→                                                                 size weekly with 80%
+  2237→                                                                 alert threshold
+  2238→
+  2239→  R02            Vercel          Low              Medium         Profile API route
+  2240→                 serverless                                      execution times; move
+  2241→                 function                                        heavy operations to
+  2242→                 timeout (10s)                                   Supabase Edge
+  2243→                 insufficient                                    Functions; implement
+  2244→                 for complex                                     pagination for large
+  2245→                 prescription                                    data fetches
+  2246→                 operations                                      
+  2247→
+  2248→  R03            SSLCommerz      Low              High           Implement webhook
+  2249→                 payment webhook                                 retry queue with
+  2250→                 downtime causes                                 exponential backoff;
+  2251→                 Premium upgrade                                 provide manual
+  2252→                 failures                                        activation path via
+  2253→                                                                 admin dashboard;
+  2254→                                                                 monitor SSLCommerz
+  2255→                                                                 status page
+  2256→
+  2257→  R04            Medicine data   Medium           Medium         Automate monthly DGDA
+  2258→                 becomes stale                                   data scraping;
+  2259→                 as DGDA updates                                 implement hotfix
+  2260→                 are not                                         system for critical
+  2261→                 processed                                       corrections;
+  2262→                 promptly                                        crowdsource feedback
+  2263→                                                                 as a secondary data
+  2264→                                                                 validation channel
+  2265→
+  2266→  R05            User adoption   Medium           High           Conduct on-ground
+  2267→                 is slower than                                  demos at medical
+  2268→                 projected due                                   conferences; partner
+  2269→                 to resistance                                   with 3-5 influential
+  2270→                 to digital                                      doctors as advocates;
+  2271→                 prescriptions                                   offer extended 90-day
+  2272→                                                                 Premium trial for
+  2273→                                                                 early adopters
+  2274→
+  2275→  R06            Regulatory      Low              High           Maintain active
+  2276→                 changes require                                 monitoring of
+  2277→                 significant                                     Bangladesh Digital
+  2278→                 architecture                                    Security Act
+  2279→                 modifications                                   amendments; design
+  2280→                                                                 architecture for
+  2281→                                                                 compliance
+  2282→                                                                 flexibility; engage
+  2283→                                                                 legal counsel for
+  2284→                                                                 periodic regulatory
+  2285→                                                                 review
+  2286→
+  2287→  R07            Competitor      Medium           Medium         Focus on UX speed and
+  2288→                 launches a                                      Bangladesh-specific
+  2289→                 similar product                                 features; build
+  2290→                 targeting the                                   network effects
+  2291→                 same segment                                    through doctor
+  2292→                                                                 communities;
+  2293→                                                                 establish brand
+  2294→                                                                 through verified
+  2295→                                                                 prescription trust
+  2296→
+  2297→  R08            Data breach     Low              Critical       Enforce RLS on all
+  2298→                 compromises                                     tables; implement
+  2299→                 patient                                         rate limiting;
+  2300→                 information                                     conduct quarterly
+
+[showing lines 1801-2300 of 2307; use offset=2301 with limit to continue reading]

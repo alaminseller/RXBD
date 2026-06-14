@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useAuthStore } from '@/store/auth-store'
+import { useTranslation } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -15,6 +16,8 @@ interface LoginFormProps {
 export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
   const login = useAuthStore((s) => s.login)
   const isLoading = useAuthStore((s) => s.isLoading)
+  const { t } = useTranslation()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -25,14 +28,14 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
     setError('')
 
     if (!email.trim() || !password.trim()) {
-      setError('Please enter both email and password.')
+      setError(t('auth.enterEmailPassword'))
       return
     }
 
     try {
       await login(email.trim(), password)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed. Please try again.')
+      setError(err instanceof Error ? err.message : t('auth.loginFailed'))
     }
   }
 
@@ -44,14 +47,14 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary text-primary-foreground mb-4">
             <Stethoscope className="w-8 h-8" />
           </div>
-          <h1 className="text-3xl font-bold text-foreground">RxBD</h1>
-          <p className="text-muted-foreground mt-1">Digital Prescription Platform</p>
+          <h1 className="text-3xl font-bold text-foreground">{t('app.name')}</h1>
+          <p className="text-muted-foreground mt-1">{t('app.tagline')}</p>
         </div>
 
         <Card className="shadow-lg border-border/50">
           <CardHeader className="text-center">
-            <CardTitle className="text-xl">Welcome Back</CardTitle>
-            <CardDescription>Sign in to your account to continue</CardDescription>
+            <CardTitle className="text-xl">{t('auth.welcomeBack')}</CardTitle>
+            <CardDescription>{t('auth.signInContinue')}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -62,7 +65,7 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t('auth.email')}</Label>
                 <Input
                   id="email"
                   type="email"
@@ -75,12 +78,12 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t('auth.password')}</Label>
                 <div className="relative">
                   <Input
                     id="password"
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="Enter your password"
+                    placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     autoComplete="current-password"
@@ -108,28 +111,28 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Signing in...
+                    {t('auth.signingIn')}
                   </>
                 ) : (
-                  'Sign In'
+                  t('auth.loginButton')
                 )}
               </Button>
             </form>
 
             <div className="mt-6 text-center text-sm text-muted-foreground">
-              Don&apos;t have an account?{' '}
+              {t('auth.noAccount')}{' '}
               <button
                 onClick={onSwitchToRegister}
                 className="text-primary font-medium hover:underline underline-offset-4"
               >
-                Create one
+                {t('auth.createAccount')}
               </button>
             </div>
           </CardContent>
         </Card>
 
         <p className="text-center text-xs text-muted-foreground mt-6">
-          For Bangladesh Doctors &bull; BMDC Registered
+          {t('auth.forDoctors')} &bull; {t('auth.bmdcRegistered')}
         </p>
       </div>
     </div>

@@ -680,6 +680,26 @@ export function PrescriptionPDF({
         {/* ===== VITALS SECTION ===== */}
         {hasVitals && <VitalsDisplay prescription={prescription} />}
 
+        {/* ===== CHIEF COMPLAINTS SECTION ===== */}
+        {(prescription as any).chiefComplaints && (
+          <View style={styles.clinicalSection}>
+            <Text style={styles.sectionLabel}>Chief Complaints:</Text>
+            <Text style={styles.sectionContent}>
+              {(prescription as any).chiefComplaints}
+            </Text>
+          </View>
+        )}
+
+        {/* ===== ON EXAMINATION SECTION ===== */}
+        {(prescription as any).onExamination && (
+          <View style={styles.clinicalSection}>
+            <Text style={styles.sectionLabel}>On Examination:</Text>
+            <Text style={styles.sectionContent}>
+              {(prescription as any).onExamination}
+            </Text>
+          </View>
+        )}
+
         <View style={styles.divider} />
 
         {/* ===== Rx SYMBOL & MEDICATIONS ===== */}
@@ -706,10 +726,22 @@ export function PrescriptionPDF({
 
         <View style={styles.divider} />
 
+        {/* ===== INVESTIGATIONS SECTION ===== */}
+        {(prescription as any).investigations && (
+          <View style={styles.clinicalSection}>
+            <Text style={styles.sectionLabel}>Investigations:</Text>
+            <Text style={styles.sectionContent}>
+              {(prescription as any).investigations}
+            </Text>
+          </View>
+        )}
+
         {/* ===== DIAGNOSIS SECTION ===== */}
         {prescription.diagnosis && (
           <View style={styles.clinicalSection}>
-            <Text style={styles.sectionLabel}>Diagnosis:</Text>
+            <Text style={styles.sectionLabel}>
+              Diagnosis:{(prescription as any).diagnosisCode ? ` [${(prescription as any).diagnosisCode}]` : ''}
+            </Text>
             <Text style={styles.sectionContent}>{prescription.diagnosis}</Text>
           </View>
         )}

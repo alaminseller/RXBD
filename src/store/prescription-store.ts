@@ -11,12 +11,16 @@ const initialComposerState: ComposerState = {
   patientName: '',
   patientAge: '',
   patientGender: '',
+  chiefComplaints: '',
   bloodPressure: '',
   pulse: '',
   temperature: '',
   weight: '',
   spO2: '',
+  onExamination: '',
+  investigations: '',
   diagnosis: '',
+  diagnosisCode: '',
   clinicalNotes: '',
   advice: '',
   followUpDate: '',
@@ -34,7 +38,11 @@ interface PrescriptionStore extends ComposerState {
   setVitals: (vitals: Partial<Pick<ComposerState, 'bloodPressure' | 'pulse' | 'temperature' | 'weight' | 'spO2'>>) => void
 
   // Clinical actions
+  setChiefComplaints: (cc: string) => void
+  setOnExamination: (findings: string) => void
+  setInvestigations: (investigations: string) => void
   setDiagnosis: (diagnosis: string) => void
+  setDiagnosisCode: (code: string) => void
   setClinicalNotes: (notes: string) => void
   setAdvice: (advice: string) => void
   setFollowUpDate: (date: string) => void
@@ -44,6 +52,9 @@ interface PrescriptionStore extends ComposerState {
   updateMedication: (index: number, medication: Partial<Medication>) => void
   removeMedication: (index: number) => void
   reorderMedications: (fromIndex: number, toIndex: number) => void
+
+  // Template actions
+  loadTemplate: (template: Partial<ComposerState>) => void
 
   // Draft management
   markDirty: () => void
@@ -87,8 +98,20 @@ export const usePrescriptionStore = create<PrescriptionStore>()(
         })),
 
       // ─── Clinical Actions ─────────────────────────────────────────────
+      setChiefComplaints: (cc) =>
+        set((state) => ({ ...state, chiefComplaints: cc, isDirty: true })),
+
+      setOnExamination: (findings) =>
+        set((state) => ({ ...state, onExamination: findings, isDirty: true })),
+
+      setInvestigations: (investigations) =>
+        set((state) => ({ ...state, investigations, isDirty: true })),
+
       setDiagnosis: (diagnosis) =>
         set((state) => ({ ...state, diagnosis, isDirty: true })),
+
+      setDiagnosisCode: (code) =>
+        set((state) => ({ ...state, diagnosisCode: code, isDirty: true })),
 
       setClinicalNotes: (notes) =>
         set((state) => ({ ...state, clinicalNotes: notes, isDirty: true })),
@@ -138,6 +161,14 @@ export const usePrescriptionStore = create<PrescriptionStore>()(
           return { ...state, medications: meds, isDirty: true }
         }),
 
+      // ─── Template Actions ─────────────────────────────────────────────
+      loadTemplate: (template) =>
+        set((state) => ({
+          ...state,
+          ...template,
+          isDirty: true,
+        })),
+
       // ─── Draft Management ─────────────────────────────────────────────
       markDirty: () => set((state) => ({ ...state, isDirty: true })),
 
@@ -162,8 +193,6 @@ export const usePrescriptionStore = create<PrescriptionStore>()(
       name: 'rxbd-draft',
       partialize: (state) => {
         // Only persist composer data, not transient UI flags like isDirty.
-        // isDirty is recalculated on load, so we exclude it to avoid
-        // showing stale "unsaved" state after a page reload.
         const { isDirty, ...persistable } = state
         return persistable
       },

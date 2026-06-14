@@ -12,6 +12,7 @@ interface AuthStore {
   subscription: Subscription | null
   isAuthenticated: boolean
   isLoading: boolean
+  onboardingCompleted: boolean
 
   setDoctor: (doctor: Doctor | null) => void
   setSubscription: (subscription: Subscription | null) => void
@@ -19,6 +20,8 @@ interface AuthStore {
   login: (email: string, password: string) => Promise<void>
   logout: () => void
   updateProfile: (data: Partial<Doctor>) => Promise<void>
+  completeOnboarding: () => void
+  resetOnboarding: () => void
 }
 
 export const useAuthStore = create<AuthStore>()(
@@ -28,6 +31,7 @@ export const useAuthStore = create<AuthStore>()(
       subscription: null,
       isAuthenticated: false,
       isLoading: false,
+      onboardingCompleted: false,
 
       // ─── Setters ──────────────────────────────────────────────────────
       setDoctor: (doctor) =>
@@ -111,8 +115,14 @@ export const useAuthStore = create<AuthStore>()(
           subscription: null,
           isAuthenticated: false,
           isLoading: false,
+          onboardingCompleted: false,
         })
       },
+
+      // ─── Onboarding ────────────────────────────────────────────────────
+      completeOnboarding: () => set({ onboardingCompleted: true }),
+
+      resetOnboarding: () => set({ onboardingCompleted: false }),
 
       // ─── Update Profile ───────────────────────────────────────────────
       updateProfile: async (data) => {
@@ -153,6 +163,7 @@ export const useAuthStore = create<AuthStore>()(
         doctor: state.doctor,
         subscription: state.subscription,
         isAuthenticated: state.isAuthenticated,
+        onboardingCompleted: state.onboardingCompleted,
       }),
     }
   )

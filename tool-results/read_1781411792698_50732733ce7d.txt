@@ -1,0 +1,1664 @@
+     1→▲ Next.js 16.1.3 (Turbopack)
+     2→- Local:         http://localhost:3000
+     3→- Network:       http://21.0.20.36:3000
+     4→- Environments: .env
+     5→
+     6→✓ Starting...
+     7→Attention: Next.js now collects completely anonymous telemetry regarding usage.
+     8→This information is used to shape Next.js' roadmap and prioritize features.
+     9→You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+    10→https://nextjs.org/telemetry
+    11→
+    12→✓ Ready in 627ms
+    13→ GET / 200 in 3.1s (compile: 2.9s, render: 136ms)
+    14→ GET / 200 in 3.0s (compile: 2.9s, render: 188ms)
+    15→ GET / 200 in 21ms (compile: 1768µs, render: 19ms)
+    16→ GET / 200 in 22ms (compile: 2ms, render: 20ms)
+    17→ GET / 200 in 32ms (compile: 3ms, render: 29ms)
+    18→ GET / 200 in 26ms (compile: 3ms, render: 24ms)
+    19→ GET / 200 in 27ms (compile: 3ms, render: 23ms)
+    20→ GET / 200 in 27ms (compile: 2ms, render: 25ms)
+    21→prisma:client dirname /home/z/my-project/node_modules/.prisma/client +9ms
+    22→prisma:client relativePath ../../../prisma +2ms
+    23→prisma:client cwd /home/z/my-project/prisma +1ms
+    24→prisma:client clientVersion 6.19.2 +0ms
+    25→prisma:client Prisma Client call: +31ms
+    26→prisma:client prisma.doctor.findUnique({
+    27→  where: {
+    28→    email: "imalaminrafi@gmail.com"
+    29→  }
+    30→}) +0ms
+    31→prisma:client Generated request: +0ms
+    32→prisma:client {
+    33→  "modelName": "Doctor",
+    34→  "action": "findUnique",
+    35→  "query": {
+    36→    "arguments": {
+    37→      "where": {
+    38→        "email": "imalaminrafi@gmail.com"
+    39→      }
+    40→    },
+    41→    "selection": {
+    42→      "$composites": true,
+    43→      "$scalars": true
+    44→    }
+    45→  }
+    46→}
+    47→ +1ms
+    48→prisma:client Prisma Client call: +86ms
+    49→prisma:client prisma.doctor.create({
+    50→  data: {
+    51→    email: "imalaminrafi@gmail.com",
+    52→    name: "AL AMIN",
+    53→    password: "$2b$10$ZQ9PPHcm4b6Xj2SBeHZ56e4e3IRWWOB99VM.0qiNz3gxcOpf2lEuC",
+    54→    phone: "",
+    55→    specialty: "General Practice",
+    56→    degrees: "",
+    57→    bmdcNumber: "",
+    58→    settings: {
+    59→      create: {
+    60→        defaultLanguage: "en",
+    61→        fontSize: "medium",
+    62→        includeQrCode: true,
+    63→        autoSaveInterval: 10
+    64→      }
+    65→    },
+    66→    subscription: {
+    67→      create: {
+    68→        plan: "free",
+    69→        prescriptionsUsed: 0,
+    70→        prescriptionsLimit: 50,
+    71→        status: "active"
+    72→      }
+    73→    }
+    74→  },
+    75→  include: {
+    76→    settings: true,
+    77→    subscription: true
+    78→  }
+    79→}) +0ms
+    80→prisma:client Generated request: +0ms
+    81→prisma:client {
+    82→  "modelName": "Doctor",
+    83→  "action": "createOne",
+    84→  "query": {
+    85→    "arguments": {
+    86→      "data": {
+    87→        "email": "imalaminrafi@gmail.com",
+    88→        "name": "AL AMIN",
+    89→        "password": "$2b$10$ZQ9PPHcm4b6Xj2SBeHZ56e4e3IRWWOB99VM.0qiNz3gxcOpf2lEuC",
+    90→        "phone": "",
+    91→        "specialty": "General Practice",
+    92→        "degrees": "",
+    93→        "bmdcNumber": "",
+    94→        "settings": {
+    95→          "create": {
+    96→            "defaultLanguage": "en",
+    97→            "fontSize": "medium",
+    98→            "includeQrCode": true,
+    99→            "autoSaveInterval": 10
+   100→          }
+   101→        },
+   102→        "subscription": {
+   103→          "create": {
+   104→            "plan": "free",
+   105→            "prescriptionsUsed": 0,
+   106→            "prescriptionsLimit": 50,
+   107→            "status": "active"
+   108→          }
+   109→        }
+   110→      }
+   111→    },
+   112→    "selection": {
+   113→      "$composites": true,
+   114→      "$scalars": true,
+   115→      "settings": {
+   116→        "arguments": {},
+   117→        "selection": {
+   118→          "$composites": true,
+   119→          "$scalars": true
+   120→        }
+   121→      },
+   122→      "subscription": {
+   123→        "arguments": {},
+   124→        "selection": {
+   125→          "$composites": true,
+   126→          "$scalars": true
+   127→        }
+   128→      }
+   129→    }
+   130→  }
+   131→}
+   132→ +0ms
+   133→ POST /api/auth/signup 201 in 668ms (compile: 563ms, render: 105ms)
+   134→⚠ Cross origin request detected from preview-chat-d789d383-718c-40c0-a54a-1dbc4b3c7ed6.space-z.ai to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+   135→Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+   136→prisma:client Prisma Client call: +7486ms
+   137→prisma:client prisma.doctor.findUnique({
+   138→  where: {
+   139→    email: "imalaminrafi@gmail.com"
+   140→  },
+   141→  include: {
+   142→    subscription: true
+   143→  }
+   144→}) +1ms
+   145→prisma:client Generated request: +0ms
+   146→prisma:client {
+   147→  "modelName": "Doctor",
+   148→  "action": "findUnique",
+   149→  "query": {
+   150→    "arguments": {
+   151→      "where": {
+   152→        "email": "imalaminrafi@gmail.com"
+   153→      }
+   154→    },
+   155→    "selection": {
+   156→      "$composites": true,
+   157→      "$scalars": true,
+   158→      "subscription": {
+   159→        "arguments": {},
+   160→        "selection": {
+   161→          "$composites": true,
+   162→          "$scalars": true
+   163→        }
+   164→      }
+   165→    }
+   166→  }
+   167→}
+   168→ +0ms
+   169→ POST /api/auth/login 200 in 212ms (compile: 134ms, render: 77ms)
+   170→prisma:client Prisma Client call: +10054ms
+   171→prisma:client prisma.doctor.findUnique({
+   172→  where: {
+   173→    id: "undefined"
+   174→  },
+   175→  include: {
+   176→    settings: true,
+   177→    subscription: true
+   178→  }
+   179→}) +1ms
+   180→prisma:client Generated request: +0ms
+   181→prisma:client {
+   182→  "modelName": "Doctor",
+   183→  "action": "findUnique",
+   184→  "query": {
+   185→    "arguments": {
+   186→      "where": {
+   187→        "id": "undefined"
+   188→      }
+   189→    },
+   190→    "selection": {
+   191→      "$composites": true,
+   192→      "$scalars": true,
+   193→      "settings": {
+   194→        "arguments": {},
+   195→        "selection": {
+   196→          "$composites": true,
+   197→          "$scalars": true
+   198→        }
+   199→      },
+   200→      "subscription": {
+   201→        "arguments": {},
+   202→        "selection": {
+   203→          "$composites": true,
+   204→          "$scalars": true
+   205→        }
+   206→      }
+   207→    }
+   208→  }
+   209→}
+   210→ +0ms
+   211→ GET /api/patients?search=&page=1&limit=50 401 in 136ms (compile: 127ms, render: 9ms)
+   212→prisma:client Prisma Client call: +3481ms
+   213→prisma:client prisma.doctor.findUnique({
+   214→  where: {
+   215→    id: "undefined"
+   216→  },
+   217→  include: {
+   218→    settings: true,
+   219→    subscription: true
+   220→  }
+   221→}) +1ms
+   222→prisma:client Generated request: +0ms
+   223→prisma:client {
+   224→  "modelName": "Doctor",
+   225→  "action": "findUnique",
+   226→  "query": {
+   227→    "arguments": {
+   228→      "where": {
+   229→        "id": "undefined"
+   230→      }
+   231→    },
+   232→    "selection": {
+   233→      "$composites": true,
+   234→      "$scalars": true,
+   235→      "settings": {
+   236→        "arguments": {},
+   237→        "selection": {
+   238→          "$composites": true,
+   239→          "$scalars": true
+   240→        }
+   241→      },
+   242→      "subscription": {
+   243→        "arguments": {},
+   244→        "selection": {
+   245→          "$composites": true,
+   246→          "$scalars": true
+   247→        }
+   248→      }
+   249→    }
+   250→  }
+   251→}
+   252→ +0ms
+   253→ GET /api/prescriptions?search=&page=1&limit=50 401 in 176ms (compile: 170ms, render: 6ms)
+   254→prisma:client Prisma Client call: +60287ms
+   255→prisma:client prisma.doctor.findUnique({
+   256→  where: {
+   257→    id: "undefined"
+   258→  },
+   259→  include: {
+   260→    settings: true,
+   261→    subscription: true
+   262→  }
+   263→}) +0ms
+   264→prisma:client Generated request: +1ms
+   265→prisma:client {
+   266→  "modelName": "Doctor",
+   267→  "action": "findUnique",
+   268→  "query": {
+   269→    "arguments": {
+   270→      "where": {
+   271→        "id": "undefined"
+   272→      }
+   273→    },
+   274→    "selection": {
+   275→      "$composites": true,
+   276→      "$scalars": true,
+   277→      "settings": {
+   278→        "arguments": {},
+   279→        "selection": {
+   280→          "$composites": true,
+   281→          "$scalars": true
+   282→        }
+   283→      },
+   284→      "subscription": {
+   285→        "arguments": {},
+   286→        "selection": {
+   287→          "$composites": true,
+   288→          "$scalars": true
+   289→        }
+   290→      }
+   291→    }
+   292→  }
+   293→}
+   294→ +0ms
+   295→ GET /api/patients?search=&page=1&limit=50 401 in 8ms (compile: 2ms, render: 6ms)
+   296→prisma:client Prisma Client call: +42733ms
+   297→prisma:client prisma.doctor.findUnique({
+   298→  where: {
+   299→    id: "undefined"
+   300→  },
+   301→  include: {
+   302→    settings: true,
+   303→    subscription: true
+   304→  }
+   305→}) +0ms
+   306→prisma:client Generated request: +0ms
+   307→prisma:client {
+   308→  "modelName": "Doctor",
+   309→  "action": "findUnique",
+   310→  "query": {
+   311→    "arguments": {
+   312→      "where": {
+   313→        "id": "undefined"
+   314→      }
+   315→    },
+   316→    "selection": {
+   317→      "$composites": true,
+   318→      "$scalars": true,
+   319→      "settings": {
+   320→        "arguments": {},
+   321→        "selection": {
+   322→          "$composites": true,
+   323→          "$scalars": true
+   324→        }
+   325→      },
+   326→      "subscription": {
+   327→        "arguments": {},
+   328→        "selection": {
+   329→          "$composites": true,
+   330→          "$scalars": true
+   331→        }
+   332→      }
+   333→    }
+   334→  }
+   335→}
+   336→ +0ms
+   337→ POST /api/patients 401 in 8ms (compile: 2ms, render: 6ms)
+   338→prisma:client Prisma Client call: +3210ms
+   339→prisma:client prisma.doctor.findUnique({
+   340→  where: {
+   341→    id: "undefined"
+   342→  },
+   343→  include: {
+   344→    settings: true,
+   345→    subscription: true
+   346→  }
+   347→}) +0ms
+   348→prisma:client Generated request: +0ms
+   349→prisma:client {
+   350→  "modelName": "Doctor",
+   351→  "action": "findUnique",
+   352→  "query": {
+   353→    "arguments": {
+   354→      "where": {
+   355→        "id": "undefined"
+   356→      }
+   357→    },
+   358→    "selection": {
+   359→      "$composites": true,
+   360→      "$scalars": true,
+   361→      "settings": {
+   362→        "arguments": {},
+   363→        "selection": {
+   364→          "$composites": true,
+   365→          "$scalars": true
+   366→        }
+   367→      },
+   368→      "subscription": {
+   369→        "arguments": {},
+   370→        "selection": {
+   371→          "$composites": true,
+   372→          "$scalars": true
+   373→        }
+   374→      }
+   375→    }
+   376→  }
+   377→}
+   378→ +0ms
+   379→ POST /api/patients 401 in 9ms (compile: 2ms, render: 7ms)
+   380→prisma:client Prisma Client call: +9013ms
+   381→prisma:client prisma.doctor.findUnique({
+   382→  where: {
+   383→    id: "undefined"
+   384→  },
+   385→  include: {
+   386→    settings: true,
+   387→    subscription: true
+   388→  }
+   389→}) +0ms
+   390→prisma:client Generated request: +0ms
+   391→prisma:client {
+   392→  "modelName": "Doctor",
+   393→  "action": "findUnique",
+   394→  "query": {
+   395→    "arguments": {
+   396→      "where": {
+   397→        "id": "undefined"
+   398→      }
+   399→    },
+   400→    "selection": {
+   401→      "$composites": true,
+   402→      "$scalars": true,
+   403→      "settings": {
+   404→        "arguments": {},
+   405→        "selection": {
+   406→          "$composites": true,
+   407→          "$scalars": true
+   408→        }
+   409→      },
+   410→      "subscription": {
+   411→        "arguments": {},
+   412→        "selection": {
+   413→          "$composites": true,
+   414→          "$scalars": true
+   415→        }
+   416→      }
+   417→    }
+   418→  }
+   419→}
+   420→ +0ms
+   421→ POST /api/patients 401 in 8ms (compile: 2ms, render: 6ms)
+   422→prisma:client Prisma Client call: +1402ms
+   423→prisma:client prisma.doctor.findUnique({
+   424→  where: {
+   425→    id: "undefined"
+   426→  },
+   427→  include: {
+   428→    settings: true,
+   429→    subscription: true
+   430→  }
+   431→}) +0ms
+   432→prisma:client Generated request: +0ms
+   433→prisma:client {
+   434→  "modelName": "Doctor",
+   435→  "action": "findUnique",
+   436→  "query": {
+   437→    "arguments": {
+   438→      "where": {
+   439→        "id": "undefined"
+   440→      }
+   441→    },
+   442→    "selection": {
+   443→      "$composites": true,
+   444→      "$scalars": true,
+   445→      "settings": {
+   446→        "arguments": {},
+   447→        "selection": {
+   448→          "$composites": true,
+   449→          "$scalars": true
+   450→        }
+   451→      },
+   452→      "subscription": {
+   453→        "arguments": {},
+   454→        "selection": {
+   455→          "$composites": true,
+   456→          "$scalars": true
+   457→        }
+   458→      }
+   459→    }
+   460→  }
+   461→}
+   462→ +0ms
+   463→ POST /api/patients 401 in 7ms (compile: 1871µs, render: 5ms)
+   464→prisma:client Prisma Client call: +259ms
+   465→prisma:client prisma.doctor.findUnique({
+   466→  where: {
+   467→    id: "undefined"
+   468→  },
+   469→  include: {
+   470→    settings: true,
+   471→    subscription: true
+   472→  }
+   473→}) +1ms
+   474→prisma:client Generated request: +0ms
+   475→prisma:client {
+   476→  "modelName": "Doctor",
+   477→  "action": "findUnique",
+   478→  "query": {
+   479→    "arguments": {
+   480→      "where": {
+   481→        "id": "undefined"
+   482→      }
+   483→    },
+   484→    "selection": {
+   485→      "$composites": true,
+   486→      "$scalars": true,
+   487→      "settings": {
+   488→        "arguments": {},
+   489→        "selection": {
+   490→          "$composites": true,
+   491→          "$scalars": true
+   492→        }
+   493→      },
+   494→      "subscription": {
+   495→        "arguments": {},
+   496→        "selection": {
+   497→          "$composites": true,
+   498→          "$scalars": true
+   499→        }
+   500→      }
+   501→    }
+   502→  }
+   503→}
+   504→ +0ms
+   505→ POST /api/patients 401 in 6ms (compile: 1787µs, render: 5ms)
+   506→prisma:client Prisma Client call: +178ms
+   507→prisma:client prisma.doctor.findUnique({
+   508→  where: {
+   509→    id: "undefined"
+   510→  },
+   511→  include: {
+   512→    settings: true,
+   513→    subscription: true
+   514→  }
+   515→}) +0ms
+   516→prisma:client Generated request: +0ms
+   517→prisma:client {
+   518→  "modelName": "Doctor",
+   519→  "action": "findUnique",
+   520→  "query": {
+   521→    "arguments": {
+   522→      "where": {
+   523→        "id": "undefined"
+   524→      }
+   525→    },
+   526→    "selection": {
+   527→      "$composites": true,
+   528→      "$scalars": true,
+   529→      "settings": {
+   530→        "arguments": {},
+   531→        "selection": {
+   532→          "$composites": true,
+   533→          "$scalars": true
+   534→        }
+   535→      },
+   536→      "subscription": {
+   537→        "arguments": {},
+   538→        "selection": {
+   539→          "$composites": true,
+   540→          "$scalars": true
+   541→        }
+   542→      }
+   543→    }
+   544→  }
+   545→}
+   546→ +0ms
+   547→ POST /api/patients 401 in 7ms (compile: 1991µs, render: 5ms)
+   548→prisma:client Prisma Client call: +2917ms
+   549→prisma:client prisma.doctor.findUnique({
+   550→  where: {
+   551→    id: "undefined"
+   552→  },
+   553→  include: {
+   554→    settings: true,
+   555→    subscription: true
+   556→  }
+   557→}) +0ms
+   558→prisma:client Generated request: +0ms
+   559→prisma:client {
+   560→  "modelName": "Doctor",
+   561→  "action": "findUnique",
+   562→  "query": {
+   563→    "arguments": {
+   564→      "where": {
+   565→        "id": "undefined"
+   566→      }
+   567→    },
+   568→    "selection": {
+   569→      "$composites": true,
+   570→      "$scalars": true,
+   571→      "settings": {
+   572→        "arguments": {},
+   573→        "selection": {
+   574→          "$composites": true,
+   575→          "$scalars": true
+   576→        }
+   577→      },
+   578→      "subscription": {
+   579→        "arguments": {},
+   580→        "selection": {
+   581→          "$composites": true,
+   582→          "$scalars": true
+   583→        }
+   584→      }
+   585→    }
+   586→  }
+   587→}
+   588→ +0ms
+   589→ POST /api/patients 401 in 7ms (compile: 2ms, render: 5ms)
+   590→prisma:client Prisma Client call: +252ms
+   591→prisma:client prisma.doctor.findUnique({
+   592→  where: {
+   593→    id: "undefined"
+   594→  },
+   595→  include: {
+   596→    settings: true,
+   597→    subscription: true
+   598→  }
+   599→}) +1ms
+   600→prisma:client Generated request: +0ms
+   601→prisma:client {
+   602→  "modelName": "Doctor",
+   603→  "action": "findUnique",
+   604→  "query": {
+   605→    "arguments": {
+   606→      "where": {
+   607→        "id": "undefined"
+   608→      }
+   609→    },
+   610→    "selection": {
+   611→      "$composites": true,
+   612→      "$scalars": true,
+   613→      "settings": {
+   614→        "arguments": {},
+   615→        "selection": {
+   616→          "$composites": true,
+   617→          "$scalars": true
+   618→        }
+   619→      },
+   620→      "subscription": {
+   621→        "arguments": {},
+   622→        "selection": {
+   623→          "$composites": true,
+   624→          "$scalars": true
+   625→        }
+   626→      }
+   627→    }
+   628→  }
+   629→}
+   630→ +0ms
+   631→ POST /api/patients 401 in 6ms (compile: 2ms, render: 4ms)
+   632→prisma:client Prisma Client call: +171ms
+   633→prisma:client prisma.doctor.findUnique({
+   634→  where: {
+   635→    id: "undefined"
+   636→  },
+   637→  include: {
+   638→    settings: true,
+   639→    subscription: true
+   640→  }
+   641→}) +0ms
+   642→prisma:client Generated request: +0ms
+   643→prisma:client {
+   644→  "modelName": "Doctor",
+   645→  "action": "findUnique",
+   646→  "query": {
+   647→    "arguments": {
+   648→      "where": {
+   649→        "id": "undefined"
+   650→      }
+   651→    },
+   652→    "selection": {
+   653→      "$composites": true,
+   654→      "$scalars": true,
+   655→      "settings": {
+   656→        "arguments": {},
+   657→        "selection": {
+   658→          "$composites": true,
+   659→          "$scalars": true
+   660→        }
+   661→      },
+   662→      "subscription": {
+   663→        "arguments": {},
+   664→        "selection": {
+   665→          "$composites": true,
+   666→          "$scalars": true
+   667→        }
+   668→      }
+   669→    }
+   670→  }
+   671→}
+   672→ +0ms
+   673→ POST /api/patients 401 in 8ms (compile: 1903µs, render: 6ms)
+   674→prisma:client Prisma Client call: +1137ms
+   675→prisma:client prisma.doctor.findUnique({
+   676→  where: {
+   677→    id: "undefined"
+   678→  },
+   679→  include: {
+   680→    settings: true,
+   681→    subscription: true
+   682→  }
+   683→}) +0ms
+   684→prisma:client Generated request: +0ms
+   685→prisma:client {
+   686→  "modelName": "Doctor",
+   687→  "action": "findUnique",
+   688→  "query": {
+   689→    "arguments": {
+   690→      "where": {
+   691→        "id": "undefined"
+   692→      }
+   693→    },
+   694→    "selection": {
+   695→      "$composites": true,
+   696→      "$scalars": true,
+   697→      "settings": {
+   698→        "arguments": {},
+   699→        "selection": {
+   700→          "$composites": true,
+   701→          "$scalars": true
+   702→        }
+   703→      },
+   704→      "subscription": {
+   705→        "arguments": {},
+   706→        "selection": {
+   707→          "$composites": true,
+   708→          "$scalars": true
+   709→        }
+   710→      }
+   711→    }
+   712→  }
+   713→}
+   714→ +0ms
+   715→ POST /api/patients 401 in 6ms (compile: 1984µs, render: 4ms)
+   716→prisma:client Prisma Client call: +218ms
+   717→prisma:client prisma.doctor.findUnique({
+   718→  where: {
+   719→    id: "undefined"
+   720→  },
+   721→  include: {
+   722→    settings: true,
+   723→    subscription: true
+   724→  }
+   725→}) +0ms
+   726→prisma:client Generated request: +0ms
+   727→prisma:client {
+   728→  "modelName": "Doctor",
+   729→  "action": "findUnique",
+   730→  "query": {
+   731→    "arguments": {
+   732→      "where": {
+   733→        "id": "undefined"
+   734→      }
+   735→    },
+   736→    "selection": {
+   737→      "$composites": true,
+   738→      "$scalars": true,
+   739→      "settings": {
+   740→        "arguments": {},
+   741→        "selection": {
+   742→          "$composites": true,
+   743→          "$scalars": true
+   744→        }
+   745→      },
+   746→      "subscription": {
+   747→        "arguments": {},
+   748→        "selection": {
+   749→          "$composites": true,
+   750→          "$scalars": true
+   751→        }
+   752→      }
+   753→    }
+   754→  }
+   755→}
+   756→ +0ms
+   757→ POST /api/patients 401 in 6ms (compile: 1863µs, render: 4ms)
+   758→prisma:client Prisma Client call: +261ms
+   759→prisma:client prisma.doctor.findUnique({
+   760→  where: {
+   761→    id: "undefined"
+   762→  },
+   763→  include: {
+   764→    settings: true,
+   765→    subscription: true
+   766→  }
+   767→}) +0ms
+   768→prisma:client Generated request: +0ms
+   769→prisma:client {
+   770→  "modelName": "Doctor",
+   771→  "action": "findUnique",
+   772→  "query": {
+   773→    "arguments": {
+   774→      "where": {
+   775→        "id": "undefined"
+   776→      }
+   777→    },
+   778→    "selection": {
+   779→      "$composites": true,
+   780→      "$scalars": true,
+   781→      "settings": {
+   782→        "arguments": {},
+   783→        "selection": {
+   784→          "$composites": true,
+   785→          "$scalars": true
+   786→        }
+   787→      },
+   788→      "subscription": {
+   789→        "arguments": {},
+   790→        "selection": {
+   791→          "$composites": true,
+   792→          "$scalars": true
+   793→        }
+   794→      }
+   795→    }
+   796→  }
+   797→}
+   798→ +0ms
+   799→ POST /api/patients 401 in 7ms (compile: 2ms, render: 5ms)
+   800→prisma:client Prisma Client call: +33027ms
+   801→prisma:client prisma.doctor.findUnique({
+   802→  where: {
+   803→    id: "undefined"
+   804→  },
+   805→  include: {
+   806→    settings: true,
+   807→    subscription: true
+   808→  }
+   809→}) +1ms
+   810→prisma:client Generated request: +0ms
+   811→prisma:client {
+   812→  "modelName": "Doctor",
+   813→  "action": "findUnique",
+   814→  "query": {
+   815→    "arguments": {
+   816→      "where": {
+   817→        "id": "undefined"
+   818→      }
+   819→    },
+   820→    "selection": {
+   821→      "$composites": true,
+   822→      "$scalars": true,
+   823→      "settings": {
+   824→        "arguments": {},
+   825→        "selection": {
+   826→          "$composites": true,
+   827→          "$scalars": true
+   828→        }
+   829→      },
+   830→      "subscription": {
+   831→        "arguments": {},
+   832→        "selection": {
+   833→          "$composites": true,
+   834→          "$scalars": true
+   835→        }
+   836→      }
+   837→    }
+   838→  }
+   839→}
+   840→ +0ms
+   841→ GET /api/patients?search=&page=1&limit=50 401 in 7ms (compile: 2ms, render: 5ms)
+   842→prisma:client Prisma Client call: +61068ms
+   843→prisma:client prisma.doctor.findUnique({
+   844→  where: {
+   845→    id: "undefined"
+   846→  },
+   847→  include: {
+   848→    settings: true,
+   849→    subscription: true
+   850→  }
+   851→}) +0ms
+   852→prisma:client Generated request: +0ms
+   853→prisma:client {
+   854→  "modelName": "Doctor",
+   855→  "action": "findUnique",
+   856→  "query": {
+   857→    "arguments": {
+   858→      "where": {
+   859→        "id": "undefined"
+   860→      }
+   861→    },
+   862→    "selection": {
+   863→      "$composites": true,
+   864→      "$scalars": true,
+   865→      "settings": {
+   866→        "arguments": {},
+   867→        "selection": {
+   868→          "$composites": true,
+   869→          "$scalars": true
+   870→        }
+   871→      },
+   872→      "subscription": {
+   873→        "arguments": {},
+   874→        "selection": {
+   875→          "$composites": true,
+   876→          "$scalars": true
+   877→        }
+   878→      }
+   879→    }
+   880→  }
+   881→}
+   882→ +0ms
+   883→ GET /api/prescriptions?search=&page=1&limit=50 401 in 6ms (compile: 1993µs, render: 4ms)
+   884→prisma:client Prisma Client call: +82212ms
+   885→prisma:client prisma.doctor.findUnique({
+   886→  where: {
+   887→    id: "undefined"
+   888→  },
+   889→  include: {
+   890→    settings: true,
+   891→    subscription: true
+   892→  }
+   893→}) +0ms
+   894→prisma:client Generated request: +0ms
+   895→prisma:client {
+   896→  "modelName": "Doctor",
+   897→  "action": "findUnique",
+   898→  "query": {
+   899→    "arguments": {
+   900→      "where": {
+   901→        "id": "undefined"
+   902→      }
+   903→    },
+   904→    "selection": {
+   905→      "$composites": true,
+   906→      "$scalars": true,
+   907→      "settings": {
+   908→        "arguments": {},
+   909→        "selection": {
+   910→          "$composites": true,
+   911→          "$scalars": true
+   912→        }
+   913→      },
+   914→      "subscription": {
+   915→        "arguments": {},
+   916→        "selection": {
+   917→          "$composites": true,
+   918→          "$scalars": true
+   919→        }
+   920→      }
+   921→    }
+   922→  }
+   923→}
+   924→ +0ms
+   925→ GET /api/patients?search=&page=1&limit=50 401 in 8ms (compile: 3ms, render: 5ms)
+   926→prisma:client Prisma Client call: +753ms
+   927→prisma:client prisma.doctor.findUnique({
+   928→  where: {
+   929→    id: "undefined"
+   930→  },
+   931→  include: {
+   932→    settings: true,
+   933→    subscription: true
+   934→  }
+   935→}) +1ms
+   936→prisma:client Generated request: +0ms
+   937→prisma:client {
+   938→  "modelName": "Doctor",
+   939→  "action": "findUnique",
+   940→  "query": {
+   941→    "arguments": {
+   942→      "where": {
+   943→        "id": "undefined"
+   944→      }
+   945→    },
+   946→    "selection": {
+   947→      "$composites": true,
+   948→      "$scalars": true,
+   949→      "settings": {
+   950→        "arguments": {},
+   951→        "selection": {
+   952→          "$composites": true,
+   953→          "$scalars": true
+   954→        }
+   955→      },
+   956→      "subscription": {
+   957→        "arguments": {},
+   958→        "selection": {
+   959→          "$composites": true,
+   960→          "$scalars": true
+   961→        }
+   962→      }
+   963→    }
+   964→  }
+   965→}
+   966→ +0ms
+   967→ GET /api/prescriptions?search=&page=1&limit=50 401 in 7ms (compile: 2ms, render: 4ms)
+   968→prisma:client Prisma Client call: +24600ms
+   969→prisma:client prisma.doctor.findUnique({
+   970→  where: {
+   971→    id: "undefined"
+   972→  },
+   973→  include: {
+   974→    settings: true,
+   975→    subscription: true
+   976→  }
+   977→}) +1ms
+   978→prisma:client Generated request: +0ms
+   979→prisma:client {
+   980→  "modelName": "Doctor",
+   981→  "action": "findUnique",
+   982→  "query": {
+   983→    "arguments": {
+   984→      "where": {
+   985→        "id": "undefined"
+   986→      }
+   987→    },
+   988→    "selection": {
+   989→      "$composites": true,
+   990→      "$scalars": true,
+   991→      "settings": {
+   992→        "arguments": {},
+   993→        "selection": {
+   994→          "$composites": true,
+   995→          "$scalars": true
+   996→        }
+   997→      },
+   998→      "subscription": {
+   999→        "arguments": {},
+  1000→        "selection": {
+  1001→          "$composites": true,
+  1002→          "$scalars": true
+  1003→        }
+  1004→      }
+  1005→    }
+  1006→  }
+  1007→}
+  1008→ +0ms
+  1009→ GET /api/patients?search=&page=1&limit=50 401 in 7ms (compile: 2ms, render: 5ms)
+  1010→prisma:client Prisma Client call: +6143ms
+  1011→prisma:client prisma.doctor.findUnique({
+  1012→  where: {
+  1013→    id: "undefined"
+  1014→  },
+  1015→  include: {
+  1016→    settings: true,
+  1017→    subscription: true
+  1018→  }
+  1019→}) +0ms
+  1020→prisma:client Generated request: +0ms
+  1021→prisma:client {
+  1022→  "modelName": "Doctor",
+  1023→  "action": "findUnique",
+  1024→  "query": {
+  1025→    "arguments": {
+  1026→      "where": {
+  1027→        "id": "undefined"
+  1028→      }
+  1029→    },
+  1030→    "selection": {
+  1031→      "$composites": true,
+  1032→      "$scalars": true,
+  1033→      "settings": {
+  1034→        "arguments": {},
+  1035→        "selection": {
+  1036→          "$composites": true,
+  1037→          "$scalars": true
+  1038→        }
+  1039→      },
+  1040→      "subscription": {
+  1041→        "arguments": {},
+  1042→        "selection": {
+  1043→          "$composites": true,
+  1044→          "$scalars": true
+  1045→        }
+  1046→      }
+  1047→    }
+  1048→  }
+  1049→}
+  1050→ +0ms
+  1051→ GET /api/prescriptions?search=&page=1&limit=50 401 in 7ms (compile: 2ms, render: 5ms)
+  1052→prisma:client Prisma Client call: +11372ms
+  1053→prisma:client prisma.doctor.findUnique({
+  1054→  where: {
+  1055→    id: "undefined"
+  1056→  },
+  1057→  include: {
+  1058→    settings: true,
+  1059→    subscription: true
+  1060→  }
+  1061→}) +1ms
+  1062→prisma:client Generated request: +0ms
+  1063→prisma:client {
+  1064→  "modelName": "Doctor",
+  1065→  "action": "findUnique",
+  1066→  "query": {
+  1067→    "arguments": {
+  1068→      "where": {
+  1069→        "id": "undefined"
+  1070→      }
+  1071→    },
+  1072→    "selection": {
+  1073→      "$composites": true,
+  1074→      "$scalars": true,
+  1075→      "settings": {
+  1076→        "arguments": {},
+  1077→        "selection": {
+  1078→          "$composites": true,
+  1079→          "$scalars": true
+  1080→        }
+  1081→      },
+  1082→      "subscription": {
+  1083→        "arguments": {},
+  1084→        "selection": {
+  1085→          "$composites": true,
+  1086→          "$scalars": true
+  1087→        }
+  1088→      }
+  1089→    }
+  1090→  }
+  1091→}
+  1092→ +0ms
+  1093→ GET /api/prescriptions?search=&page=1&limit=50 401 in 8ms (compile: 2ms, render: 5ms)
+  1094→prisma:client Prisma Client call: +27936ms
+  1095→prisma:client prisma.doctor.findUnique({
+  1096→  where: {
+  1097→    id: "undefined"
+  1098→  },
+  1099→  include: {
+  1100→    settings: true,
+  1101→    subscription: true
+  1102→  }
+  1103→}) +0ms
+  1104→prisma:client Generated request: +1ms
+  1105→prisma:client {
+  1106→  "modelName": "Doctor",
+  1107→  "action": "findUnique",
+  1108→  "query": {
+  1109→    "arguments": {
+  1110→      "where": {
+  1111→        "id": "undefined"
+  1112→      }
+  1113→    },
+  1114→    "selection": {
+  1115→      "$composites": true,
+  1116→      "$scalars": true,
+  1117→      "settings": {
+  1118→        "arguments": {},
+  1119→        "selection": {
+  1120→          "$composites": true,
+  1121→          "$scalars": true
+  1122→        }
+  1123→      },
+  1124→      "subscription": {
+  1125→        "arguments": {},
+  1126→        "selection": {
+  1127→          "$composites": true,
+  1128→          "$scalars": true
+  1129→        }
+  1130→      }
+  1131→    }
+  1132→  }
+  1133→}
+  1134→ +0ms
+  1135→ GET /api/patients?search=&page=1&limit=50 401 in 9ms (compile: 2ms, render: 6ms)
+  1136→prisma:client Prisma Client call: +21450ms
+  1137→prisma:client prisma.doctor.findUnique({
+  1138→  where: {
+  1139→    id: "undefined"
+  1140→  },
+  1141→  include: {
+  1142→    settings: true,
+  1143→    subscription: true
+  1144→  }
+  1145→}) +0ms
+  1146→prisma:client Generated request: +0ms
+  1147→prisma:client {
+  1148→  "modelName": "Doctor",
+  1149→  "action": "findUnique",
+  1150→  "query": {
+  1151→    "arguments": {
+  1152→      "where": {
+  1153→        "id": "undefined"
+  1154→      }
+  1155→    },
+  1156→    "selection": {
+  1157→      "$composites": true,
+  1158→      "$scalars": true,
+  1159→      "settings": {
+  1160→        "arguments": {},
+  1161→        "selection": {
+  1162→          "$composites": true,
+  1163→          "$scalars": true
+  1164→        }
+  1165→      },
+  1166→      "subscription": {
+  1167→        "arguments": {},
+  1168→        "selection": {
+  1169→          "$composites": true,
+  1170→          "$scalars": true
+  1171→        }
+  1172→      }
+  1173→    }
+  1174→  }
+  1175→}
+  1176→ +0ms
+  1177→ GET /api/patients?search=&page=1&limit=50 401 in 6ms (compile: 1964µs, render: 5ms)
+  1178→prisma:client Prisma Client call: +1702ms
+  1179→prisma:client prisma.doctor.findUnique({
+  1180→  where: {
+  1181→    id: "undefined"
+  1182→  },
+  1183→  include: {
+  1184→    settings: true,
+  1185→    subscription: true
+  1186→  }
+  1187→}) +1ms
+  1188→prisma:client Generated request: +0ms
+  1189→prisma:client {
+  1190→  "modelName": "Doctor",
+  1191→  "action": "findUnique",
+  1192→  "query": {
+  1193→    "arguments": {
+  1194→      "where": {
+  1195→        "id": "undefined"
+  1196→      }
+  1197→    },
+  1198→    "selection": {
+  1199→      "$composites": true,
+  1200→      "$scalars": true,
+  1201→      "settings": {
+  1202→        "arguments": {},
+  1203→        "selection": {
+  1204→          "$composites": true,
+  1205→          "$scalars": true
+  1206→        }
+  1207→      },
+  1208→      "subscription": {
+  1209→        "arguments": {},
+  1210→        "selection": {
+  1211→          "$composites": true,
+  1212→          "$scalars": true
+  1213→        }
+  1214→      }
+  1215→    }
+  1216→  }
+  1217→}
+  1218→ +0ms
+  1219→ GET /api/prescriptions?search=&page=1&limit=50 401 in 7ms (compile: 2ms, render: 4ms)
+  1220→prisma:client Prisma Client call: +40065ms
+  1221→prisma:client prisma.doctor.findUnique({
+  1222→  where: {
+  1223→    id: "undefined"
+  1224→  },
+  1225→  include: {
+  1226→    settings: true,
+  1227→    subscription: true
+  1228→  }
+  1229→}) +1ms
+  1230→prisma:client Generated request: +0ms
+  1231→prisma:client {
+  1232→  "modelName": "Doctor",
+  1233→  "action": "findUnique",
+  1234→  "query": {
+  1235→    "arguments": {
+  1236→      "where": {
+  1237→        "id": "undefined"
+  1238→      }
+  1239→    },
+  1240→    "selection": {
+  1241→      "$composites": true,
+  1242→      "$scalars": true,
+  1243→      "settings": {
+  1244→        "arguments": {},
+  1245→        "selection": {
+  1246→          "$composites": true,
+  1247→          "$scalars": true
+  1248→        }
+  1249→      },
+  1250→      "subscription": {
+  1251→        "arguments": {},
+  1252→        "selection": {
+  1253→          "$composites": true,
+  1254→          "$scalars": true
+  1255→        }
+  1256→      }
+  1257→    }
+  1258→  }
+  1259→}
+  1260→ +0ms
+  1261→ GET /api/patients?search=&page=1&limit=50 401 in 7ms (compile: 2ms, render: 5ms)
+  1262→prisma:client Prisma Client call: +445ms
+  1263→prisma:client prisma.doctor.findUnique({
+  1264→  where: {
+  1265→    id: "undefined"
+  1266→  },
+  1267→  include: {
+  1268→    settings: true,
+  1269→    subscription: true
+  1270→  }
+  1271→}) +0ms
+  1272→prisma:client Generated request: +0ms
+  1273→prisma:client {
+  1274→  "modelName": "Doctor",
+  1275→  "action": "findUnique",
+  1276→  "query": {
+  1277→    "arguments": {
+  1278→      "where": {
+  1279→        "id": "undefined"
+  1280→      }
+  1281→    },
+  1282→    "selection": {
+  1283→      "$composites": true,
+  1284→      "$scalars": true,
+  1285→      "settings": {
+  1286→        "arguments": {},
+  1287→        "selection": {
+  1288→          "$composites": true,
+  1289→          "$scalars": true
+  1290→        }
+  1291→      },
+  1292→      "subscription": {
+  1293→        "arguments": {},
+  1294→        "selection": {
+  1295→          "$composites": true,
+  1296→          "$scalars": true
+  1297→        }
+  1298→      }
+  1299→    }
+  1300→  }
+  1301→}
+  1302→ +0ms
+  1303→ GET /api/prescriptions?search=&page=1&limit=50 401 in 6ms (compile: 1952µs, render: 4ms)
+  1304→ GET / 200 in 67ms (compile: 4ms, render: 64ms)
+  1305→ GET / 200 in 49ms (compile: 4ms, render: 46ms)
+  1306→ GET / 200 in 26ms (compile: 2ms, render: 24ms)
+  1307→ GET / 200 in 27ms (compile: 2ms, render: 24ms)
+  1308→prisma:client Prisma Client call: +228731ms
+  1309→prisma:client prisma.doctor.findUnique({
+  1310→  where: {
+  1311→    id: "undefined"
+  1312→  },
+  1313→  include: {
+  1314→    settings: true,
+  1315→    subscription: true
+  1316→  }
+  1317→}) +0ms
+  1318→prisma:client Generated request: +0ms
+  1319→prisma:client {
+  1320→  "modelName": "Doctor",
+  1321→  "action": "findUnique",
+  1322→  "query": {
+  1323→    "arguments": {
+  1324→      "where": {
+  1325→        "id": "undefined"
+  1326→      }
+  1327→    },
+  1328→    "selection": {
+  1329→      "$composites": true,
+  1330→      "$scalars": true,
+  1331→      "settings": {
+  1332→        "arguments": {},
+  1333→        "selection": {
+  1334→          "$composites": true,
+  1335→          "$scalars": true
+  1336→        }
+  1337→      },
+  1338→      "subscription": {
+  1339→        "arguments": {},
+  1340→        "selection": {
+  1341→          "$composites": true,
+  1342→          "$scalars": true
+  1343→        }
+  1344→      }
+  1345→    }
+  1346→  }
+  1347→}
+  1348→ +1ms
+  1349→ GET /api/patients?search=&page=1&limit=50 401 in 8ms (compile: 2ms, render: 6ms)
+  1350→prisma:client Prisma Client call: +35502ms
+  1351→prisma:client prisma.doctor.findUnique({
+  1352→  where: {
+  1353→    id: "undefined"
+  1354→  },
+  1355→  include: {
+  1356→    settings: true,
+  1357→    subscription: true
+  1358→  }
+  1359→}) +0ms
+  1360→prisma:client Generated request: +0ms
+  1361→prisma:client {
+  1362→  "modelName": "Doctor",
+  1363→  "action": "findUnique",
+  1364→  "query": {
+  1365→    "arguments": {
+  1366→      "where": {
+  1367→        "id": "undefined"
+  1368→      }
+  1369→    },
+  1370→    "selection": {
+  1371→      "$composites": true,
+  1372→      "$scalars": true,
+  1373→      "settings": {
+  1374→        "arguments": {},
+  1375→        "selection": {
+  1376→          "$composites": true,
+  1377→          "$scalars": true
+  1378→        }
+  1379→      },
+  1380→      "subscription": {
+  1381→        "arguments": {},
+  1382→        "selection": {
+  1383→          "$composites": true,
+  1384→          "$scalars": true
+  1385→        }
+  1386→      }
+  1387→    }
+  1388→  }
+  1389→}
+  1390→ +0ms
+  1391→ GET /api/prescriptions?search=&page=1&limit=50 401 in 7ms (compile: 2ms, render: 5ms)
+  1392→✓ Compiled in 124ms
+  1393→✓ Compiled in 146ms
+  1394→✓ Compiled in 41ms
+  1395→✓ Compiled in 167ms
+  1396→ GET / 200 in 59ms (compile: 34ms, render: 25ms)
+  1397→ GET / 200 in 22ms (compile: 7ms, render: 15ms)
+  1398→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+  1399→ GET / 200 in 11ms (compile: 1543µs, render: 9ms)
+  1400→ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+  1401→ GET / 200 in 11ms (compile: 1516µs, render: 10ms)
+  1402→ GET / 200 in 12ms (compile: 1899µs, render: 10ms)
+  1403→ GET / 200 in 16ms (compile: 1796µs, render: 14ms)
+  1404→ GET / 200 in 12ms (compile: 1813µs, render: 10ms)
+  1405→ GET / 200 in 12ms (compile: 1514µs, render: 11ms)
+  1406→ GET / 200 in 12ms (compile: 1892µs, render: 10ms)
+  1407→ GET / 200 in 11ms (compile: 1658µs, render: 10ms)
+  1408→ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+  1409→ GET / 200 in 12ms (compile: 1767µs, render: 10ms)
+  1410→ GET / 200 in 11ms (compile: 1729µs, render: 10ms)
+  1411→ GET / 200 in 12ms (compile: 1748µs, render: 10ms)
+  1412→ GET / 200 in 13ms (compile: 1913µs, render: 11ms)
+  1413→ GET / 200 in 15ms (compile: 1947µs, render: 13ms)
+  1414→ GET / 200 in 12ms (compile: 3ms, render: 9ms)
+  1415→ GET / 200 in 11ms (compile: 1962µs, render: 9ms)
+  1416→ GET / 200 in 11ms (compile: 1564µs, render: 9ms)
+  1417→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+  1418→ GET / 200 in 14ms (compile: 1466µs, render: 12ms)
+  1419→ GET / 200 in 11ms (compile: 1878µs, render: 10ms)
+  1420→ GET / 200 in 11ms (compile: 1624µs, render: 9ms)
+  1421→ GET / 200 in 13ms (compile: 2ms, render: 10ms)
+  1422→ GET / 200 in 11ms (compile: 1689µs, render: 9ms)
+  1423→ GET / 200 in 26ms (compile: 1993µs, render: 24ms)
+  1424→ GET / 200 in 11ms (compile: 1523µs, render: 10ms)
+  1425→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+  1426→ GET / 200 in 11ms (compile: 1525µs, render: 9ms)
+  1427→ GET / 200 in 11ms (compile: 1816µs, render: 9ms)
+  1428→ GET / 200 in 18ms (compile: 2ms, render: 15ms)
+  1429→ GET / 200 in 12ms (compile: 1959µs, render: 10ms)
+  1430→ GET / 200 in 11ms (compile: 1470µs, render: 9ms)
+  1431→ GET / 200 in 12ms (compile: 1917µs, render: 10ms)
+  1432→ GET / 200 in 11ms (compile: 1912µs, render: 9ms)
+  1433→ GET / 200 in 10ms (compile: 1561µs, render: 8ms)
+  1434→ GET / 200 in 12ms (compile: 1930µs, render: 10ms)
+  1435→ GET / 200 in 11ms (compile: 1613µs, render: 9ms)
+  1436→ GET / 200 in 27ms (compile: 2ms, render: 24ms)
+  1437→ GET / 200 in 12ms (compile: 1573µs, render: 10ms)
+  1438→ GET / 200 in 24ms (compile: 2ms, render: 22ms)
+  1439→ GET / 200 in 12ms (compile: 1587µs, render: 11ms)
+  1440→ GET / 200 in 23ms (compile: 2ms, render: 21ms)
+  1441→ GET / 200 in 12ms (compile: 1560µs, render: 10ms)
+  1442→ GET / 200 in 23ms (compile: 2ms, render: 21ms)
+  1443→ GET / 200 in 11ms (compile: 1491µs, render: 10ms)
+  1444→ GET / 200 in 24ms (compile: 2ms, render: 22ms)
+  1445→ GET / 200 in 12ms (compile: 1740µs, render: 11ms)
+  1446→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+  1447→ GET / 200 in 13ms (compile: 2ms, render: 10ms)
+  1448→✓ Compiled in 163ms
+  1449→✓ Compiled in 206ms
+  1450→✓ Compiled in 152ms
+  1451→✓ Compiled in 177ms
+  1452→✓ Compiled in 162ms
+  1453→✓ Compiled in 175ms
+  1454→✓ Compiled in 177ms
+  1455→✓ Compiled in 152ms
+  1456→✓ Compiled in 171ms
+  1457→✓ Compiled in 163ms
+  1458→✓ Compiled in 171ms
+  1459→✓ Compiled in 157ms
+  1460→✓ Compiled in 110ms
+  1461→✓ Compiled in 238ms
+  1462→✓ Compiled in 127ms
+  1463→✓ Compiled in 688ms
+  1464→✓ Compiled in 161ms
+  1465→prisma:client dirname /home/z/my-project/node_modules/.prisma/client +7ms
+  1466→prisma:client relativePath ../../../prisma +1ms
+  1467→prisma:client cwd /home/z/my-project/prisma +0ms
+  1468→prisma:client clientVersion 6.19.2 +0ms
+  1469→prisma:client Prisma Client call: +530233ms
+  1470→prisma:client prisma.prescription.findUnique({
+  1471→  where: {
+  1472→    id: "test123"
+  1473→  },
+  1474→  include: {
+  1475→    doctor: {
+  1476→      select: {
+  1477→        name: true,
+  1478→        degrees: true,
+  1479→        specialty: true,
+  1480→        bmdcNumber: true,
+  1481→        chamberName: true,
+  1482→        chamberAddress: true,
+  1483→        chamberPhone: true
+  1484→      }
+  1485→    },
+  1486→    patient: {
+  1487→      select: {
+  1488→        name: true,
+  1489→        age: true,
+  1490→        gender: true
+  1491→      }
+  1492→    }
+  1493→  }
+  1494→}) +1ms
+  1495→prisma:client Generated request: +0ms
+  1496→prisma:client {
+  1497→  "modelName": "Prescription",
+  1498→  "action": "findUnique",
+  1499→  "query": {
+  1500→    "arguments": {
+  1501→      "where": {
+  1502→        "id": "test123"
+  1503→      }
+  1504→    },
+  1505→    "selection": {
+  1506→      "$composites": true,
+  1507→      "$scalars": true,
+  1508→      "doctor": {
+  1509→        "arguments": {},
+  1510→        "selection": {
+  1511→          "name": true,
+  1512→          "degrees": true,
+  1513→          "specialty": true,
+  1514→          "bmdcNumber": true,
+  1515→          "chamberName": true,
+  1516→          "chamberAddress": true,
+  1517→          "chamberPhone": true
+  1518→        }
+  1519→      },
+  1520→      "patient": {
+  1521→        "arguments": {},
+  1522→        "selection": {
+  1523→          "name": true,
+  1524→          "age": true,
+  1525→          "gender": true
+  1526→        }
+  1527→      }
+  1528→    }
+  1529→  }
+  1530→}
+  1531→ +0ms
+  1532→ GET /verify/test123 200 in 885ms (compile: 772ms, render: 113ms)
+  1533→ GET / 200 in 288ms (compile: 38ms, render: 250ms)
+  1534→✓ Compiled in 171ms
+  1535→ GET / 200 in 31ms (compile: 3ms, render: 29ms)
+  1536→⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  1537→✓ Compiled in 221ms
+  1538→ GET / 404 in 896ms (compile: -87365µs, proxy.ts: 876ms, render: 108ms)
+  1539→ GET / 404 in 945ms (compile: -6717µs, proxy.ts: 942ms, render: 10ms)
+  1540→ GET / 200 in 301ms (compile: 36ms, proxy.ts: 44ms, render: 220ms)
+  1541→ GET / 200 in 198ms (compile: 23ms, proxy.ts: 89ms, render: 87ms)
+  1542→ GET / 200 in 102ms (compile: 31ms, proxy.ts: 5ms, render: 66ms)
+  1543→ GET / 200 in 97ms (compile: 46ms, proxy.ts: 6ms, render: 46ms)
+  1544→✓ Compiled in 136ms
+  1545→✓ Compiled in 180ms
+  1546→✓ Compiled in 137ms
+  1547→ GET / 200 in 93ms (compile: 44ms, proxy.ts: 5ms, render: 45ms)
+  1548→ GET / 200 in 21ms (compile: 3ms, proxy.ts: 3ms, render: 15ms)
+  1549→ GET / 200 in 19ms (compile: 3ms, proxy.ts: 3ms, render: 13ms)
+  1550→ GET / 200 in 18ms (compile: 2ms, proxy.ts: 2ms, render: 13ms)
+  1551→ GET / 200 in 33ms (compile: 5ms, proxy.ts: 4ms, render: 25ms)
+  1552→ GET / 200 in 29ms (compile: 16ms, proxy.ts: 2ms, render: 11ms)
+  1553→✓ Compiled in 188ms
+  1554→✓ Compiled in 194ms
+  1555→✓ Compiled in 182ms
+  1556→✓ Compiled in 203ms
+  1557→✓ Compiled in 135ms
+  1558→✓ Compiled in 195ms
+  1559→✓ Compiled in 133ms
+  1560→✓ Compiled in 114ms
+  1561→✓ Compiled in 233ms
+  1562→✓ Compiled in 247ms
+  1563→✓ Compiled in 103ms
+  1564→✓ Compiled in 108ms
+  1565→✓ Compiled in 119ms
+  1566→✓ Compiled in 161ms
+  1567→✓ Compiled in 145ms
+  1568→✓ Compiled in 156ms
+  1569→✓ Compiled in 123ms
+  1570→ GET / 200 in 189ms (compile: 38ms, proxy.ts: 3ms, render: 148ms)
+  1571→ GET / 200 in 34ms (compile: 5ms, proxy.ts: 4ms, render: 26ms)
+  1572→prisma:client Prisma Client call: +798293ms
+  1573→prisma:client prisma.doctor.findUnique({
+  1574→  where: {
+  1575→    id: "undefined"
+  1576→  },
+  1577→  include: {
+  1578→    settings: true,
+  1579→    subscription: true
+  1580→  }
+  1581→}) +0ms
+  1582→prisma:client Generated request: +0ms
+  1583→prisma:client {
+  1584→  "modelName": "Doctor",
+  1585→  "action": "findUnique",
+  1586→  "query": {
+  1587→    "arguments": {
+  1588→      "where": {
+  1589→        "id": "undefined"
+  1590→      }
+  1591→    },
+  1592→    "selection": {
+  1593→      "$composites": true,
+  1594→      "$scalars": true,
+  1595→      "settings": {
+  1596→        "arguments": {},
+  1597→        "selection": {
+  1598→          "$composites": true,
+  1599→          "$scalars": true
+  1600→        }
+  1601→      },
+  1602→      "subscription": {
+  1603→        "arguments": {},
+  1604→        "selection": {
+  1605→          "$composites": true,
+  1606→          "$scalars": true
+  1607→        }
+  1608→      }
+  1609→    }
+  1610→  }
+  1611→}
+  1612→ +0ms
+  1613→ GET /api/patients?search=&page=1&limit=50 401 in 78ms (compile: 62ms, proxy.ts: 4ms, render: 12ms)
+  1614→prisma:client Prisma Client call: +3123ms
+  1615→prisma:client prisma.doctor.findUnique({
+  1616→  where: {
+  1617→    id: "undefined"
+  1618→  },
+  1619→  include: {
+  1620→    settings: true,
+  1621→    subscription: true
+  1622→  }
+  1623→}) +0ms
+  1624→prisma:client Generated request: +0ms
+  1625→prisma:client {
+  1626→  "modelName": "Doctor",
+  1627→  "action": "findUnique",
+  1628→  "query": {
+  1629→    "arguments": {
+  1630→      "where": {
+  1631→        "id": "undefined"
+  1632→      }
+  1633→    },
+  1634→    "selection": {
+  1635→      "$composites": true,
+  1636→      "$scalars": true,
+  1637→      "settings": {
+  1638→        "arguments": {},
+  1639→        "selection": {
+  1640→          "$composites": true,
+  1641→          "$scalars": true
+  1642→        }
+  1643→      },
+  1644→      "subscription": {
+  1645→        "arguments": {},
+  1646→        "selection": {
+  1647→          "$composites": true,
+  1648→          "$scalars": true
+  1649→        }
+  1650→      }
+  1651→    }
+  1652→  }
+  1653→}
+  1654→ +0ms
+  1655→ GET /api/prescriptions?search=&page=1&limit=50 401 in 68ms (compile: 56ms, proxy.ts: 3ms, render: 9ms)
+  1656→✓ Compiled in 227ms
+  1657→ GET / 200 in 69ms (compile: 41ms, proxy.ts: 4ms, render: 24ms)
+  1658→ GET / 200 in 94ms (compile: 2ms, proxy.ts: 3ms, render: 89ms)
+  1659→ GET / 200 in 34ms (compile: 8ms, proxy.ts: 3ms, render: 23ms)
+  1660→ GET / 200 in 16ms (compile: 2ms, proxy.ts: 2ms, render: 11ms)
+  1661→ GET / 200 in 16ms (compile: 2ms, proxy.ts: 1933µs, render: 12ms)
+  1662→ GET / 200 in 19ms (compile: 2ms, proxy.ts: 2ms, render: 14ms)
+  1663→✓ Compiled in 133ms
+  1664→

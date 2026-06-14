@@ -19,6 +19,10 @@ export async function GET(request: NextRequest) {
       )
     }
 
+    // Determine if premium user
+    const subscription = doctor.subscription
+    const isPremium = subscription?.plan === 'premium' && subscription?.status === 'active'
+
     const { searchParams } = new URL(request.url)
     const type = searchParams.get('type') || 'patients' // 'patients' or 'prescriptions'
 
@@ -28,6 +32,7 @@ export async function GET(request: NextRequest) {
         orderBy: { createdAt: 'desc' },
       })
 
+      // Both free and premium get full patient CSV (patient data is basic)
       const headers = [
         'ID', 'Name', 'Age', 'Gender', 'Phone', 'Address',
         'Blood Group', 'Allergies', 'Chronic Diseases',
@@ -44,6 +49,16 @@ export async function GET(request: NextRequest) {
 
       const csv = [headers.join(','), ...rows].join('\n')
 
+      // Audit log
+      await db.auditLog.create({
+        data: {
+          doctorId: doctor.id,
+          action: 'DATA_EXPORT',
+          entity: 'Patient',
+          details: `Exported ${patients.length} patients as CSV (${isPremium ? 'Premium' : 'Free'} plan)`,
+        },
+      })
+
       return new NextResponse(csv, {
         headers: {
           'Content-Type': 'text/csv',
@@ -57,36 +72,95 @@ export async function GET(request: NextRequest) {
         where: { doctorId: doctor.id },
         include: {
           patient: {
-            select: { name: true, phone: true },
+            select: { name: true, phone: true, age: true, gender: true },
           },
         },
         orderBy: { createdAt: 'desc' },
       })
 
-      const headers = [
-        'ID', 'Patient Name', 'Patient Phone', 'Date',
-        'Blood Pressure', 'Pulse', 'Temperature', 'Weight', 'SpO2',
-        'Diagnosis', 'Clinical Notes', 'Advice', 'Follow Up Date',
-        'Medications', 'Status', 'QR Code', 'Created At',
-      ]
+      if (isPremium) {
+        // Premium: Extended CSV with all clinical fields
+        const headers = [
+          'ID', 'Patient Name', 'Patient Phone', 'Patient Age', 'Patient Gender',
+          'Date',
+          'Chief Complaints',
+          'Blood Pressure', 'Pulse', 'Temperature', 'Weight', 'SpO2',
+          'On Examination', 'Investigations',
+          'Diagnosis', 'Diagnosis Code',
+          'Clinical Notes', 'Advice', 'Follow Up Date',
+          'Medications', 'Status', 'QR Code', 'Created At',
+        ]
 
-      const rows = prescriptions.map((p) => [
-        p.id, p.patient.name, p.patient.phone,
-        new Date(p.date).toISOString().split('T')[0],
-        p.bloodPressure, p.pulse, p.temperature, p.weight, p.spO2,
-        p.diagnosis, p.clinicalNotes, p.advice, p.followUpDate,
-        p.medications, p.status, p.qrCode,
-        new Date(p.createdAt).toISOString(),
-      ].map(escapeCSV).join(','))
+        const rows = prescriptions.map((p) => [
+          p.id,
+          p.patient.name, p.patient.phone, p.patient.age, p.patient.gender,
+          new Date(p.date).toISOString().split('T')[0],
+          p.chiefComplaints,
+          p.bloodPressure, p.pulse, p.temperature, p.weight, p.spO2,
+          p.onExamination, p.investigations,
+          p.diagnosis, p.diagnosisCode,
+          p.clinicalNotes, p.advice, p.followUpDate,
+          p.medications, p.status, p.qrCode,
+          new Date(p.createdAt).toISOString(),
+        ].map(escapeCSV).join(','))
 
-      const csv = [headers.join(','), ...rows].join('\n')
+        const csv = [headers.join(','), ...rows].join('\n')
 
-      return new NextResponse(csv, {
-        headers: {
-          'Content-Type': 'text/csv',
-          'Content-Disposition': `attachment; filename="prescriptions-${new Date().toISOString().split('T')[0]}.csv"`,
-        },
-      })
+        // Audit log
+        await db.auditLog.create({
+          data: {
+            doctorId: doctor.id,
+            action: 'DATA_EXPORT',
+            entity: 'Prescription',
+            details: `Exported ${prescriptions.length} prescriptions as extended CSV (Premium plan)`,
+          },
+        })
+
+        return new NextResponse(csv, {
+          headers: {
+            'Content-Type': 'text/csv',
+            'Content-Disposition': `attachment; filename="prescriptions-extended-${new Date().toISOString().split('T')[0]}.csv"`,
+          },
+        })
+      } else {
+        // Free: Basic CSV with patient list + prescription summaries
+        const headers = [
+          'ID', 'Patient Name', 'Patient Phone', 'Patient Age', 'Patient Gender',
+          'Date',
+          'Blood Pressure', 'Pulse', 'Temperature', 'Weight', 'SpO2',
+          'Diagnosis', 'Advice', 'Follow Up Date',
+          'Medications', 'Status', 'Created At',
+        ]
+
+        const rows = prescriptions.map((p) => [
+          p.id,
+          p.patient.name, p.patient.phone, p.patient.age, p.patient.gender,
+          new Date(p.date).toISOString().split('T')[0],
+          p.bloodPressure, p.pulse, p.temperature, p.weight, p.spO2,
+          p.diagnosis, p.advice, p.followUpDate,
+          p.medications, p.status,
+          new Date(p.createdAt).toISOString(),
+        ].map(escapeCSV).join(','))
+
+        const csv = [headers.join(','), ...rows].join('\n')
+
+        // Audit log
+        await db.auditLog.create({
+          data: {
+            doctorId: doctor.id,
+            action: 'DATA_EXPORT',
+            entity: 'Prescription',
+            details: `Exported ${prescriptions.length} prescriptions as basic CSV (Free plan)`,
+          },
+        })
+
+        return new NextResponse(csv, {
+          headers: {
+            'Content-Type': 'text/csv',
+            'Content-Disposition': `attachment; filename="prescriptions-${new Date().toISOString().split('T')[0]}.csv"`,
+          },
+        })
+      }
     }
 
     return NextResponse.json(

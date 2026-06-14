@@ -11,6 +11,8 @@ import { PatientList } from '@/components/patients/patient-list'
 import { PrescriptionList } from '@/components/prescriptions/prescription-list'
 import { SettingsPage } from '@/components/settings/settings-page'
 import { SubscriptionPage } from '@/components/subscription/subscription-page'
+import { OnboardingWalkthrough } from '@/components/onboarding/onboarding-walkthrough'
+import { ErrorBoundary } from '@/components/error-boundary'
 
 type AuthView = 'login' | 'register'
 
@@ -26,13 +28,23 @@ function useHydrated() {
 
 export default function Home() {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
+  const onboardingCompleted = useAuthStore((s) => s.onboardingCompleted)
   const [authView, setAuthView] = useState<AuthView>('login')
   const [activeNav, setActiveNav] = useState<NavItem>('dashboard')
+  const [showOnboarding, setShowOnboarding] = useState(false)
   const hydrated = useHydrated()
 
   const navigateTo = useCallback((page: NavItem) => {
     setActiveNav(page)
   }, [])
+
+  // Show onboarding after login if not completed
+  const shouldShowOnboarding = isAuthenticated && !onboardingCompleted && !showOnboarding
+  // Once hydrated and authenticated and onboarding not done, show it
+  if (hydrated && shouldShowOnboarding) {
+    // Use a state flag to avoid re-triggering
+    setShowOnboarding(true)
+  }
 
   // Show nothing while hydrating to avoid flash
   if (!hydrated) {
@@ -54,27 +66,61 @@ export default function Home() {
     return <LoginForm onSwitchToRegister={() => setAuthView('register')} />
   }
 
-  // Dashboard layout
+  // Dashboard layout with error boundaries around each section
   return (
-    <AppShell activeNav={activeNav} onNavigate={navigateTo}>
-      {(nav: NavItem) => {
-        switch (nav) {
-          case 'dashboard':
-            return <DashboardHome onNavigate={navigateTo} />
-          case 'composer':
-            return <PrescriptionComposer />
-          case 'patients':
-            return <PatientList onNavigateToComposer={() => navigateTo('composer')} />
-          case 'prescriptions':
-            return <PrescriptionList />
-          case 'settings':
-            return <SettingsPage />
-          case 'subscription':
-            return <SubscriptionPage />
-          default:
-            return <DashboardHome onNavigate={navigateTo} />
-        }
-      }}
-    </AppShell>
+    <>
+      <OnboardingWalkthrough
+        open={showOnboarding}
+        onComplete={() => setShowOnboarding(false)}
+      />
+      <AppShell activeNav={activeNav} onNavigate={navigateTo}>
+        {(nav: NavItem) => {
+          switch (nav) {
+            case 'dashboard':
+              return (
+                <ErrorBoundary>
+                  <DashboardHome onNavigate={navigateTo} />
+                </ErrorBoundary>
+              )
+            case 'composer':
+              return (
+                <ErrorBoundary>
+                  <PrescriptionComposer />
+                </ErrorBoundary>
+              )
+            case 'patients':
+              return (
+                <ErrorBoundary>
+                  <PatientList onNavigateToComposer={() => navigateTo('composer')} />
+                </ErrorBoundary>
+              )
+            case 'prescriptions':
+              return (
+                <ErrorBoundary>
+                  <PrescriptionList />
+                </ErrorBoundary>
+              )
+            case 'settings':
+              return (
+                <ErrorBoundary>
+                  <SettingsPage onShowOnboarding={() => setShowOnboarding(true)} />
+                </ErrorBoundary>
+              )
+            case 'subscription':
+              return (
+                <ErrorBoundary>
+                  <SubscriptionPage />
+                </ErrorBoundary>
+              )
+            default:
+              return (
+                <ErrorBoundary>
+                  <DashboardHome onNavigate={navigateTo} />
+                </ErrorBoundary>
+              )
+          }
+        }}
+      </AppShell>
+    </>
   )
 }

@@ -76,12 +76,16 @@ model Prescription {
   doctorId        String
   patientId       String
   date            DateTime @default(now())
+  chiefComplaints String   @default("")
   bloodPressure   String   @default("")
   pulse           String   @default("")
   temperature     String   @default("")
   weight          String   @default("")
   spO2            String   @default("")
+  onExamination   String   @default("")
+  investigations  String   @default("")
   diagnosis       String   @default("")
+  diagnosisCode   String   @default("")
   clinicalNotes   String   @default("")
   advice          String   @default("")
   followUpDate    String   @default("")

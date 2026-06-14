@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, type ReactNode } from 'react'
+import { useState, useEffect, type ReactNode } from 'react'
 import { useAuthStore } from '@/store/auth-store'
 import { useSettingsStore } from '@/store/settings-store'
+import { useTranslation } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Badge } from '@/components/ui/badge'
@@ -27,17 +28,17 @@ export type NavItem = 'dashboard' | 'composer' | 'patients' | 'prescriptions' | 
 
 interface NavConfig {
   id: NavItem
-  label: string
+  labelKey: string
   icon: ReactNode
 }
 
 const NAV_ITEMS: NavConfig[] = [
-  { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="h-5 w-5" /> },
-  { id: 'composer', label: 'New Prescription', icon: <FilePlus2 className="h-5 w-5" /> },
-  { id: 'patients', label: 'Patients', icon: <Users className="h-5 w-5" /> },
-  { id: 'prescriptions', label: 'Prescriptions', icon: <FileText className="h-5 w-5" /> },
-  { id: 'settings', label: 'Settings', icon: <Settings className="h-5 w-5" /> },
-  { id: 'subscription', label: 'Subscription', icon: <CreditCard className="h-5 w-5" /> },
+  { id: 'dashboard', labelKey: 'nav.dashboard', icon: <LayoutDashboard className="h-5 w-5" /> },
+  { id: 'composer', labelKey: 'nav.newPrescription', icon: <FilePlus2 className="h-5 w-5" /> },
+  { id: 'patients', labelKey: 'nav.patients', icon: <Users className="h-5 w-5" /> },
+  { id: 'prescriptions', labelKey: 'nav.prescriptions', icon: <FileText className="h-5 w-5" /> },
+  { id: 'settings', labelKey: 'nav.settings', icon: <Settings className="h-5 w-5" /> },
+  { id: 'subscription', labelKey: 'nav.subscription', icon: <CreditCard className="h-5 w-5" /> },
 ]
 
 interface AppShellProps {
@@ -54,10 +55,17 @@ export function AppShell({ activeNav, onNavigate, children }: AppShellProps) {
   const toggleSidebar = useSettingsStore((s) => s.toggleSidebar)
   const language = useSettingsStore((s) => s.language)
   const setLanguage = useSettingsStore((s) => s.setLanguage)
+  const detectAndSetLanguage = useSettingsStore((s) => s.detectAndSetLanguage)
+  const { t } = useTranslation()
 
   const isPremium = subscription?.plan === 'premium' && subscription?.status === 'active'
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  // Auto-detect browser language on first load
+  useEffect(() => {
+    detectAndSetLanguage()
+  }, [detectAndSetLanguage])
 
   const handleNavClick = (id: NavItem) => {
     onNavigate(id)
@@ -66,6 +74,10 @@ export function AppShell({ activeNav, onNavigate, children }: AppShellProps) {
 
   const handleLogout = () => {
     logout()
+  }
+
+  const getNavLabel = (item: NavConfig): string => {
+    return t(item.labelKey)
   }
 
   return (
@@ -84,7 +96,7 @@ export function AppShell({ activeNav, onNavigate, children }: AppShellProps) {
           </div>
           {!sidebarCollapsed && (
             <div className="overflow-hidden">
-              <h2 className="text-lg font-bold text-sidebar-foreground">RxBD</h2>
+              <h2 className="text-lg font-bold text-sidebar-foreground">{t('app.name')}</h2>
             </div>
           )}
           <Button
@@ -110,10 +122,10 @@ export function AppShell({ activeNav, onNavigate, children }: AppShellProps) {
                     ? 'bg-sidebar-primary text-sidebar-primary-foreground'
                     : 'text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-foreground'
                 )}
-                title={sidebarCollapsed ? item.label : undefined}
+                title={sidebarCollapsed ? getNavLabel(item) : undefined}
               >
                 {item.icon}
-                {!sidebarCollapsed && <span>{item.label}</span>}
+                {!sidebarCollapsed && <span>{getNavLabel(item)}</span>}
               </button>
             ))}
           </nav>
@@ -143,7 +155,7 @@ export function AppShell({ activeNav, onNavigate, children }: AppShellProps) {
             onClick={handleLogout}
           >
             <LogOut className="h-4 w-4" />
-            {!sidebarCollapsed && <span className="ml-2">Logout</span>}
+            {!sidebarCollapsed && <span className="ml-2">{t('auth.logout')}</span>}
           </Button>
         </div>
       </aside>
@@ -165,7 +177,7 @@ export function AppShell({ activeNav, onNavigate, children }: AppShellProps) {
 
             <div className="hidden sm:block">
               <h1 className="text-sm font-medium">
-                {NAV_ITEMS.find((n) => n.id === activeNav)?.label || 'Dashboard'}
+                {getNavLabel(NAV_ITEMS.find((n) => n.id === activeNav) || NAV_ITEMS[0])}
               </h1>
             </div>
           </div>
@@ -203,7 +215,7 @@ export function AppShell({ activeNav, onNavigate, children }: AppShellProps) {
                 <div className="w-8 h-8 rounded-lg bg-sidebar-primary text-sidebar-primary-foreground flex items-center justify-center">
                   <Stethoscope className="h-4 w-4" />
                 </div>
-                <h2 className="text-lg font-bold">RxBD</h2>
+                <h2 className="text-lg font-bold">{t('app.name')}</h2>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -227,7 +239,7 @@ export function AppShell({ activeNav, onNavigate, children }: AppShellProps) {
                     )}
                   >
                     {item.icon}
-                    <span>{item.label}</span>
+                    <span>{getNavLabel(item)}</span>
                   </button>
                 ))}
               </nav>
@@ -239,7 +251,7 @@ export function AppShell({ activeNav, onNavigate, children }: AppShellProps) {
                   onClick={handleLogout}
                 >
                   <LogOut className="h-4 w-4 mr-2" />
-                  Logout
+                  {t('auth.logout')}
                 </Button>
               </div>
             </div>

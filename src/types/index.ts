@@ -67,12 +67,16 @@ export interface Prescription {
   doctorId: string
   patientId: string
   date: string
+  chiefComplaints: string
   bloodPressure: string
   pulse: string
   temperature: string
   weight: string
   spO2: string
+  onExamination: string
+  investigations: string
   diagnosis: string
+  diagnosisCode: string
   clinicalNotes: string
   advice: string
   followUpDate: string
@@ -146,12 +150,16 @@ export interface ComposerState {
   patientName: string
   patientAge: string
   patientGender: string
+  chiefComplaints: string
   bloodPressure: string
   pulse: string
   temperature: string
   weight: string
   spO2: string
+  onExamination: string
+  investigations: string
   diagnosis: string
+  diagnosisCode: string
   clinicalNotes: string
   advice: string
   followUpDate: string

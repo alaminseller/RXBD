@@ -11,6 +11,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Search, UserPlus, Phone, Calendar, MoreHorizontal, Eye, Trash2 } from 'lucide-react'
+import { TableSkeleton } from '@/components/ui/loading-skeleton'
+import { EmptyState } from '@/components/ui/empty-state'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import type { Patient, Prescription } from '@/types'
 import { authHeaders } from '@/store/auth-store'
@@ -224,13 +226,17 @@ export function PatientList({ onNavigateToComposer }: PatientListProps) {
       <Card>
         <CardContent className="p-0">
           {isLoading ? (
-            <div className="text-center py-12 text-muted-foreground">Loading patients...</div>
-          ) : patients.length === 0 ? (
-            <div className="text-center py-12 text-muted-foreground">
-              <Search className="h-10 w-10 mx-auto mb-2 opacity-30" />
-              <p className="text-sm">No patients found.</p>
-              <p className="text-xs mt-1">Add your first patient to get started.</p>
+            <div className="p-4">
+              <TableSkeleton rows={5} columns={6} />
             </div>
+          ) : patients.length === 0 ? (
+            <EmptyState
+              icon={UserPlus}
+              title="No patients yet"
+              description="Add your first patient to start creating prescriptions."
+              actionLabel="Add Patient"
+              onAction={() => setShowAddDialog(true)}
+            />
           ) : (
             <ScrollArea className="max-h-[calc(100vh-280px)]">
               <Table>

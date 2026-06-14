@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useAuthStore } from '@/store/auth-store'
+import { useTranslation } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -38,6 +39,8 @@ interface RegisterFormProps {
 
 export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
   const isLoading = useAuthStore((s) => s.isLoading)
+  const { t } = useTranslation()
+
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -52,12 +55,12 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
     setSuccess('')
 
     if (!name.trim() || !email.trim() || !password.trim() || !specialty) {
-      setError('Please fill in all required fields.')
+      setError(t('auth.fillAllFields'))
       return
     }
 
     if (password.length < 6) {
-      setError('Password must be at least 6 characters.')
+      setError(t('auth.passwordMinLength'))
       return
     }
 
@@ -75,13 +78,13 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
 
       if (!response.ok) {
         const data = await response.json().catch(() => ({}))
-        throw new Error((data as { error?: string }).error || 'Registration failed.')
+        throw new Error((data as { error?: string }).error || t('auth.registrationFailed'))
       }
 
-      setSuccess('Account created successfully! You can now sign in.')
+      setSuccess(t('auth.accountCreated'))
       setTimeout(() => onSwitchToLogin(), 1500)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Registration failed. Please try again.')
+      setError(err instanceof Error ? err.message : t('auth.registrationFailed'))
     }
   }
 
@@ -93,14 +96,14 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary text-primary-foreground mb-4">
             <Stethoscope className="w-8 h-8" />
           </div>
-          <h1 className="text-3xl font-bold text-foreground">RxBD</h1>
-          <p className="text-muted-foreground mt-1">Create Your Account</p>
+          <h1 className="text-3xl font-bold text-foreground">{t('app.name')}</h1>
+          <p className="text-muted-foreground mt-1">{t('app.tagline')}</p>
         </div>
 
         <Card className="shadow-lg border-border/50">
           <CardHeader className="text-center">
-            <CardTitle className="text-xl">Doctor Registration</CardTitle>
-            <CardDescription>Set up your account to start writing prescriptions</CardDescription>
+            <CardTitle className="text-xl">{t('auth.doctorRegistration')}</CardTitle>
+            <CardDescription>{t('auth.setupAccount')}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -117,7 +120,7 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name">{t('auth.name')}</Label>
                 <Input
                   id="name"
                   type="text"
@@ -129,7 +132,7 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="reg-email">Email</Label>
+                <Label htmlFor="reg-email">{t('auth.email')}</Label>
                 <Input
                   id="reg-email"
                   type="email"
@@ -142,10 +145,10 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="specialty">Specialty</Label>
+                <Label htmlFor="specialty">{t('auth.specialty')}</Label>
                 <Select value={specialty} onValueChange={setSpecialty} disabled={isLoading}>
                   <SelectTrigger id="specialty">
-                    <SelectValue placeholder="Select your specialty" />
+                    <SelectValue placeholder={t('auth.selectSpecialty')} />
                   </SelectTrigger>
                   <SelectContent>
                     {SPECIALTIES.map((s) => (
@@ -158,12 +161,12 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="reg-password">Password</Label>
+                <Label htmlFor="reg-password">{t('auth.password')}</Label>
                 <div className="relative">
                   <Input
                     id="reg-password"
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="Minimum 6 characters"
+                    placeholder="••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     autoComplete="new-password"
@@ -191,10 +194,10 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Creating Account...
+                    {t('auth.creatingAccount')}
                   </>
                 ) : (
-                  'Create Account'
+                  t('auth.signupButton')
                 )}
               </Button>
             </form>
@@ -205,14 +208,14 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
                 className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
               >
                 <ArrowLeft className="h-3 w-3" />
-                Already have an account? Sign in
+                {t('auth.hasAccount')} {t('auth.loginButton')}
               </button>
             </div>
           </CardContent>
         </Card>
 
         <p className="text-center text-xs text-muted-foreground mt-6">
-          Free plan includes 50 prescriptions/month
+          {t('auth.freePlanInfo')}
         </p>
       </div>
     </div>

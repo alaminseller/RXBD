@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useAuthStore } from '@/store/auth-store'
 import { useSettingsStore } from '@/store/settings-store'
+import { useTranslation } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -11,14 +12,16 @@ import { Switch } from '@/components/ui/switch'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Save, User, Building2, FileImage, Palette, Loader2 } from 'lucide-react'
+import { Save, User, Building2, FileImage, Palette, Loader2, GraduationCap } from 'lucide-react'
 import { authHeaders } from '@/store/auth-store'
 import { useToast } from '@/hooks/use-toast'
 
-export function SettingsPage() {
+export function SettingsPage({ onShowOnboarding }: { onShowOnboarding?: () => void }) {
   const doctor = useAuthStore((s) => s.doctor)
+  const onboardingCompleted = useAuthStore((s) => s.onboardingCompleted)
   const updateProfile = useAuthStore((s) => s.updateProfile)
   const { language, setLanguage, theme, setTheme } = useSettingsStore()
+  const { t } = useTranslation()
   const { toast } = useToast()
 
   const [isSaving, setIsSaving] = useState(false)
@@ -52,7 +55,7 @@ export function SettingsPage() {
         phone: profileForm.phone,
         ...chamberForm,
       })
-      toast({ title: 'Profile updated', description: 'Your profile has been saved successfully.' })
+      toast({ title: t('settings.profileUpdated'), description: t('settings.profileUpdatedDesc') })
     } catch (err) {
       toast({
         title: 'Error',
@@ -67,22 +70,22 @@ export function SettingsPage() {
   return (
     <div className="p-4 lg:p-6 space-y-6 max-w-4xl mx-auto">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold">Settings</h2>
+        <h2 className="text-xl font-bold">{t('settings.title')}</h2>
       </div>
 
       <Tabs defaultValue="profile">
         <TabsList className="grid grid-cols-2 sm:grid-cols-4 w-full">
           <TabsTrigger value="profile" className="gap-1 text-xs sm:text-sm">
-            <User className="h-3.5 w-3.5" /> Profile
+            <User className="h-3.5 w-3.5" /> {t('settings.profile')}
           </TabsTrigger>
           <TabsTrigger value="chamber" className="gap-1 text-xs sm:text-sm">
-            <Building2 className="h-3.5 w-3.5" /> Chamber
+            <Building2 className="h-3.5 w-3.5" /> {t('settings.chamber')}
           </TabsTrigger>
           <TabsTrigger value="letterhead" className="gap-1 text-xs sm:text-sm">
-            <FileImage className="h-3.5 w-3.5" /> Letterhead
+            <FileImage className="h-3.5 w-3.5" /> {t('settings.letterhead')}
           </TabsTrigger>
           <TabsTrigger value="preferences" className="gap-1 text-xs sm:text-sm">
-            <Palette className="h-3.5 w-3.5" /> Preferences
+            <Palette className="h-3.5 w-3.5" /> {t('settings.preferences')}
           </TabsTrigger>
         </TabsList>
 
@@ -90,12 +93,12 @@ export function SettingsPage() {
         <TabsContent value="profile">
           <Card>
             <CardHeader>
-              <CardTitle>Doctor Profile</CardTitle>
-              <CardDescription>Update your professional information</CardDescription>
+              <CardTitle>{t('settings.doctorProfile')}</CardTitle>
+              <CardDescription>{t('settings.updateProfessionalInfo')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label>Full Name</Label>
+                <Label>{t('auth.name')}</Label>
                 <Input
                   value={profileForm.name}
                   onChange={(e) => setProfileForm({ ...profileForm, name: e.target.value })}
@@ -103,7 +106,7 @@ export function SettingsPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label>Degrees</Label>
+                <Label>{t('settings.degrees')}</Label>
                 <Input
                   value={profileForm.degrees}
                   onChange={(e) => setProfileForm({ ...profileForm, degrees: e.target.value })}
@@ -112,7 +115,7 @@ export function SettingsPage() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>Specialty</Label>
+                  <Label>{t('auth.specialty')}</Label>
                   <Input
                     value={profileForm.specialty}
                     onChange={(e) => setProfileForm({ ...profileForm, specialty: e.target.value })}
@@ -120,7 +123,7 @@ export function SettingsPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>BMDC Number</Label>
+                  <Label>{t('settings.bmdcNumber')}</Label>
                   <Input
                     value={profileForm.bmdcNumber}
                     onChange={(e) => setProfileForm({ ...profileForm, bmdcNumber: e.target.value })}
@@ -129,7 +132,7 @@ export function SettingsPage() {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label>Phone</Label>
+                <Label>{t('settings.phone')}</Label>
                 <Input
                   value={profileForm.phone}
                   onChange={(e) => setProfileForm({ ...profileForm, phone: e.target.value })}
@@ -141,7 +144,7 @@ export function SettingsPage() {
 
               <Button onClick={handleSaveProfile} disabled={isSaving} className="gap-2">
                 {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-                Save Profile
+                {t('settings.saveProfile')}
               </Button>
             </CardContent>
           </Card>
@@ -151,12 +154,12 @@ export function SettingsPage() {
         <TabsContent value="chamber">
           <Card>
             <CardHeader>
-              <CardTitle>Chamber Information</CardTitle>
-              <CardDescription>Your practice location details</CardDescription>
+              <CardTitle>{t('settings.chamberInfo')}</CardTitle>
+              <CardDescription>{t('settings.practiceLocation')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label>Chamber Name</Label>
+                <Label>{t('settings.chamberName')}</Label>
                 <Input
                   value={chamberForm.chamberName}
                   onChange={(e) => setChamberForm({ ...chamberForm, chamberName: e.target.value })}
@@ -164,7 +167,7 @@ export function SettingsPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label>Address</Label>
+                <Label>{t('settings.address')}</Label>
                 <Input
                   value={chamberForm.chamberAddress}
                   onChange={(e) => setChamberForm({ ...chamberForm, chamberAddress: e.target.value })}
@@ -173,7 +176,7 @@ export function SettingsPage() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>Phone</Label>
+                  <Label>{t('settings.phone')}</Label>
                   <Input
                     value={chamberForm.chamberPhone}
                     onChange={(e) => setChamberForm({ ...chamberForm, chamberPhone: e.target.value })}
@@ -181,7 +184,7 @@ export function SettingsPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Email</Label>
+                  <Label>{t('settings.chamberEmail')}</Label>
                   <Input
                     value={chamberForm.chamberEmail}
                     onChange={(e) => setChamberForm({ ...chamberForm, chamberEmail: e.target.value })}
@@ -194,7 +197,7 @@ export function SettingsPage() {
 
               <Button onClick={handleSaveProfile} disabled={isSaving} className="gap-2">
                 {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-                Save Chamber Info
+                {t('settings.saveChamberInfo')}
               </Button>
             </CardContent>
           </Card>
@@ -204,24 +207,24 @@ export function SettingsPage() {
         <TabsContent value="letterhead">
           <Card>
             <CardHeader>
-              <CardTitle>Letterhead Settings</CardTitle>
-              <CardDescription>Customize your prescription letterhead</CardDescription>
+              <CardTitle>{t('settings.letterheadSettings')}</CardTitle>
+              <CardDescription>{t('settings.customizeLetterhead')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label>Logo Upload</Label>
+                <Label>{t('settings.logoUpload')}</Label>
                 <div className="border-2 border-dashed border-border rounded-lg p-6 text-center">
                   <FileImage className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-                  <p className="text-sm text-muted-foreground">Click or drag to upload logo</p>
-                  <p className="text-xs text-muted-foreground/60 mt-1">PNG, JPG up to 2MB</p>
+                  <p className="text-sm text-muted-foreground">{t('settings.clickOrDragToUpload')}</p>
+                  <p className="text-xs text-muted-foreground/60 mt-1">{t('settings.pngJpgUpTo2mb')}</p>
                   <Button variant="outline" size="sm" className="mt-3">
-                    Choose File
+                    {t('settings.chooseFile')}
                   </Button>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label>Brand Color</Label>
+                <Label>{t('settings.brandColor')}</Label>
                 <div className="flex items-center gap-3">
                   <input
                     type="color"
@@ -238,19 +241,19 @@ export function SettingsPage() {
               </div>
 
               <div className="space-y-2">
-                <Label>Signature Upload</Label>
+                <Label>{t('settings.signatureUpload')}</Label>
                 <div className="border-2 border-dashed border-border rounded-lg p-6 text-center">
-                  <p className="text-sm text-muted-foreground">Upload your signature image</p>
+                  <p className="text-sm text-muted-foreground">{t('settings.uploadSignature')}</p>
                   <Button variant="outline" size="sm" className="mt-3">
-                    Choose File
+                    {t('settings.chooseFile')}
                   </Button>
                 </div>
               </div>
 
               <div className="flex items-center justify-between">
                 <div>
-                  <Label>Include QR Code</Label>
-                  <p className="text-xs text-muted-foreground">Add verification QR on prescriptions</p>
+                  <Label>{t('settings.includeQrCode')}</Label>
+                  <p className="text-xs text-muted-foreground">{t('settings.addVerificationQr')}</p>
                 </div>
                 <Switch
                   checked={letterheadSettings.includeQrCode}
@@ -265,12 +268,35 @@ export function SettingsPage() {
         <TabsContent value="preferences">
           <Card>
             <CardHeader>
-              <CardTitle>Preferences</CardTitle>
-              <CardDescription>Language, font size, and appearance settings</CardDescription>
+              <CardTitle>{t('settings.preferences')}</CardTitle>
+              <CardDescription>{t('settings.preferencesDesc')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
+              {/* Resume Onboarding */}
+              {!onboardingCompleted && (
+                <div className="flex items-center justify-between p-3 rounded-lg border bg-gradient-to-r from-[#0d6b6e]/5 to-[#14919b]/5 border-[#0d6b6e]/20">
+                  <div className="flex items-center gap-3">
+                    <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-[#0d6b6e] to-[#14919b] flex items-center justify-center text-white">
+                      <GraduationCap className="h-4 w-4" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium">{t('settings.resumeOnboarding')}</p>
+                      <p className="text-xs text-muted-foreground">{t('settings.completeGuidedWalkthrough')}</p>
+                    </div>
+                  </div>
+                  <Button
+                    size="sm"
+                    onClick={onShowOnboarding}
+                    className="gap-1 bg-gradient-to-r from-[#0d6b6e] to-[#14919b] hover:from-[#0a5759] hover:to-[#117a84]"
+                  >
+                    <GraduationCap className="h-3.5 w-3.5" />
+                    {t('settings.resume')}
+                  </Button>
+                </div>
+              )}
+
               <div className="space-y-2">
-                <Label>Language</Label>
+                <Label>{t('settings.language')}</Label>
                 <Select value={language} onValueChange={(v) => setLanguage(v as 'en' | 'bn')}>
                   <SelectTrigger>
                     <SelectValue />
@@ -283,21 +309,21 @@ export function SettingsPage() {
               </div>
 
               <div className="space-y-2">
-                <Label>Theme</Label>
+                <Label>{t('settings.theme')}</Label>
                 <Select value={theme} onValueChange={(v) => setTheme(v as 'light' | 'dark' | 'system')}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">Light</SelectItem>
-                    <SelectItem value="dark">Dark</SelectItem>
-                    <SelectItem value="system">System</SelectItem>
+                    <SelectItem value="light">{t('settings.light')}</SelectItem>
+                    <SelectItem value="dark">{t('settings.dark')}</SelectItem>
+                    <SelectItem value="system">{t('settings.system')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
-                <Label>Prescription Font Size</Label>
+                <Label>{t('settings.prescriptionFontSize')}</Label>
                 <Select
                   value={letterheadSettings.fontSize}
                   onValueChange={(v) => setLetterheadSettings({ ...letterheadSettings, fontSize: v })}
@@ -306,9 +332,9 @@ export function SettingsPage() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="small">Small</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="large">Large</SelectItem>
+                    <SelectItem value="small">{t('settings.small')}</SelectItem>
+                    <SelectItem value="medium">{t('settings.medium')}</SelectItem>
+                    <SelectItem value="large">{t('settings.large')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
