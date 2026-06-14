@@ -36,7 +36,6 @@ yarn-error.log*
 # vercel
 .vercel
 
-
 # typescript
 *.tsbuildinfo
 next-env.d.ts
@@ -48,7 +47,41 @@ dev.log
 dev.out.log
 test
 prompt
-
 server.log
+
 # Skills directory
 /skills/
+
+# Database files
+*.db
+*.db-journal
+
+# Download folder (generated files)
+/download/
+
+# Tool results
+/tool-results/
+
+# Z scripts and runtime
+/.zscripts/
+
+# Agent context
+/agent-ctx/
+
+# Upload folder
+/upload/
+
+# Worklog
+worklog.md
+
+# Prisma migration files (generated)
+prisma/migrations/
+
+# Bun lock (optional - keep if you want)
+# bun.lock
+
+# RBAC project (separate git repo)
+/rbac-project/
+
+# Package lock (using bun)
+package-lock.json

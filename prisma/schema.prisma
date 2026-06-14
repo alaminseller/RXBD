@@ -1,19 +1,18 @@
 // RxBD - Digital Prescription Platform for Bangladesh
-// Prisma Schema with PostgreSQL (Supabase)
+// Prisma Schema with SQLite (local development)
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model Doctor {
-  id             String   @id @default(uuid()) @db.Uuid
-  supabaseUid    String   @default("") @map("supabase_uid") @db.Uuid
+  id             String   @id @default(uuid())
+  supabaseUid    String   @default("") @map("supabase_uid")
   email          String   @unique
   name           String   @map("full_name")
   password       String   @default("")
@@ -40,8 +39,8 @@ model Doctor {
 }
 
 model DoctorSettings {
-  id                String   @id @default(uuid()) @db.Uuid
-  doctorId          String   @unique @map("doctor_id") @db.Uuid
+  id                String   @id @default(uuid())
+  doctorId          String   @unique @map("doctor_id")
   letterheadLogoUrl String   @default("") @map("logo_url")
   letterheadColor   String   @default("#1a1a2e") @map("brand_color")
   signatureUrl      String   @default("") @map("signature_url")
@@ -58,8 +57,8 @@ model DoctorSettings {
 }
 
 model Patient {
-  id              String    @id @default(uuid()) @db.Uuid
-  doctorId        String    @map("doctor_id") @db.Uuid
+  id              String    @id @default(uuid())
+  doctorId        String    @map("doctor_id")
   name            String
   age             String    @default("") @map("age_years")
   gender          String    @default("")
@@ -81,9 +80,9 @@ model Patient {
 }
 
 model Prescription {
-  id              String   @id @default(uuid()) @db.Uuid
-  doctorId        String   @map("doctor_id") @db.Uuid
-  patientId       String   @map("patient_id") @db.Uuid
+  id              String   @id @default(uuid())
+  doctorId        String   @map("doctor_id")
+  patientId       String   @map("patient_id")
   date            DateTime @default(now()) @map("visit_date")
   chiefComplaints String   @default("") @map("chief_complaints")
   bloodPressure   String   @default("") @map("vitals")
@@ -115,8 +114,8 @@ model Prescription {
 }
 
 model Subscription {
-  id                String    @id @default(uuid()) @db.Uuid
-  doctorId          String    @unique @map("doctor_id") @db.Uuid
+  id                String    @id @default(uuid())
+  doctorId          String    @unique @map("doctor_id")
   plan              String    @default("free")
   startDate         DateTime  @default(now()) @map("premium_since")
   endDate           DateTime? @map("premium_expires_at")
@@ -134,8 +133,8 @@ model Subscription {
 }
 
 model MedicineFeedback {
-  id           String   @id @default(uuid()) @db.Uuid
-  doctorId     String   @map("doctor_id") @db.Uuid
+  id           String   @id @default(uuid())
+  doctorId     String   @map("doctor_id")
   medicineId   String   @map("medicine_name")
   feedbackType String   @default("") @map("feedback_type")
   comment      String   @default("description")
@@ -148,11 +147,11 @@ model MedicineFeedback {
 }
 
 model AuditLog {
-  id        String   @id @default(uuid()) @db.Uuid
-  doctorId  String   @map("doctor_id") @db.Uuid
+  id        String   @id @default(uuid())
+  doctorId  String   @map("doctor_id")
   action    String
   entity    String   @default("") @map("entity_type")
-  entityId  String   @default("") @map("entity_id") @db.Uuid
+  entityId  String   @default("") @map("entity_id")
   details   String   @default("") @map("metadata")
   ipAddress String   @default("")
   createdAt DateTime @default(now()) @map("created_at")
