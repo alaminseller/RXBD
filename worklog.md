@@ -44,3 +44,30 @@ Stage Summary:
 - Professional documentation generated: RBAC_System_Documentation.docx
 - Covers: Architecture, Schema, Roles, Permissions, Functions, RLS, API, Security, Extension Guide
 - All TOC fields properly configured for Word auto-update
+
+---
+Task ID: 3
+Agent: Main Agent
+Task: Audit RBAC system, find mismatches and critical gaps, fix all issues
+
+Work Log:
+- Conducted comprehensive audit of entire RBAC system
+- Found 7 critical gaps/mismatches
+- Fixed GAP 1 (CRITICAL): Added auto-assign 'user' role trigger on auth.users signup
+- Fixed GAP 2 (CRITICAL): Added JWT custom claims sync (roles → app_metadata) with triggers
+- Fixed GAP 3 (HIGH): Made roles.is_system NOT NULL DEFAULT false
+- Fixed GAP 4 (HIGH): Prevented admin from assigning admin/super_admin roles (privilege escalation fix)
+- Fixed GAP 5 (MEDIUM): Made user_roles.assigned_by NOT NULL DEFAULT auth.uid()
+- Fixed GAP 6 (MEDIUM): Restricted internal functions (rls_auto_enable, handle_new_user_signup, sync functions) from PUBLIC/anon
+- Fixed GAP 7 (MEDIUM): Created rbac_audit_log table with RLS policies and audit triggers on all RBAC tables
+- End-to-end tested: new user auto-gets 'user' role, JWT claims sync correctly, audit log captures changes
+- Verified super_admin JWT contains roles: ["super_admin"] in app_metadata
+
+Stage Summary:
+- 7 gaps found and fixed
+- RBAC system now has: 5 tables, 15 functions, 20 RLS policies, 14 triggers
+- Auto-assign on signup ✓
+- JWT custom claims sync ✓  
+- Admin privilege escalation blocked ✓
+- Full audit trail ✓
+- All fixes verified with E2E tests
