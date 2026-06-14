@@ -379,3 +379,24 @@ Stage Summary:
 - Middleware: Detects Supabase session cookies for auth + refreshes sessions
 - Backward compatible: existing bcrypt+JWT auth still works as fallback
 - New API routes: /api/auth/me (get current user), /api/auth/logout (sign out)
+
+---
+Task ID: 27
+Agent: main
+Task: Migrate Prisma from SQLite to Supabase PostgreSQL
+
+Work Log:
+- Updated .env.local with DATABASE_URL (transaction-mode pooler, port 6543) and DIRECT_URL (session-mode pooler, port 5432)
+- Rewrote prisma/schema.prisma: changed provider from sqlite to postgresql, added directUrl, mapped all columns to Supabase table names with @@map directives, changed @id from cuid() to uuid() @db.Uuid, added @map() for all snake_case column mappings
+- Updated src/lib/db.ts: removed SQLite-specific path logic, simplified to standard PostgreSQL PrismaClient initialization
+- Updated prisma.config.ts: changed datasource URL from SQLite file path to process.env.DIRECT_URL || process.env.DATABASE_URL
+- Generated Prisma client successfully for PostgreSQL schema
+- Verified production build passes with 0 errors (17 routes)
+
+Stage Summary:
+- Prisma schema fully migrated from SQLite to PostgreSQL (Supabase)
+- All models mapped to Supabase tables: doctors, doctor_settings, patients, prescriptions, subscriptions, medicine_feedback, audit_log
+- Column names mapped via @map() to match Supabase SQL migration (snake_case)
+- UUID primary keys used instead of CUID to match Supabase auth.uid()
+- Build passes cleanly - ready for SQL migration execution
+- User needs to: (1) Replace [YOUR-PASSWORD] in .env.local, (2) Run the SQL migration in Supabase SQL Editor

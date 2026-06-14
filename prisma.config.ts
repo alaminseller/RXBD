@@ -5,6 +5,6 @@ export default defineConfig({
   earlyAccess: true,
   schema: path.join(__dirname, 'prisma', 'schema.prisma'),
   datasource: {
-    url: `file:${path.join(__dirname, 'db', 'custom.db')}`,
+    url: process.env.DIRECT_URL || process.env.DATABASE_URL || '',
   },
 })
