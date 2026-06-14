@@ -351,3 +351,31 @@ Stage Summary:
 - Existing RxBD auth and subscription logic preserved and working alongside Supabase
 - Environment variables configured with Supabase project credentials
 - Build and API tests pass
+
+---
+Task ID: 26
+Agent: main
+Task: Migrate auth system to use Supabase Auth
+
+Work Log:
+- Added `supabaseUid` field to Doctor model in prisma/schema.prisma
+- Ran prisma db push to apply schema migration
+- Updated src/lib/auth-helpers.ts — Dual auth strategy: Supabase session cookies (primary) + Bearer token (fallback); added getSupabaseUser() helper
+- Updated src/app/api/auth/signup/route.ts — Accepts optional supabaseUid, validates Supabase session cookies server-side, links Supabase user to Doctor record
+- Updated src/app/api/auth/login/route.ts — Validates Supabase session cookies first, then falls back to bcrypt; auto-links supabaseUid on first login
+- Created src/app/api/auth/me/route.ts — Returns current doctor from Supabase session cookies or Bearer token
+- Created src/app/api/auth/logout/route.ts — Signs out from Supabase server-side, clears legacy cookies
+- Updated src/store/auth-store.ts — Login uses Supabase browser client signInWithPassword() + API; added signup() method that calls Supabase signUp() + API; logout signs out from Supabase + clears state
+- Updated src/components/auth/register-form.tsx — Uses auth store signup() method instead of direct fetch
+- Updated src/middleware.ts — hasAuthToken() now checks Supabase session cookies (-auth-token) alongside legacy rxbd-session cookie
+- Updated src/types/index.ts — Added supabaseUid to Doctor interface
+- Build verification: ✅ Production build passes with 0 errors, 17 routes (2 new: /api/auth/me, /api/auth/logout)
+
+Stage Summary:
+- Full Supabase Auth integration: signup, login, logout, session validation
+- Dual auth strategy: Supabase session cookies (primary) + Bearer token (legacy fallback)
+- Client-side: Supabase browser client handles signUp/signInWithPassword/signOut
+- Server-side: Supabase server client validates sessions via cookies
+- Middleware: Detects Supabase session cookies for auth + refreshes sessions
+- Backward compatible: existing bcrypt+JWT auth still works as fallback
+- New API routes: /api/auth/me (get current user), /api/auth/logout (sign out)

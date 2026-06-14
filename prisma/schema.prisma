@@ -12,6 +12,7 @@ datasource db {
 
 model Doctor {
   id              String   @id @default(cuid())
+  supabaseUid     String   @default("")
   email           String   @unique
   name            String
   password        String   @default("")

@@ -3,7 +3,8 @@ import { persist } from 'zustand/middleware'
 import type { Doctor, Subscription } from '@/types'
 
 /**
- * Session token key used for API authentication headers.
+ * Session token key used for legacy API authentication headers.
+ * Supabase auth uses cookies instead, so this is a fallback.
  */
 const SESSION_TOKEN_KEY = 'rxbd-session-token'
 
@@ -18,6 +19,7 @@ interface AuthStore {
   setSubscription: (subscription: Subscription | null) => void
   setLoading: (loading: boolean) => void
   login: (email: string, password: string) => Promise<void>
+  signup: (email: string, password: string, name: string, specialty?: string) => Promise<void>
   logout: () => void
   updateProfile: (data: Partial<Doctor>) => Promise<void>
   completeOnboarding: () => void
@@ -44,10 +46,24 @@ export const useAuthStore = create<AuthStore>()(
 
       setLoading: (isLoading) => set({ isLoading }),
 
-      // ─── Login ────────────────────────────────────────────────────────
+      // ─── Login (Supabase + API) ──────────────────────────────────────
       login: async (email, password) => {
         set({ isLoading: true })
         try {
+          // Step 1: Authenticate with Supabase
+          const { createClient: createSupabaseClient } = await import('@/utils/supabase/client')
+          const supabase = createSupabaseClient()
+          const { error: supabaseError } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+          })
+
+          if (supabaseError) {
+            // If Supabase auth fails, try legacy login as fallback
+            console.warn('Supabase login failed, trying legacy:', supabaseError.message)
+          }
+
+          // Step 2: Call our login API to get doctor data
           const response = await fetch('/api/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -62,20 +78,41 @@ export const useAuthStore = create<AuthStore>()(
             )
           }
 
-          const data = (await response.json()) as {
-            doctor: Doctor
-            subscription: Subscription | null
-            token: string
+          const result = await response.json() as {
+            success: boolean
+            data: {
+              id: string
+              email: string
+              name: string
+              specialty: string
+              degrees: string
+              bmdcNumber: string
+              phone: string
+              avatarUrl: string
+              chamberName: string
+              chamberAddress: string
+              chamberPhone: string
+              chamberEmail: string
+              emailVerified: boolean
+              supabaseUid: string
+              createdAt: string
+              updatedAt: string
+              settings?: Doctor['settings']
+              subscription?: Subscription | null
+              token: string
+            }
           }
 
-          // Store session token for API authentication
+          const doctorData = result.data
+
+          // Store session token for legacy API authentication
           if (typeof window !== 'undefined') {
-            localStorage.setItem(SESSION_TOKEN_KEY, data.token)
+            localStorage.setItem(SESSION_TOKEN_KEY, doctorData.token)
           }
 
           set({
-            doctor: data.doctor,
-            subscription: data.subscription,
+            doctor: doctorData as unknown as Doctor,
+            subscription: doctorData.subscription ?? null,
             isAuthenticated: true,
             isLoading: false,
           })
@@ -85,9 +122,70 @@ export const useAuthStore = create<AuthStore>()(
         }
       },
 
+      // ─── Signup (Supabase + API) ─────────────────────────────────────
+      signup: async (email, password, name, specialty) => {
+        set({ isLoading: true })
+        try {
+          // Step 1: Create Supabase auth user
+          let supabaseUid = ''
+          try {
+            const { createClient: createSupabaseClient } = await import('@/utils/supabase/client')
+            const supabase = createSupabaseClient()
+            const { data, error: supabaseError } = await supabase.auth.signUp({
+              email,
+              password,
+            })
+
+            if (supabaseError) {
+              console.warn('Supabase signup failed, continuing with local:', supabaseError.message)
+            } else if (data.user) {
+              supabaseUid = data.user.id
+            }
+          } catch (err) {
+            console.warn('Supabase client not available for signup:', err)
+          }
+
+          // Step 2: Create Doctor record in our DB
+          const response = await fetch('/api/auth/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email,
+              password,
+              name,
+              specialty,
+              supabaseUid,
+            }),
+          })
+
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}))
+            throw new Error(
+              (errorData as { error?: string }).error || 'Registration failed.'
+            )
+          }
+
+          set({ isLoading: false })
+        } catch (error) {
+          set({ isLoading: false })
+          throw error
+        }
+      },
+
       // ─── Logout ───────────────────────────────────────────────────────
       logout: () => {
-        // Attempt to notify the server (fire-and-forget)
+        // Sign out from Supabase
+        ;(async () => {
+          try {
+            const { createClient: createSupabaseClient } = await import('@/utils/supabase/client')
+            const supabase = createSupabaseClient()
+            await supabase.auth.signOut()
+          } catch {
+            // Ignore Supabase sign-out errors
+          }
+        })()
+
+        // Notify server (fire-and-forget)
         const token =
           typeof window !== 'undefined'
             ? localStorage.getItem(SESSION_TOKEN_KEY)
@@ -100,9 +198,11 @@ export const useAuthStore = create<AuthStore>()(
               'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`,
             },
-          }).catch(() => {
-            // Silently ignore logout API failures
-          })
+          }).catch(() => {})
+        } else {
+          fetch('/api/auth/logout', {
+            method: 'POST',
+          }).catch(() => {})
         }
 
         // Clear session token

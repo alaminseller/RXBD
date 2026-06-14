@@ -39,6 +39,7 @@ interface RegisterFormProps {
 
 export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
   const isLoading = useAuthStore((s) => s.isLoading)
+  const signup = useAuthStore((s) => s.signup)
   const { t } = useTranslation()
 
   const [name, setName] = useState('')
@@ -65,22 +66,7 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
     }
 
     try {
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: name.trim(),
-          email: email.trim(),
-          password,
-          specialty,
-        }),
-      })
-
-      if (!response.ok) {
-        const data = await response.json().catch(() => ({}))
-        throw new Error((data as { error?: string }).error || t('auth.registrationFailed'))
-      }
-
+      await signup(email.trim(), password, name.trim(), specialty)
       setSuccess(t('auth.accountCreated'))
       setTimeout(() => onSwitchToLogin(), 1500)
     } catch (err) {

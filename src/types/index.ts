@@ -2,6 +2,7 @@
 
 export interface Doctor {
   id: string
+  supabaseUid: string
   email: string
   name: string
   password: string

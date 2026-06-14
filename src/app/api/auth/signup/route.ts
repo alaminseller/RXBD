@@ -2,7 +2,8 @@ import { db } from '@/lib/db'
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod/v4'
 import bcrypt from 'bcryptjs'
-import { v4 as uuidv4 } from 'uuid'
+import { createClient as createSupabaseServerClient } from '@/utils/supabase/server'
+import { cookies } from 'next/headers'
 
 const signupSchema = z.object({
   email: z.email('Invalid email address'),
@@ -12,6 +13,7 @@ const signupSchema = z.object({
   specialty: z.string().optional(),
   degrees: z.string().optional(),
   bmdcNumber: z.string().optional(),
+  supabaseUid: z.string().optional(),
 })
 
 export async function POST(request: NextRequest) {
@@ -30,13 +32,31 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Hash password
+    // Try to get Supabase UID from the request body (client-side signup flow)
+    // or from the Supabase session cookies (server-side validation)
+    let supabaseUid = validated.supabaseUid || ''
+
+    if (!supabaseUid) {
+      try {
+        const cookieStore = await cookies()
+        const supabase = createSupabaseServerClient(cookieStore)
+        const { data: { user } } = await supabase.auth.getUser()
+        if (user?.id && user.email === validated.email) {
+          supabaseUid = user.id
+        }
+      } catch {
+        // Supabase session not available — continue with empty UID
+      }
+    }
+
+    // Hash password (kept for backward compatibility / fallback auth)
     const hashedPassword = await bcrypt.hash(validated.password, 10)
 
     // Create doctor + settings + subscription in transaction
     const doctor = await db.doctor.create({
       data: {
         email: validated.email,
+        supabaseUid,
         name: validated.name,
         password: hashedPassword,
         phone: validated.phone ?? '',

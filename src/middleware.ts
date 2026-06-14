@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient as createSupabaseClient } from '@/utils/supabase/middleware'
+import { createClient as createSupabaseMiddlewareClient } from '@/utils/supabase/middleware'
 
 /**
  * RxBD Middleware
  *
- * - Supabase session refresh: Keeps Supabase auth sessions fresh
+ * - Supabase session refresh: Keeps Supabase auth sessions fresh on every request
  * - Auth protection: Redirects unauthenticated users to login for dashboard routes
  * - Subscription gating: Shows upgrade prompt for premium-only features
  * - Public route allowance: /verify/[id] and /api/verify/[id] are accessible without auth
@@ -49,7 +49,13 @@ function isStaticAsset(pathname: string): boolean {
 }
 
 function hasAuthToken(request: NextRequest): boolean {
-  // Check for rxbd-session cookie
+  // Check for Supabase session cookies (sb-<ref>-auth-token)
+  const supabaseCookieKeys = request.cookies.getAll().filter(c =>
+    c.name.includes('-auth-token')
+  )
+  if (supabaseCookieKeys.length > 0) return true
+
+  // Check for rxbd-session cookie (legacy)
   const sessionCookie = request.cookies.get('rxbd-session')
   if (sessionCookie?.value) return true
 
@@ -80,7 +86,7 @@ export async function middleware(request: NextRequest) {
   // ─── Supabase Session Refresh ─────────────────────────────────────
   // Create a Supabase client for the middleware and refresh the session.
   // This ensures the Supabase auth session stays fresh on every request.
-  const { supabase, response: supabaseResponse } = createSupabaseClient(request)
+  const { supabase, response: supabaseResponse } = createSupabaseMiddlewareClient(request)
 
   // Refresh the Supabase session (this sets cookies via setAll)
   await supabase.auth.getUser()
