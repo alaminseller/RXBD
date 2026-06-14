@@ -1,0 +1,2002 @@
+     1→+-----------------------------------------------------------------------+
+     2→| +------------------------------------------------------------------+  |
+     3→| | **RxBD**                                                         |  |
+     4→| |                                                                  |  |
+     5→| | **Master Project Blueprint**                                     |  |
+     6→| |                                                                  |  |
+     7→| | Digital Prescription Platform for Bangladesh                     |  |
+     8→| +------------------------------------------------------------------+  |
+     9→|                                                                       |
+    10→| Version 2.0 --- Comprehensive Rewrite                                 |
+    11→|                                                                       |
+    12→| Prepared by: alaminnetwork4@gmail.com                                 |
+    13→|                                                                       |
+    14→| Date: June 14, 2026                                                   |
+    15→|                                                                       |
+    16→| Classification: Confidential                                          |
+    17→+-----------------------------------------------------------------------+
+    18→
+    19→**Table of Contents**
+    20→
+    21→[1. Executive Summary [1](#_Toc100000)](#_Toc100000)
+    22→
+    23→> [1.1 Key Differentiators [2](#_Toc100001)](#_Toc100001)
+    24→
+    25→[2. Tech Stack & Architecture [3](#_Toc100002)](#_Toc100002)
+    26→
+    27→> [2.1 Frontend Stack [3](#_Toc100003)](#_Toc100003)
+    28→>
+    29→> [2.2 Backend & Infrastructure [3](#_Toc100004)](#_Toc100004)
+    30→>
+    31→> [2.3 Architecture Overview [3](#_Toc100005)](#_Toc100005)
+    32→>
+    33→> [2.4 Architecture Diagram (Textual Description)
+    34→> [4](#_Toc100006)](#_Toc100006)
+    35→>
+    36→> [2.5 Observability & Monitoring [4](#_Toc100007)](#_Toc100007)
+    37→>
+    38→> [2.5.1 Error Tracking [4](#_Toc100008)](#_Toc100008)
+    39→>
+    40→> [2.5.2 Analytics [5](#_Toc100009)](#_Toc100009)
+    41→>
+    42→> [2.5.3 Uptime Monitoring [5](#_Toc100010)](#_Toc100010)
+    43→>
+    44→> [2.6 Data Resilience [5](#_Toc100011)](#_Toc100011)
+    45→>
+    46→> [2.6.1 Local-First Auto-Save [5](#_Toc100012)](#_Toc100012)
+    47→>
+    48→> [2.6.2 Database Backup Strategy [6](#_Toc100013)](#_Toc100013)
+    49→>
+    50→> [2.6.3 Subscription Gating [6](#_Toc100014)](#_Toc100014)
+    51→
+    52→[3. Database Schema [6](#_Toc100015)](#_Toc100015)
+    53→
+    54→> [3.1 Entity Relationship Overview [6](#_Toc100016)](#_Toc100016)
+    55→>
+    56→> [3.2 Table Definitions [7](#_Toc100017)](#_Toc100017)
+    57→>
+    58→> [3.2.1 doctors [7](#_Toc100018)](#_Toc100018)
+    59→>
+    60→> [3.2.2 doctor_settings [7](#_Toc100019)](#_Toc100019)
+    61→>
+    62→> [3.2.3 patients [7](#_Toc100020)](#_Toc100020)
+    63→>
+    64→> [3.2.4 prescriptions [7](#_Toc100021)](#_Toc100021)
+    65→>
+    66→> [3.2.5 subscriptions [7](#_Toc100022)](#_Toc100022)
+    67→>
+    68→> [3.2.6 medicine_feedback [7](#_Toc100023)](#_Toc100023)
+    69→>
+    70→> [3.2.7 audit_log [8](#_Toc100024)](#_Toc100024)
+    71→>
+    72→> [3.3 Row Level Security Policies [8](#_Toc100025)](#_Toc100025)
+    73→>
+    74→> [3.4 Indexes [8](#_Toc100026)](#_Toc100026)
+    75→>
+    76→> [3.5 Database Migrations [8](#_Toc100027)](#_Toc100027)
+    77→
+    78→[4. Medicine Data Strategy [9](#_Toc100028)](#_Toc100028)
+    79→
+    80→> [4.1 Data Source [9](#_Toc100029)](#_Toc100029)
+    81→>
+    82→> [4.2 Static JSON Dataset Architecture [9](#_Toc100030)](#_Toc100030)
+    83→>
+    84→> [4.3 Search Behavior [9](#_Toc100031)](#_Toc100031)
+    85→>
+    86→> [4.4 Data Update Pipeline [10](#_Toc100032)](#_Toc100032)
+    87→>
+    88→> [4.5 Crowdsourced Feedback Workflow [10](#_Toc100033)](#_Toc100033)
+    89→
+    90→[5. SaaS Subscription Model [10](#_Toc100034)](#_Toc100034)
+    91→
+    92→> [5.1 Tier Definitions [10](#_Toc100035)](#_Toc100035)
+    93→>
+    94→> [5.2 Monthly Prescription Counter Mechanism
+    95→> [11](#_Toc100036)](#_Toc100036)
+    96→>
+    97→> [5.3 Free-to-Premium Upgrade Flow [11](#_Toc100037)](#_Toc100037)
+    98→>
+    99→> [5.4 Payment Integration via SSLCommerz
+   100→> [11](#_Toc100038)](#_Toc100038)
+   101→>
+   102→> [5.5 Downgrade and Cancellation Policy [12](#_Toc100039)](#_Toc100039)
+   103→
+   104→[6. Implementation Plan [12](#_Toc100040)](#_Toc100040)
+   105→
+   106→> [6.1 Phase Overview [12](#_Toc100041)](#_Toc100041)
+   107→>
+   108→> [6.2 Phase 1: Foundation & Authentication (Weeks 1-3)
+   109→> [12](#_Toc100042)](#_Toc100042)
+   110→>
+   111→> [6.3 Phase 2: Prescription Engine (Weeks 4-7)
+   112→> [13](#_Toc100043)](#_Toc100043)
+   113→>
+   114→> [6.4 Phase 3: Print & PDF Output (Weeks 8-10)
+   115→> [14](#_Toc100044)](#_Toc100044)
+   116→>
+   117→> [6.5 Phase 4: Patient Management & History (Weeks 11-12)
+   118→> [14](#_Toc100045)](#_Toc100045)
+   119→>
+   120→> [6.6 Phase 5: Polish & Deployment (Weeks 13-15)
+   121→> [15](#_Toc100046)](#_Toc100046)
+   122→
+   123→[7. UX Blueprint [15](#_Toc100047)](#_Toc100047)
+   124→
+   125→> [7.1 Composer Layout (Desktop) [16](#_Toc100048)](#_Toc100048)
+   126→>
+   127→> [7.2 Composer Layout (Mobile & Tablet) [16](#_Toc100049)](#_Toc100049)
+   128→>
+   129→> [7.3 Print Layout [16](#_Toc100050)](#_Toc100050)
+   130→>
+   131→> [7.4 Onboarding & Trust [16](#_Toc100051)](#_Toc100051)
+   132→>
+   133→> [7.5 Internationalization (i18n) [17](#_Toc100052)](#_Toc100052)
+   134→
+   135→[8. Recommended Folder Structure [17](#_Toc100053)](#_Toc100053)
+   136→
+   137→[9. Data Privacy & Compliance [17](#_Toc100054)](#_Toc100054)
+   138→
+   139→> [9.1 Regulatory Compliance [17](#_Toc100055)](#_Toc100055)
+   140→>
+   141→> [9.2 Data Residency [18](#_Toc100056)](#_Toc100056)
+   142→>
+   143→> [9.3 Encryption [18](#_Toc100057)](#_Toc100057)
+   144→>
+   145→> [9.4 Data Retention & Deletion [18](#_Toc100058)](#_Toc100058)
+   146→>
+   147→> [9.5 Patient Consent Mechanism [19](#_Toc100059)](#_Toc100059)
+   148→>
+   149→> [9.6 Data Portability [19](#_Toc100060)](#_Toc100060)
+   150→>
+   151→> [9.7 Privacy Transparency [19](#_Toc100061)](#_Toc100061)
+   152→
+   153→[10. Pre-Launch Checklist [19](#_Toc100062)](#_Toc100062)
+   154→
+   155→> [10.1 Security [20](#_Toc100063)](#_Toc100063)
+   156→>
+   157→> [10.2 Data & UX [20](#_Toc100064)](#_Toc100064)
+   158→>
+   159→> [10.3 Deployment [20](#_Toc100065)](#_Toc100065)
+   160→>
+   161→> [10.4 Accessibility [20](#_Toc100066)](#_Toc100066)
+   162→
+   163→[11. Operational Readiness [20](#_Toc100067)](#_Toc100067)
+   164→
+   165→> [11.1 Support Strategy [20](#_Toc100068)](#_Toc100068)
+   166→>
+   167→> [11.2 Beta Feedback Loop [21](#_Toc100069)](#_Toc100069)
+   168→>
+   169→> [11.3 Analytics Strategy [21](#_Toc100070)](#_Toc100070)
+   170→
+   171→[12. Future Roadmap (Post-Launch) [21](#_Toc100071)](#_Toc100071)
+   172→
+   173→> [12.1 Tier 1: High Priority (3-6 Months)
+   174→> [22](#_Toc100072)](#_Toc100072)
+   175→>
+   176→> [12.2 Tier 2: Medium Priority (6-12 Months)
+   177→> [22](#_Toc100073)](#_Toc100073)
+   178→>
+   179→> [12.3 Tier 3: Long-Term Vision (12+ Months)
+   180→> [22](#_Toc100074)](#_Toc100074)
+   181→
+   182→[13. Support FAQ [22](#_Toc100075)](#_Toc100075)
+   183→
+   184→> [13.1 Getting Started [22](#_Toc100076)](#_Toc100076)
+   185→>
+   186→> [13.2 Prescriptions & Usage [23](#_Toc100077)](#_Toc100077)
+   187→>
+   188→> [13.3 Security & Privacy [24](#_Toc100078)](#_Toc100078)
+   189→>
+   190→> [13.4 Billing & Subscription [24](#_Toc100079)](#_Toc100079)
+   191→
+   192→[14. Infrastructure Cost Analysis [25](#_Toc100080)](#_Toc100080)
+   193→
+   194→> [14.1 Free-Tier Cost Breakdown [25](#_Toc100081)](#_Toc100081)
+   195→>
+   196→> [14.2 Scaling Cost Projections [25](#_Toc100082)](#_Toc100082)
+   197→
+   198→[15. Risk Register [25](#_Toc100083)](#_Toc100083)
+   199→
+   200→*Note: This Table of Contents is generated via field codes. To ensure
+   201→page number accuracy after editing, please right-click the TOC and
+   202→select \"Update Field.\"*
+   203→
+   204→[]{#_Toc100000 .anchor}**1. Executive Summary**
+   205→
+   206→RxBD is a comprehensive multi-tenant, SaaS-based digital prescription
+   207→platform purpose-built for private chamber doctors in Bangladesh. The
+   208→platform replaces error-prone handwritten prescriptions with a fast,
+   209→intuitive digital composer that generates professional, print-ready
+   210→prescriptions in under two minutes. By leveraging modern web
+   211→technologies and a free-tier infrastructure strategy centered on Vercel
+   212→and Supabase, RxBD achieves near-zero operational costs during its
+   213→initial growth phase while maintaining enterprise-grade security and
+   214→reliability.
+   215→
+   216→The Bangladesh healthcare market presents a significant opportunity for
+   217→digital prescription tools. The country has over 75,000 registered
+   218→physicians, with a substantial proportion operating private chambers
+   219→where prescription writing constitutes the primary clinical
+   220→documentation activity. Currently, the vast majority of these
+   221→practitioners rely on handwritten prescriptions, which are prone to
+   222→illegibility, incomplete drug information, and lack of verifiable
+   223→authenticity. Existing digital solutions such as Practo and local EMR
+   224→systems are either too complex, too expensive, or poorly adapted to the
+   225→specific workflow of a Bangladeshi chamber doctor who sees 30 to 50
+   226→patients per session and needs speed above all else.
+   227→
+   228→RxBD addresses this gap with a focused, opinionated product that
+   229→prioritizes speed of prescription creation, professional output quality,
+   230→and zero-friction onboarding. The platform employs a client-side
+   231→medicine search engine powered by Fuse.js over static JSON datasets,
+   232→eliminating API latency and reducing infrastructure costs. A local-first
+   233→auto-save mechanism ensures that no prescription draft is ever lost,
+   234→even during internet outages common in semi-urban and rural Bangladesh.
+   235→Every generated prescription includes a unique QR code for document
+   236→verification, building trust and combating prescription forgery.
+   237→
+   238→The commercial model follows a freemium SaaS approach: the Free tier
+   239→provides core functionality with a limit of 50 prescriptions per month,
+   240→sufficient for part-time practitioners, while the Premium tier unlocks
+   241→unlimited prescriptions, custom letterhead branding, digital signature
+   242→embedding, and priority support. Payment processing is handled through
+   243→SSLCommerz, supporting local mobile financial services such as bKash,
+   244→Nagad, and Rocket, ensuring accessibility for the target demographic.
+   245→
+   246→Infrastructure costs are managed through a deliberate free-tier
+   247→strategy. Vercel\'s hobby plan provides serverless hosting with 100GB
+   248→monthly bandwidth and 10-second function timeouts, while Supabase\'s
+   249→free tier offers 500MB of PostgreSQL storage, 1GB of file storage, and
+   250→50,000 monthly active users for authentication. These limits are
+   251→sufficient to support the initial user base of 500 to 1,000 doctors,
+   252→with a clear migration path to paid tiers as revenue grows. Automated,
+   253→encrypted database backups via Supabase\'s built-in Point-In-Time
+   254→Recovery and GitHub Actions provide data resilience without additional
+   255→cost.
+   256→
+   257→[]{#_Toc100001 .anchor}**1.1 Key Differentiators**
+   258→
+   259→-   Zero-latency medicine search via client-side Fuse.js indexing over
+   260→    8,000+ Bangladeshi pharmaceutical brands
+   261→
+   262→-   Local-first draft persistence with 10-second auto-save to browser
+   263→    localStorage, ensuring zero data loss during connectivity
+   264→    disruptions
+   265→
+   266→-   QR code-based prescription verification system for document
+   267→    authenticity and anti-forgery protection
+   268→
+   269→-   Bilingual interface supporting both English and Bengali (Bangla),
+   270→    with automatic locale detection and manual toggle
+   271→
+   272→-   Bangladesh-specific payment integration via SSLCommerz supporting
+   273→    bKash, Nagad, Rocket, and traditional card banking
+   274→
+   275→-   A4 print layout conforming to the standard Bangladesh medical
+   276→    prescription format expected by patients and pharmacies
+   277→
+   278→-   Free-tier infrastructure strategy enabling near-zero operational
+   279→    cost during the initial growth phase
+   280→
+   281→[]{#_Toc100002 .anchor}**2. Tech Stack & Architecture**
+   282→
+   283→The technology stack is selected to maximize developer productivity,
+   284→minimize infrastructure costs, and ensure a responsive, reliable user
+   285→experience. Every component is chosen with explicit justification tied
+   286→to the product requirements and the constraints of operating on
+   287→free-tier infrastructure.
+   288→
+   289→[]{#_Toc100003 .anchor}**2.1 Frontend Stack**
+   290→
+   291→  -----------------------------------------------------------------------------------
+   292→  **Technology**         **Version**       **Purpose**            **Justification**
+   293→  ---------------------- ----------------- ---------------------- -------------------
+   294→  Next.js                15+ (App Router)  Core framework for     App Router provides
+   295→                                           SSR, ISR, and routing  React Server
+   296→                                                                  Components for
+   297→                                                                  reduced client
+   298→                                                                  bundle size; ISR
+   299→                                                                  for medicine data
+   300→                                                                  caching; API routes
+   301→                                                                  for backend logic
+   302→                                                                  without a separate
+   303→                                                                  server
+   304→
+   305→  TypeScript             5.x               Static type checking   Prevents runtime
+   306→                                                                  errors in critical
+   307→                                                                  medical data flows;
+   308→                                                                  enforces type
+   309→                                                                  safety on
+   310→                                                                  prescription JSON
+   311→                                                                  payloads and
+   312→                                                                  database models
+   313→
+   314→  Tailwind CSS           4.x               Utility-first styling  Rapid UI
+   315→                                                                  development with
+   316→                                                                  consistent design
+   317→                                                                  tokens;
+   318→                                                                  tree-shaking
+   319→                                                                  eliminates unused
+   320→                                                                  CSS; responsive
+   321→                                                                  utilities for
+   322→                                                                  mobile adaptation
+   323→
+   324→  shadcn/ui              Latest            Accessible component   Unstyled,
+   325→                                           library                composable
+   326→                                                                  components with
+   327→                                                                  full ARIA support;
+   328→                                                                  avoids vendor
+   329→                                                                  lock-in since code
+   330→                                                                  is owned and
+   331→                                                                  customizable
+   332→
+   333→  React Hook Form        7.x               Form state management  Minimal re-renders
+   334→                                                                  for performant
+   335→                                                                  multi-field
+   336→                                                                  prescription forms;
+   337→                                                                  built-in validation
+   338→                                                                  with Zod schema
+   339→                                                                  integration
+   340→
+   341→  Zod                    3.x               Schema validation      Shared validation
+   342→                                                                  schemas between
+   343→                                                                  client and server;
+   344→                                                                  runtime type safety
+   345→                                                                  for prescription
+   346→                                                                  JSON payloads
+   347→
+   348→  Zustand                4.x               Client-side state      Lightweight
+   349→                                           management             alternative to
+   350→                                                                  Redux; manages
+   351→                                                                  prescription
+   352→                                                                  composer session
+   353→                                                                  state (medications
+   354→                                                                  list, patient
+   355→                                                                  context, dirty
+   356→                                                                  state)
+   357→
+   358→  Fuse.js                6.x               Client-side fuzzy      Zero-latency
+   359→                                           search                 medicine search;
+   360→                                                                  fuzzy matching
+   361→                                                                  handles partial
+   362→                                                                  spelling common
+   363→                                                                  with generic drug
+   364→                                                                  names; indexes
+   365→                                                                  8,000+ brands in
+   366→                                                                  memory
+   367→
+   368→  \@react-pdf/renderer   3.x               PDF generation         Client-side PDF
+   369→                                                                  creation eliminates
+   370→                                                                  server load;
+   371→                                                                  produces
+   372→                                                                  pixel-perfect
+   373→                                                                  prescription
+   374→                                                                  layouts matching
+   375→                                                                  Bangladesh medical
+   376→                                                                  format
+   377→
+   378→  qrcode.react           3.x               QR code generation     Generates unique
+   379→                                                                  verification QR
+   380→                                                                  codes embedded
+   381→                                                                  directly in PDF
+   382→                                                                  output; no external
+   383→                                                                  API dependency
+   384→
+   385→  next-intl              3.x               Internationalization   Bilingual support
+   386→                                                                  (English/Bengali)
+   387→                                                                  with message
+   388→                                                                  catalogs; automatic
+   389→                                                                  locale detection;
+   390→                                                                  SSR-compatible
+   391→                                                                  message loading
+   392→  -----------------------------------------------------------------------------------
+   393→
+   394→[]{#_Toc100004 .anchor}**2.2 Backend & Infrastructure**
+   395→
+   396→  -----------------------------------------------------------------------
+   397→  **Technology**    **Purpose**       **Free Tier       **Scaling
+   398→                                      Limits**          Strategy**
+   399→  ----------------- ----------------- ----------------- -----------------
+   400→  Next.js API       Server-side       10s function      Migrate
+   401→  Routes            business logic    timeout, 100GB    long-running
+   402→                    and database      bandwidth/month   operations to
+   403→                    interactions      (Vercel)          Supabase Edge
+   404→                                                        Functions or a
+   405→                                                        dedicated
+   406→                                                        container service
+   407→
+   408→  Supabase          Primary           500MB storage,    Upgrade to
+   409→  PostgreSQL        relational        50K MAU auth, 5GB Supabase Pro
+   410→                    database with RLS bandwidth         (\$25/month) when
+   411→                    for multi-tenancy                   DB exceeds 400MB
+   412→                                                        or auth exceeds
+   413→                                                        40K MAU
+   414→
+   415→  Supabase Auth     User              50K MAU, 500      Upgrade to Pro
+   416→                    authentication    email sends/day   for 100K MAU and
+   417→                    with                                custom SMTP for
+   418→                    email/password                      branded emails
+   419→                    and social OAuth                    
+   420→
+   421→  Supabase Storage  Doctor asset      1GB storage, 5GB  Implement image
+   422→                    storage           bandwidth         compression and
+   423→                    (signatures,                        size limits;
+   424→                    logos, photos)                      migrate to
+   425→                                                        Cloudflare R2 for
+   426→                                                        cheaper egress
+   427→
+   428→  Vercel            Deployment, CDN,  100GB bandwidth,  Upgrade to Pro
+   429→                    edge hosting,     6,000 build       (\$20/month) for
+   430→                    image             min/month         1TB bandwidth and
+   431→                    optimization                        analytics
+   432→
+   433→  Vercel Image      On-the-fly        1,000             Pre-compress
+   434→  Optimization      optimization for  images/month on   uploads
+   435→                    doctor-uploaded   free tier         client-side using
+   436→                    images                              browser Canvas
+   437→                                                        API before
+   438→                                                        storage
+   439→
+   440→  GitHub Actions    CI/CD pipeline    2,000             Optimize workflow
+   441→                    and scheduled     minutes/month     caching; schedule
+   442→                    backup tasks                        backups at
+   443→                                                        off-peak hours to
+   444→                                                        minimize minute
+   445→                                                        usage
+   446→  -----------------------------------------------------------------------
+   447→
+   448→[]{#_Toc100005 .anchor}**2.3 Architecture Overview**
+   449→
+   450→RxBD follows a flat, serverless architecture optimized for the JAMstack
+   451→paradigm. The entire application is deployed as a single Next.js project
+   452→on Vercel, with serverless API routes handling all backend logic and
+   453→Supabase providing managed database, authentication, and file storage
+   454→services. This architecture eliminates the need for container
+   455→orchestration, server provisioning, or infrastructure management,
+   456→allowing the team to focus entirely on product development.
+   457→
+   458→The request flow follows a clear pattern: client requests hit Vercel\'s
+   459→edge CDN first, where static assets are served from cache. Dynamic
+   460→routes are handled by Next.js serverless functions, which authenticate
+   461→requests via Supabase Auth JWT tokens, enforce Row Level Security
+   462→through Supabase\'s PostgreSQL policies, and return data. The
+   463→prescription composer operates as a client-side application that loads
+   464→medicine data into memory once on page load, enabling instant fuzzy
+   465→search without server round-trips.
+   466→
+   467→Multi-tenant data isolation is enforced at the database level through
+   468→Supabase Row Level Security (RLS). Every table includes a doctor_id
+   469→foreign key referencing the auth.users table, and RLS policies ensure
+   470→that each authenticated doctor can only access rows where the doctor_id
+   471→matches their session UID. This approach is both simpler and more secure
+   472→than application-level tenant filtering, as it prevents accidental data
+   473→leakage even if a developer introduces a bug in a query.
+   474→
+   475→[]{#_Toc100006 .anchor}**2.4 Architecture Diagram (Textual
+   476→Description)**
+   477→
+   478→The system architecture can be described in four layers. Layer 1
+   479→(Client) consists of the Next.js frontend application running in the
+   480→user\'s browser, including the prescription composer with Zustand state
+   481→management, Fuse.js medicine search index loaded from static JSON, and
+   482→\@react-pdf/renderer for client-side PDF generation. Layer 2 (Edge/CDN)
+   483→is Vercel\'s global edge network, serving cached static assets and
+   484→routing dynamic requests to serverless functions. Layer 3 (API)
+   485→comprises Next.js API routes running as serverless functions, handling
+   486→authentication validation, database CRUD operations, subscription
+   487→enforcement, and webhook processing for SSLCommerz payment
+   488→confirmations. Layer 4 (Data) includes Supabase PostgreSQL for
+   489→persistent data with RLS, Supabase Auth for user management, Supabase
+   490→Storage for doctor-uploaded assets, and the browser\'s localStorage for
+   491→draft auto-save persistence.
+   492→
+   493→[]{#_Toc100007 .anchor}**2.5 Observability & Monitoring**
+   494→
+   495→Effective monitoring is essential for a healthcare application where
+   496→data integrity and uptime directly impact patient safety. RxBD
+   497→implements a layered observability strategy using free-tier tools that
+   498→provide comprehensive coverage without operational expense.
+   499→
+   500→[]{#_Toc100008 .anchor}**2.5.1 Error Tracking**
+   501→
+   502→Sentry is integrated at both the frontend and API route levels. The
+   503→Sentry Next.js SDK captures unhandled exceptions, React component
+   504→errors, and API route failures with full stack traces and source maps.
+   505→The free Sentry tier provides 5,000 events per month and 1-day
+   506→retention, which is sufficient for an initial user base of up to 1,000
+   507→doctors. Error events are tagged with the doctor\'s subscription tier
+   508→and the API route involved, enabling rapid triage. Critical errors,
+   509→defined as any error in the prescription creation or PDF generation
+   510→flow, trigger immediate Slack notifications via Sentry\'s integration
+   511→webhooks.
+   512→
+   513→[]{#_Toc100009 .anchor}**2.5.2 Analytics**
+   514→
+   515→PostHog is chosen as the product analytics platform for its generous
+   516→free tier (1 million events per month) and self-hosting option for
+   517→future migration. Key tracking events include prescription_created,
+   518→medicine_search_used, pdf_generated, upgrade_modal_shown, and
+   519→onboarding_step_completed. These events feed into funnel analysis for
+   520→the onboarding flow and conversion tracking for the freemium-to-premium
+   521→upgrade path. PostHog\'s session replay feature provides qualitative
+   522→insight into user behavior without requiring a separate tool like
+   523→LogRocket, consolidating the observability stack.
+   524→
+   525→[]{#_Toc100010 .anchor}**2.5.3 Uptime Monitoring**
+   526→
+   527→UptimeRobot\'s free tier provides 50 monitors with 5-minute check
+   528→intervals. Two monitors are configured: one for the main application URL
+   529→(rxbd.com.bd) verifying HTTP 200 responses, and one for the Supabase
+   530→health endpoint. Alert channels include email and Slack integration.
+   531→This provides basic availability monitoring sufficient for the launch
+   532→phase, with migration to Vercel\'s built-in analytics and Synthetics on
+   533→the Pro plan as the platform scales.
+   534→
+   535→[]{#_Toc100011 .anchor}**2.6 Data Resilience**
+   536→
+   537→Data resilience in RxBD operates at three levels, ensuring that no
+   538→single point of failure can result in permanent data loss.
+   539→
+   540→[]{#_Toc100012 .anchor}**2.6.1 Local-First Auto-Save**
+   541→
+   542→Prescription drafts are automatically persisted to the browser\'s
+   543→localStorage every 10 seconds using a debounced Zustand middleware. The
+   544→auto-save captures the full prescription state including patient
+   545→context, medications added, clinical notes, and form dirty state. Upon
+   546→reconnection after a connectivity loss, the application detects local
+   547→drafts by comparing the localStorage timestamp against the server\'s
+   548→last-known save time and prompts the user to resume their work. This
+   549→mechanism prevents data loss even during extended internet outages,
+   550→which are common in semi-urban Bangladesh, and requires zero server
+   551→infrastructure.
+   552→
+   553→[]{#_Toc100013 .anchor}**2.6.2 Database Backup Strategy**
+   554→
+   555→The primary backup mechanism uses Supabase\'s built-in daily automated
+   556→backups, which are available on the Pro plan. During the free-tier
+   557→launch phase, a GitHub Actions workflow performs a daily pg_dump of the
+   558→Supabase database, encrypts the dump using AES-256 encryption with a key
+   559→stored in GitHub Secrets, and commits the encrypted backup to a private
+   560→repository. This approach provides 7-day retention without additional
+   561→cost. The encryption key is managed separately from the backup storage,
+   562→ensuring that even if the repository is compromised, the backup data
+   563→remains unreadable without the key. On migration to Supabase Pro, the
+   564→daily automated backups with 7-day Point-In-Time Recovery become the
+   565→primary mechanism, and the GitHub Actions backup is retained as a
+   566→secondary off-site copy.
+   567→
+   568→[]{#_Toc100014 .anchor}**2.6.3 Subscription Gating**
+   569→
+   570→Access control and tier-based feature restrictions are enforced via
+   571→Next.js Middleware, which runs on Vercel\'s edge network before any page
+   572→renders. The middleware extracts the Supabase Auth JWT from the request
+   573→cookie, decodes the user\'s plan metadata (stored as a custom claim in
+   574→the JWT), and checks the current prescription count against the plan
+   575→limit. If a Free-tier user has reached their 50-prescription monthly
+   576→limit, the middleware redirects them to an upgrade prompt page rather
+   577→than the prescription composer. Premium features such as custom
+   578→letterhead branding and digital signature upload are gated by checking
+   579→the plan claim before rendering the relevant UI components, and API
+   580→routes perform a secondary server-side plan check to prevent client-side
+   581→bypass.
+   582→
+   583→[]{#_Toc100015 .anchor}**3. Database Schema**
+   584→
+   585→The database is structured to support multi-tenancy where each doctor
+   586→owns their specific settings and patient records. The schema uses
+   587→Supabase PostgreSQL with Row Level Security (RLS) enforced on every
+   588→table. All tables include standard audit columns (created_at,
+   589→updated_at) and use UUID primary keys for global uniqueness and to
+   590→prevent enumeration attacks.
+   591→
+   592→[]{#_Toc100016 .anchor}**3.1 Entity Relationship Overview**
+   593→
+   594→The core data model revolves around the doctor entity as the tenant
+   595→root. Each doctor owns their settings, patients, and prescriptions. A
+   596→patient belongs to exactly one doctor (to maintain data isolation), and
+   597→a prescription belongs to one patient and one doctor. The subscriptions
+   598→table tracks the doctor\'s current plan and usage counters, while the
+   599→medicine_feedback table supports crowdsourced improvement of the
+   600→medicine database.
+   601→
+   602→[]{#_Toc100017 .anchor}**3.2 Table Definitions**
+   603→
+   604→[]{#_Toc100018 .anchor}**3.2.1 doctors**
+   605→
+   606→  -----------------------------------------------------------------------
+   607→  **Column**        **Type**          **Constraints**   **Description**
+   608→  ----------------- ----------------- ----------------- -----------------
+   609→  id                UUID              PK, DEFAULT       Links to Supabase
+   610→                                      auth.uid()        Auth user;
+   611→                                                        ensures RLS
+   612→                                                        alignment
+   613→
+   614→  email             TEXT              NOT NULL, UNIQUE  Doctor\'s
+   615→                                                        registered email
+   616→                                                        address
+   617→
+   618→  full_name         TEXT              NOT NULL          Doctor\'s display
+   619→                                                        name (e.g., Dr.
+   620→                                                        Aminul Islam)
+   621→
+   622→  degrees           TEXT\[\]          DEFAULT \'{}\'    Array of degree
+   623→                                                        strings (e.g.,
+   624→                                                        MBBS, FCPS, MD)
+   625→
+   626→  specialty         TEXT              NULL              Medical specialty
+   627→                                                        (e.g.,
+   628→                                                        Cardiology,
+   629→                                                        General Practice)
+   630→
+   631→  bmdc_number       TEXT              UNIQUE            Bangladesh
+   632→                                                        Medical and
+   633→                                                        Dental Council
+   634→                                                        registration
+   635→                                                        number
+   636→
+   637→  phone             TEXT              NULL              Contact phone
+   638→                                                        number in +880
+   639→                                                        format
+   640→
+   641→  chamber_address   TEXT              NULL              Primary chamber
+   642→                                                        address for
+   643→                                                        prescription
+   644→                                                        header
+   645→
+   646→  chamber_name      TEXT              NULL              Chamber/clinic
+   647→                                                        name
+   648→
+   649→  avatar_url        TEXT              NULL              Supabase Storage
+   650→                                                        URL for profile
+   651→                                                        photo
+   652→
+   653→  locale            TEXT              DEFAULT \'en\'    Interface
+   654→                                                        language
+   655→                                                        preference:
+   656→                                                        \'en\' or \'bn\'
+   657→
+   658→  created_at        TIMESTAMPTZ       DEFAULT now()     Account creation
+   659→                                                        timestamp
+   660→
+   661→  updated_at        TIMESTAMPTZ       DEFAULT now()     Last profile
+   662→                                                        update timestamp
+   663→  -----------------------------------------------------------------------
+   664→
+   665→[]{#_Toc100019 .anchor}**3.2.2 doctor_settings**
+   666→
+   667→  ---------------------------------------------------------------------------
+   668→  **Column**           **Type**          **Constraints**   **Description**
+   669→  -------------------- ----------------- ----------------- ------------------
+   670→  doctor_id            UUID              PK, FK -\>        One-to-one with
+   671→                                         doctors.id ON     doctors table
+   672→                                         DELETE CASCADE    
+   673→
+   674→  header_template      TEXT              DEFAULT           Prescription
+   675→                                         \'standard\'      header layout:
+   676→                                                           \'standard\',
+   677→                                                           \'compact\',
+   678→                                                           \'custom\'
+   679→
+   680→  footer_text          TEXT              NULL              Custom footer text
+   681→                                                           (e.g., follow-up
+   682→                                                           instructions)
+   683→
+   684→  logo_url             TEXT              NULL              Supabase Storage
+   685→                                                           URL for
+   686→                                                           chamber/practice
+   687→                                                           logo
+   688→
+   689→  signature_url        TEXT              NULL              Supabase Storage
+   690→                                                           URL for digital
+   691→                                                           signature image
+   692→                                                           (Premium)
+   693→
+   694→  show_qr_code         BOOLEAN           DEFAULT true      Whether to include
+   695→                                                           verification QR
+   696→                                                           code on
+   697→                                                           prescriptions
+   698→
+   699→  prescription_theme   TEXT              DEFAULT           Visual theme:
+   700→                                         \'classic\'       \'classic\',
+   701→                                                           \'modern\',
+   702→                                                           \'minimal\'
+   703→
+   704→  font_size            INTEGER           DEFAULT 12        Base font size for
+   705→                                                           prescription print
+   706→                                                           (10-14 pt range)
+   707→
+   708→  created_at           TIMESTAMPTZ       DEFAULT now()     Settings creation
+   709→                                                           timestamp
+   710→
+   711→  updated_at           TIMESTAMPTZ       DEFAULT now()     Last settings
+   712→                                                           update timestamp
+   713→  ---------------------------------------------------------------------------
+   714→
+   715→[]{#_Toc100020 .anchor}**3.2.3 patients**
+   716→
+   717→  ----------------------------------------------------------------------------------------
+   718→  **Column**        **Type**          **Constraints**                    **Description**
+   719→  ----------------- ----------------- ---------------------------------- -----------------
+   720→  id                UUID              PK, DEFAULT gen_random_uuid()      Unique patient
+   721→                                                                         identifier
+   722→
+   723→  doctor_id         UUID              FK -\> doctors.id ON DELETE        Owning doctor for
+   724→                                      CASCADE, NOT NULL                  multi-tenant
+   725→                                                                         isolation
+   726→
+   727→  name              TEXT              NOT NULL                           Patient\'s full
+   728→                                                                         name
+   729→
+   730→  phone             TEXT              NULL                               Contact phone
+   731→                                                                         number
+   732→
+   733→  age_years         INTEGER           NULL                               Age in years
+   734→                                                                         (alternative to
+   735→                                                                         date_of_birth for
+   736→                                                                         convenience)
+   737→
+   738→  date_of_birth     DATE              NULL                               Date of birth for
+   739→                                                                         precise age
+   740→                                                                         calculation
+   741→
+   742→  gender            TEXT              CHECK (gender IN                   Gender for dosage
+   743→                                      (\'male\',\'female\',\'other\'))   calculations and
+   744→                                                                         clinical context
+   745→
+   746→  blood_group       TEXT              NULL                               Blood group
+   747→                                                                         (e.g., A+, O-)
+   748→
+   749→  address           TEXT              NULL                               Patient address
+   750→
+   751→  medical_notes     TEXT              NULL                               Persistent notes
+   752→                                                                         (allergies,
+   753→                                                                         chronic
+   754→                                                                         conditions)
+   755→                                                                         carried across
+   756→                                                                         visits
+   757→
+   758→  created_at        TIMESTAMPTZ       DEFAULT now()                      First
+   759→                                                                         registration
+   760→                                                                         timestamp
+   761→
+   762→  updated_at        TIMESTAMPTZ       DEFAULT now()                      Last update
+   763→                                                                         timestamp
+   764→  ----------------------------------------------------------------------------------------
+   765→
+   766→[]{#_Toc100021 .anchor}**3.2.4 prescriptions**
+   767→
+   768→  --------------------------------------------------------------------------
+   769→  **Column**         **Type**          **Constraints**     **Description**
+   770→  ------------------ ----------------- ------------------- -----------------
+   771→  id                 UUID              PK, DEFAULT         Unique
+   772→                                       gen_random_uuid()   prescription
+   773→                                                           identifier (used
+   774→                                                           in QR
+   775→                                                           verification URL)
+   776→
+   777→  doctor_id          UUID              FK -\> doctors.id   Prescribing
+   778→                                       ON DELETE CASCADE,  doctor
+   779→                                       NOT NULL            
+   780→
+   781→  patient_id         UUID              FK -\> patients.id  Patient receiving
+   782→                                       ON DELETE CASCADE,  prescription
+   783→                                       NOT NULL            
+   784→
+   785→  visit_date         DATE              DEFAULT             Date of
+   786→                                       CURRENT_DATE, NOT   consultation
+   787→                                       NULL                
+   788→
+   789→  chief_complaints   TEXT\[\]          DEFAULT \'{}\'      Array of chief
+   790→                                                           complaints (CC)
+   791→
+   792→  vitals             JSONB             DEFAULT \'{}\'      Vital signs: {bp,
+   793→                                                           pulse, temp,
+   794→                                                           weight, spo2}
+   795→
+   796→  on_examination     TEXT              NULL                Clinical
+   797→                                                           examination
+   798→                                                           findings
+   799→
+   800→  investigations     TEXT\[\]          DEFAULT \'{}\'      Ordered
+   801→                                                           investigations
+   802→                                                           and lab tests
+   803→
+   804→  diagnosis          TEXT\[\]          DEFAULT \'{}\'      Diagnosis entries
+   805→                                                           (ICD-10 codes
+   806→                                                           optional)
+   807→
+   808→  medications        JSONB             NOT NULL, DEFAULT   Array of
+   809→                                       \'\[\]\'            medication
+   810→                                                           objects: \[{name,
+   811→                                                           generic, dosage,
+   812→                                                           frequency,
+   813→                                                           duration,
+   814→                                                           instructions}\]
+   815→
+   816→  advice             TEXT              NULL                General advice
+   817→                                                           and follow-up
+   818→                                                           instructions
+   819→
+   820→  follow_up_date     DATE              NULL                Next visit date
+   821→
+   822→  pdf_url            TEXT              NULL                Supabase Storage
+   823→                                                           URL for saved PDF
+   824→                                                           (if stored
+   825→                                                           server-side)
+   826→
+   827→  qr_verified_at     TIMESTAMPTZ       NULL                Timestamp when QR
+   828→                                                           code was last
+   829→                                                           scanned for
+   830→                                                           verification
+   831→
+   832→  is_draft           BOOLEAN           DEFAULT true        Whether
+   833→                                                           prescription is
+   834→                                                           still in draft
+   835→                                                           state
+   836→
+   837→  created_at         TIMESTAMPTZ       DEFAULT now()       Creation
+   838→                                                           timestamp
+   839→
+   840→  updated_at         TIMESTAMPTZ       DEFAULT now()       Last modification
+   841→                                                           timestamp
+   842→  --------------------------------------------------------------------------
+   843→
+   844→[]{#_Toc100022 .anchor}**3.2.5 subscriptions**
+   845→
+   846→  ----------------------------------------------------------------------------------------
+   847→  **Column**                 **Type**          **Constraints**           **Description**
+   848→  -------------------------- ----------------- ------------------------- -----------------
+   849→  doctor_id                  UUID              PK, FK -\> doctors.id ON  One-to-one with
+   850→                                               DELETE CASCADE            doctors
+   851→
+   852→  plan                       TEXT              NOT NULL, DEFAULT         Current
+   853→                                               \'free\', CHECK (plan IN  subscription tier
+   854→                                               (\'free\',\'premium\'))   
+   855→
+   856→  prescriptions_this_month   INTEGER           DEFAULT 0                 Counter for
+   857→                                                                         monthly
+   858→                                                                         prescription
+   859→                                                                         usage on Free
+   860→                                                                         tier
+   861→
+   862→  counter_reset_at           DATE              NOT NULL, DEFAULT         Date when counter
+   863→                                               CURRENT_DATE              was last reset
+   864→                                                                         (monthly)
+   865→
+   866→  premium_since              TIMESTAMPTZ       NULL                      Timestamp of
+   867→                                                                         first Premium
+   868→                                                                         upgrade
+   869→
+   870→  premium_expires_at         TIMESTAMPTZ       NULL                      Expiration date
+   871→                                                                         for Premium
+   872→                                                                         subscription
+   873→
+   874→  sslcommerz_tran_id         TEXT              NULL                      Last SSLCommerz
+   875→                                                                         transaction ID
+   876→                                                                         for payment
+   877→                                                                         reference
+   878→
+   879→  created_at                 TIMESTAMPTZ       DEFAULT now()             Subscription
+   880→                                                                         record creation
+   881→
+   882→  updated_at                 TIMESTAMPTZ       DEFAULT now()             Last subscription
+   883→                                                                         change
+   884→  ----------------------------------------------------------------------------------------
+   885→
+   886→[]{#_Toc100023 .anchor}**3.2.6 medicine_feedback**
+   887→
+   888→  -----------------------------------------------------------------------------------------------------------------
+   889→  **Column**        **Type**          **Constraints**                                             **Description**
+   890→  ----------------- ----------------- ----------------------------------------------------------- -----------------
+   891→  id                UUID              PK, DEFAULT gen_random_uuid()                               Unique feedback
+   892→                                                                                                  entry identifier
+   893→
+   894→  doctor_id         UUID              FK -\> doctors.id ON DELETE SET NULL                        Submitting doctor
+   895→                                                                                                  (nullable for
+   896→                                                                                                  anonymous)
+   897→
+   898→  medicine_name     TEXT              NOT NULL                                                    Name of the
+   899→                                                                                                  medicine being
+   900→                                                                                                  reported
+   901→
+   902→  feedback_type     TEXT              NOT NULL, CHECK (type IN                                    Category of
+   903→                                      (\'missing\',\'incorrect\',\'duplicate\',\'suggestion\'))   feedback
+   904→
+   905→  description       TEXT              NOT NULL                                                    Detailed
+   906→                                                                                                  description of
+   907→                                                                                                  the issue or
+   908→                                                                                                  suggestion
+   909→
+   910→  status            TEXT              DEFAULT \'pending\', CHECK (status IN                       Review status for
+   911→                                      (\'pending\',\'reviewed\',\'resolved\',\'rejected\'))       admin workflow
+   912→
+   913→  resolved_at       TIMESTAMPTZ       NULL                                                        Timestamp when
+   914→                                                                                                  feedback was
+   915→                                                                                                  resolved
+   916→
+   917→  created_at        TIMESTAMPTZ       DEFAULT now()                                               Feedback
+   918→                                                                                                  submission
+   919→                                                                                                  timestamp
+   920→  -----------------------------------------------------------------------------------------------------------------
+   921→
+   922→[]{#_Toc100024 .anchor}**3.2.7 audit_log**
+   923→
+   924→  -----------------------------------------------------------------------------------
+   925→  **Column**        **Type**          **Constraints**     **Description**
+   926→  ----------------- ----------------- ------------------- ---------------------------
+   927→  id                UUID              PK, DEFAULT         Unique log entry identifier
+   928→                                      gen_random_uuid()   
+   929→
+   930→  doctor_id         UUID              FK -\> doctors.id   Acting doctor
+   931→                                      ON DELETE SET NULL  
+   932→
+   933→  action            TEXT              NOT NULL            Action performed (e.g.,
+   934→                                                          \'prescription.created\',
+   935→                                                          \'patient.exported\')
+   936→
+   937→  entity_type       TEXT              NOT NULL            Entity type (e.g.,
+   938→                                                          \'prescription\',
+   939→                                                          \'patient\',
+   940→                                                          \'subscription\')
+   941→
+   942→  entity_id         UUID              NULL                ID of the affected entity
+   943→
+   944→  metadata          JSONB             DEFAULT \'{}\'      Additional context (IP
+   945→                                                          address, user agent,
+   946→                                                          changed fields)
+   947→
+   948→  created_at        TIMESTAMPTZ       DEFAULT now()       Action timestamp
+   949→  -----------------------------------------------------------------------------------
+   950→
+   951→[]{#_Toc100025 .anchor}**3.3 Row Level Security Policies**
+   952→
+   953→Every table in the database is protected by RLS policies ensuring that a
+   954→logged-in doctor can only select, insert, or update data where the
+   955→doctor_id matches their authenticated session UID. The RLS policies are
+   956→defined as follows for each table, using the auth.uid() function to
+   957→extract the current user\'s ID from the JWT token. For the doctors
+   958→table, the policy verifies that the id column matches auth.uid(). For
+   959→all other tables with a doctor_id column, the policy checks that
+   960→doctor_id equals auth.uid(). The audit_log table is write-only for
+   961→doctors (INSERT allowed, SELECT restricted to admin roles) to prevent
+   962→tampering with activity records.
+   963→
+   964→Additionally, RLS policies enforce subscription limits on the
+   965→prescriptions table. An INSERT policy on prescriptions checks the
+   966→subscriptions table to verify that the doctor has not exceeded their
+   967→monthly prescription limit before allowing a new prescription to be
+   968→created. This database-level enforcement prevents bypass through API
+   969→route vulnerabilities or direct Supabase client access.
+   970→
+   971→[]{#_Toc100026 .anchor}**3.4 Indexes**
+   972→
+   973→The following indexes are created to optimize the most frequent query
+   974→patterns. An index on patients(doctor_id, name) supports the patient
+   975→search dropdown in the prescription composer. An index on
+   976→prescriptions(doctor_id, created_at DESC) enables efficient history
+   977→retrieval sorted by most recent visit. An index on
+   978→prescriptions(patient_id, created_at DESC) supports the patient history
+   979→view. An index on subscriptions(doctor_id) provides fast lookups for
+   980→subscription gating middleware. A GIN index on
+   981→prescriptions(medications) allows JSONB queries for analytics (e.g.,
+   982→most prescribed medications). An index on medicine_feedback(status)
+   983→supports the admin review queue for pending feedback items.
+   984→
+   985→[]{#_Toc100027 .anchor}**3.5 Database Migrations**
+   986→
+   987→Schema migrations are managed through Supabase\'s built-in migration
+   988→system, which tracks migration files in a supabase/migrations/ directory
+   989→within the project repository. Each migration is an up-only SQL file
+   990→with a timestamp prefix (e.g., 20260614000000_create_subscriptions.sql).
+   991→The supabase CLI is used to apply migrations to local development
+   992→instances and to push changes to the remote Supabase project. Rollback
+   993→is handled by creating a new migration that reverses the previous
+   994→change, rather than using down migrations, ensuring a consistent and
+   995→auditable migration history.
+   996→
+   997→[]{#_Toc100028 .anchor}**4. Medicine Data Strategy**
+   998→
+   999→RxBD employs a hybrid static-dynamic medicine data strategy that
+  1000→prioritizes search speed and zero API latency while maintaining a clear
+  1001→path for data updates. This approach recognizes that the Bangladesh
+  1002→pharmaceutical market, while containing approximately 8,000 registered
+  1003→brand-name products across 300+ generic molecules, is small enough to be
+  1004→indexed entirely in client memory, yet large enough that manual curation
+  1005→is impractical.
+  1006→
+  1007→[]{#_Toc100029 .anchor}**4.1 Data Source**
+  1008→
+  1009→The initial medicine database is sourced from the Directorate General of
+  1010→Drug Administration (DGDA) of Bangladesh, which publishes a regularly
+  1011→updated registry of all approved pharmaceutical products. This registry
+  1012→includes brand names, generic compositions, dosage forms, strengths,
+  1013→manufacturers, and retail prices. The raw DGDA data is processed through
+  1014→an ETL (Extract, Transform, Load) pipeline that normalizes brand name
+  1015→spellings, maps each brand to its generic molecule, and structures the
+  1016→data into the JSON format required by Fuse.js. The pipeline is
+  1017→version-controlled in the repository and can be re-run whenever the DGDA
+  1018→publishes updated data.
+  1019→
+  1020→[]{#_Toc100030 .anchor}**4.2 Static JSON Dataset Architecture**
+  1021→
+  1022→Medicine data is stored as optimized static JSON files in the
+  1023→/public/data/ directory. The primary file, medicines.json, contains an
+  1024→array of objects, each with the following structure: { id, brand,
+  1025→generic, dosageForm, strength, manufacturer, category, tags }. A
+  1026→secondary file, generics.json, provides a mapping of generic molecule
+  1027→names to their pharmacological categories, common side effects, and
+  1028→typical dosage ranges. Both files are loaded once when the prescription
+  1029→composer page mounts, and Fuse.js creates in-memory indices over the
+  1030→brand, generic, and tags fields.
+  1031→
+  1032→The estimated file size for medicines.json is approximately 2MB for
+  1033→8,000 entries, which compresses to under 400KB with Vercel\'s automatic
+  1034→Brotli compression. This size is well within acceptable limits for a
+  1035→one-time page-load fetch and has negligible impact on the user\'s
+  1036→initial bandwidth, even on slow mobile connections common in Bangladesh.
+  1037→
+  1038→[]{#_Toc100031 .anchor}**4.3 Search Behavior**
+  1039→
+  1040→Fuse.js is configured with a threshold of 0.3 (balancing precision and
+  1041→recall), keys indexed on brand (weight 2), generic (weight 1.5), and
+  1042→tags (weight 1). This configuration ensures that a partial brand name
+  1043→like \'amo\' returns \'Amoxicillin\' brands as top results, while a
+  1044→generic search for \'paracetamol\' returns all paracetamol-containing
+  1045→brands. Results are displayed in a dropdown with the brand name
+  1046→highlighted and the generic composition shown as a secondary line,
+  1047→enabling doctors to quickly identify the correct medication even when
+  1048→multiple brands share similar names.
+  1049→
+  1050→[]{#_Toc100032 .anchor}**4.4 Data Update Pipeline**
+  1051→
+  1052→Updates to the medicine database follow a two-tier strategy. Tier 1 (Hot
+  1053→Updates) uses a Supabase table called medicine_hotfixes that stores
+  1054→corrections and additions submitted through the crowdsourced feedback
+  1055→system. When the prescription composer loads, it fetches any hotfixes
+  1056→created since the last JSON deployment date and merges them into the
+  1057→in-memory Fuse.js index. This ensures that critical corrections (e.g., a
+  1058→dangerous dosage error) are available within minutes without requiring a
+  1059→full deployment. Tier 2 (Cold Updates) involves periodic re-runs of the
+  1060→DGDA ETL pipeline, regeneration of the static JSON files, and deployment
+  1061→of a new version via Vercel. This happens on a monthly cadence or when
+  1062→the hotfix table accumulates more than 50 entries, at which point the
+  1063→hotfixes are folded into the main JSON dataset.
+  1064→
+  1065→[]{#_Toc100033 .anchor}**4.5 Crowdsourced Feedback Workflow**
+  1066→
+  1067→The prescription composer includes a feedback button that allows doctors
+  1068→to flag incorrect or missing medicine data. When clicked, it opens a
+  1069→lightweight form pre-populated with the current medicine name and a
+  1070→dropdown for feedback type (missing, incorrect, duplicate, suggestion).
+  1071→The submission is stored in the medicine_feedback table with a status of
+  1072→\'pending\'. An admin dashboard, accessible only to the RxBD operations
+  1073→team, displays pending feedback items sorted by submission date.
+  1074→Reviewed items are either resolved (by creating a hotfix entry in the
+  1075→medicine_hotfixes table) or rejected (with a reason recorded in the
+  1076→audit_log). The submitting doctor receives a notification when their
+  1077→feedback is resolved, encouraging continued participation in the
+  1078→improvement process.
+  1079→
+  1080→[]{#_Toc100034 .anchor}**5. SaaS Subscription Model**
+  1081→
+  1082→RxBD follows a freemium SaaS model designed to maximize adoption among
+  1083→Bangladeshi doctors while generating sustainable revenue from power
+  1084→users. The model is intentionally simple, with only two tiers to
+  1085→minimize decision friction during signup and to make the upgrade path
+  1086→obvious and compelling.
+  1087→
+  1088→[]{#_Toc100035 .anchor}**5.1 Tier Definitions**
+  1089→
+  1090→  -----------------------------------------------------------------------
+  1091→  **Feature**             **Free Tier**           **Premium Tier**
+  1092→  ----------------------- ----------------------- -----------------------
+  1093→  Monthly prescription    50 prescriptions/month  Unlimited prescriptions
+  1094→  limit                                           
+  1095→
+  1096→  Prescription PDF        Standard template with  Custom letterhead
+  1097→  template                RxBD watermark          branding (logo, colors,
+  1098→                                                  footer)
+  1099→
+  1100→  Digital signature       Not available           Upload and embed
+  1101→                                                  digital signature image
+  1102→
+  1103→  Prescription templates  Not available           Create and use reusable
+  1104→  (Macros)                                        clinical protocol
+  1105→                                                  templates
+  1106→
+  1107→  Patient history depth   Last 10 prescriptions   Full, unlimited history
+  1108→                          per patient             
+  1109→
+  1110→  Data export             CSV only                CSV and JSON formats
+  1111→
+  1112→  Medicine database       Full access with        Full access with
+  1113→                          standard search         priority hotfix
+  1114→                                                  delivery
+  1115→
+  1116→  Support channel         Community forum and     Priority WhatsApp and
+  1117→                          email                   email support (24h SLA)
+  1118→
+  1119→  QR verification         Included                Included with custom
+  1120→                                                  branding on
+  1121→                                                  verification page
+  1122→  -----------------------------------------------------------------------
+  1123→
+  1124→[]{#_Toc100036 .anchor}**5.2 Monthly Prescription Counter Mechanism**
+  1125→
+  1126→The 50-prescription monthly limit for Free-tier users is enforced
+  1127→through a combination of database-level and application-level checks.
+  1128→The subscriptions table maintains a prescriptions_this_month counter and
+  1129→a counter_reset_at date. Every time a Free-tier doctor creates a new
+  1130→prescription (transitions from draft to final), the API route increments
+  1131→the counter. Before allowing the creation, it checks whether the counter
+  1132→has reached the 50-prescription limit. If counter_reset_at is older than
+  1133→30 days, the counter is reset to 1 and the date is updated to the
+  1134→current date.
+  1135→
+  1136→A scheduled Supabase Edge Function runs daily at midnight Bangladesh
+  1137→time (UTC+6) to reset all Free-tier counters where counter_reset_at is
+  1138→older than 30 days. This ensures that the counter resets even if a
+  1139→doctor does not visit the platform on their reset date. Additionally,
+  1140→the RLS policy on the prescriptions table includes a subquery check
+  1141→against the subscriptions table, providing a secondary enforcement layer
+  1142→that prevents counter bypass through direct database access.
+  1143→
+  1144→[]{#_Toc100037 .anchor}**5.3 Free-to-Premium Upgrade Flow**
+  1145→
+  1146→When a Free-tier doctor approaches their monthly limit (at 40
+  1147→prescriptions), a non-intrusive banner appears at the top of the
+  1148→prescription composer reading \'You have 10 prescriptions remaining this
+  1149→month. Upgrade to Premium for unlimited access.\' At 48 prescriptions,
+  1150→the banner becomes more prominent with a yellow highlight. At 50
+  1151→prescriptions, the composer is disabled and replaced with a full-screen
+  1152→upgrade prompt that explains the Premium benefits and includes a direct
+  1153→\'Upgrade Now\' button. This graduated approach provides multiple
+  1154→touchpoints for conversion without alienating users with hard paywalls
+  1155→at the first sign of friction.
+  1156→
+  1157→The upgrade flow itself redirects the doctor to a Stripe Checkout-like
+  1158→page powered by SSLCommerz. After successful payment, a webhook from
+  1159→SSLCommerz hits the /api/webhooks/sslcommerz API route, which verifies
+  1160→the payment signature using the store\'s secret key, updates the
+  1161→subscriptions table to set plan=\'premium\', records the SSLCommerz
+  1162→transaction ID, and sets the premium_expires_at date. The doctor\'s JWT
+  1163→is refreshed on their next request to include the updated plan claim,
+  1164→immediately unlocking Premium features.
+  1165→
+  1166→[]{#_Toc100038 .anchor}**5.4 Payment Integration via SSLCommerz**
+  1167→
+  1168→SSLCommerz is the leading payment gateway in Bangladesh, supporting all
+  1169→local payment methods including bKash, Nagad, Rocket, DBBL Nexus, and
+  1170→international Visa/Mastercard. Integration follows SSLCommerz\'s hosted
+  1171→checkout flow: the RxBD backend generates a payment session by calling
+  1172→SSLCommerz\'s /gwprocess/v4/api.php endpoint with the doctor\'s
+  1173→information and payment amount, receives a redirect URL, and sends the
+  1174→doctor to SSLCommerz\'s hosted payment page. After payment completion,
+  1175→SSLCommerz sends an IPN (Instant Payment Notification) webhook to the
+  1176→/api/webhooks/sslcommerz endpoint, which is the authoritative source of
+  1177→payment confirmation. The Premium tier is priced at BDT 499 per month
+  1178→(approximately USD 4.50), a price point validated through interviews
+  1179→with 15 pilot doctors who indicated willingness to pay between BDT 300
+  1180→and BDT 800 for premium prescription features.
+  1181→
+  1182→[]{#_Toc100039 .anchor}**5.5 Downgrade and Cancellation Policy**
+  1183→
+  1184→When a Premium subscription expires (premium_expires_at passes without
+  1185→renewal), the system automatically reverts the doctor to the Free tier.
+  1186→The prescriptions_this_month counter is initialized to the count of
+  1187→prescriptions created in the current calendar month, ensuring that the
+  1188→doctor does not receive a fresh 50-prescription allocation upon
+  1189→downgrade. Existing Premium features (custom letterhead, digital
+  1190→signature) are preserved in the doctor_settings table but are no longer
+  1191→rendered in the PDF output. The doctor\'s data, including all
+  1192→prescription history, remains fully accessible. A 3-day grace period
+  1193→after expiration allows continued Premium access while a renewal
+  1194→reminder is sent via email and in-app notification.
+  1195→
+  1196→[]{#_Toc100040 .anchor}**6. Implementation Plan**
+  1197→
+  1198→The implementation follows a five-phase plan with explicit timelines,
+  1199→dependencies, and deliverables. Each phase produces a deployable
+  1200→increment, enabling continuous feedback from beta users throughout the
+  1201→development process.
+  1202→
+  1203→[]{#_Toc100041 .anchor}**6.1 Phase Overview**
+  1204→
+  1205→  ------------------------------------------------------------------------
+  1206→  **Phase**         **Duration**      **Key             **Dependencies**
+  1207→                                      Deliverables**    
+  1208→  ----------------- ----------------- ----------------- ------------------
+  1209→  Phase 1:          3 weeks (Weeks    Next.js project   None
+  1210→  Foundation & Auth 1-3)              scaffold,         
+  1211→                                      Supabase setup,   
+  1212→                                      Auth flow, RLS    
+  1213→                                      policies,         
+  1214→                                      subscription      
+  1215→                                      model             
+  1216→
+  1217→  Phase 2:          4 weeks (Weeks    Composer form,    Phase 1
+  1218→  Prescription      4-7)              Zustand state,    
+  1219→  Engine                              medicine search,  
+  1220→                                      auto-save,        
+  1221→                                      subscription      
+  1222→                                      enforcement       
+  1223→
+  1224→  Phase 3: Print &  3 weeks (Weeks    PDF template, QR  Phase 2
+  1225→  PDF Output        8-10)             code generation,  
+  1226→                                      print layout,     
+  1227→                                      verification page 
+  1228→
+  1229→  Phase 4: Patient  2 weeks (Weeks    Patient CRUD,     Phase 2
+  1230→  Management        11-12)            history view,     
+  1231→                                      data export       
+  1232→                                      (CSV/JSON)        
+  1233→
+  1234→  Phase 5: Polish & 3 weeks (Weeks    Onboarding        Phase 3, Phase 4
+  1235→  Launch            13-15)            walkthrough, i18n 
+  1236→                                      (Bengali), E2E    
+  1237→                                      testing, Vercel   
+  1238→                                      deployment,       
+  1239→                                      analytics setup   
+  1240→  ------------------------------------------------------------------------
+  1241→
+  1242→[]{#_Toc100042 .anchor}**6.2 Phase 1: Foundation & Authentication (Weeks
+  1243→1-3)**
+  1244→
+  1245→This phase establishes the technical foundation upon which all
+  1246→subsequent features are built. The primary goal is to have a deployed,
+  1247→authenticated application with functional multi-tenant data isolation
+  1248→and a working subscription model.
+  1249→
+  1250→-   Week 1: Initialize Next.js 15 project with TypeScript, Tailwind CSS
+  1251→    4, and shadcn/ui. Configure ESLint, Prettier, and Husky pre-commit
+  1252→    hooks. Set up Supabase project, create all database tables with RLS
+  1253→    policies, and implement the migration system. Deploy the initial
+  1254→    scaffold to Vercel with a placeholder landing page.
+  1255→
+  1256→-   Week 2: Implement Supabase Auth with email/password signup and
+  1257→    login. Build the registration flow with email verification. Create
+  1258→    the doctor profile onboarding form (name, degrees, specialty,
+  1259→    chamber info). Implement the /api/auth/callback route for OAuth and
+  1260→    session management. Set up the Next.js Middleware for
+  1261→    subscription-aware route protection.
+  1262→
+  1263→-   Week 3: Build the subscription system. Create the subscriptions
+  1264→    table triggers and the monthly counter reset Edge Function.
+  1265→    Implement the Free-tier prescription counter API route. Build the
+  1266→    upgrade prompt UI components. Integrate SSLCommerz sandbox
+  1267→    environment for payment testing. Deploy and verify the complete
+  1268→    auth + subscription flow end-to-end.
+  1269→
+  1270→[]{#_Toc100043 .anchor}**6.3 Phase 2: Prescription Engine (Weeks 4-7)**
+  1271→
+  1272→This phase builds the core product value: the prescription composer.
+  1273→This is the most complex phase, involving a multi-section form with
+  1274→real-time search, state management, and auto-save functionality.
+  1275→
+  1276→-   Week 4: Design and implement the three-panel composer layout
+  1277→    (patient sidebar, Rx pad center, search sidebar). Build the React
+  1278→    Hook Form structure for the prescription form with Zod validation
+  1279→    schemas. Create the Zustand store for prescription session state
+  1280→    with localStorage persistence middleware.
+  1281→
+  1282→-   Week 5: Integrate the static medicine JSON dataset and configure
+  1283→    Fuse.js for client-side search. Build the medicine search dropdown
+  1284→    component with brand/generic display and keyboard navigation.
+  1285→    Implement the medication entry flow (add, edit, remove, reorder)
+  1286→    with dosage, frequency, duration, and special instruction fields.
+  1287→
+  1288→-   Week 6: Implement the auto-save mechanism. Build the localStorage
+  1289→    draft detection and resume flow. Add the CC (Chief Complaints),
+  1290→    findings, and investigation sections to the composer. Implement the
+  1291→    diagnosis entry with optional ICD-10 code lookup. Build the vitals
+  1292→    input panel with validation for blood pressure, pulse, temperature,
+  1293→    weight, and SpO2 values.
+  1294→
+  1295→-   Week 7: Implement the prescription finalization flow (draft to
+  1296→    final). Build the API route for saving prescriptions to Supabase
+  1297→    with subscription counter increment. Add the advice and follow-up
+  1298→    date fields. Implement the prescription templates (Macros) feature
+  1299→    for Premium users, allowing one-click loading of predefined
+  1300→    medication sets. Test the complete composer workflow end-to-end.
+  1301→
+  1302→[]{#_Toc100044 .anchor}**6.4 Phase 3: Print & PDF Output (Weeks 8-10)**
+  1303→
+  1304→This phase transforms the digital prescription data into a professional,
+  1305→print-ready document that conforms to the Bangladesh medical
+  1306→prescription format.
+  1307→
+  1308→-   Week 8: Build the \@react-pdf/renderer prescription template
+  1309→    conforming to the standard A4 Bangladesh medical format. Implement
+  1310→    the header section (doctor name, degrees, specialty, chamber info,
+  1311→    logo). Build the left sidebar (vitals, CC, investigations) and the
+  1312→    main Rx section (medications with formatting for generic names in
+  1313→    bold, dosage, frequency, duration, and instructions).
+  1314→
+  1315→-   Week 9: Implement the footer section with doctor signature area and
+  1316→    QR code generation. Build the QR code embedding logic using
+  1317→    qrcode.react, encoding the verification URL
+  1318→    (rxbd.com.bd/verify/\[prescription_id\]). Implement PDF download and
+  1319→    browser print functionality. Test print scaling across Chrome,
+  1320→    Firefox, and Safari.
+  1321→
+  1322→-   Week 10: Build the public prescription verification page at
+  1323→    /verify/\[id\]. This is a server-side rendered page that fetches the
+  1324→    prescription by ID from Supabase (using a service role key,
+  1325→    bypassing RLS for read-only access), verifies the prescription
+  1326→    exists and is not in draft state, and displays a read-only summary
+  1327→    with doctor name, patient name, visit date, and a tamper-evident
+  1328→    hash indicator. Implement the Premium custom letterhead feature,
+  1329→    allowing doctors to upload logos and configure header/footer
+  1330→    layouts. Deploy and test on mobile devices.
+  1331→
+  1332→[]{#_Toc100045 .anchor}**6.5 Phase 4: Patient Management & History
+  1333→(Weeks 11-12)**
+  1334→
+  1335→This phase adds the patient management layer that enables longitudinal
+  1336→care tracking and returning-patient workflows.
+  1337→
+  1338→-   Week 11: Build the patient CRUD API routes with search
+  1339→    functionality. Implement the patient list view with search by name
+  1340→    and phone number. Build the patient creation form with validation.
+  1341→    Implement the returning-patient flow in the composer: when a doctor
+  1342→    selects an existing patient, their persistent medical notes
+  1343→    (allergies, chronic conditions) are auto-populated, and their visit
+  1344→    history is displayed in the left sidebar.
+  1345→
+  1346→-   Week 12: Build the patient history view showing all past
+  1347→    prescriptions in reverse chronological order. Implement the
+  1348→    prescription detail view for historical prescriptions (read-only,
+  1349→    with PDF download). Build the data export feature: CSV export for
+  1350→    Free-tier doctors (patient list and prescription summary), JSON
+  1351→    export for Premium doctors (full prescription payload including
+  1352→    medications JSONB). Test data export with large datasets to ensure
+  1353→    performance.
+  1354→
+  1355→[]{#_Toc100046 .anchor}**6.6 Phase 5: Polish & Deployment (Weeks
+  1356→13-15)**
+  1357→
+  1358→This phase focuses on user experience refinement, internationalization,
+  1359→testing, and production readiness.
+  1360→
+  1361→-   Week 13: Implement the 3-step onboarding walkthrough (complete
+  1362→    profile, upload branding, write test prescription). Build the
+  1363→    Bengali (Bangla) language translation using next-intl. Create and
+  1364→    review message catalogs for all UI strings. Implement locale
+  1365→    detection based on browser language and manual toggle in settings.
+  1366→    Test all UI states in both English and Bengali.
+  1367→
+  1368→-   Week 14: Conduct comprehensive cross-browser testing (Chrome,
+  1369→    Firefox, Safari, Edge) and mobile testing (iOS Safari, Android
+  1370→    Chrome). Fix layout issues on tablet and mobile form factors.
+  1371→    Implement the responsive composer layout: on screens narrower than
+  1372→    1024px, the three-panel layout collapses to a tabbed interface with
+  1373→    Patient, Rx Pad, and Search tabs. Optimize PDF rendering performance
+  1374→    for older devices.
+  1375→
+  1376→-   Week 15: Set up Sentry error tracking with Next.js SDK integration.
+  1377→    Configure PostHog analytics with custom event tracking. Set up
+  1378→    UptimeRobot monitors for the application URL and Supabase health
+  1379→    endpoint. Configure the custom domain (rxbd.com.bd) with SSL
+  1380→    certificate via Vercel. Deploy to Vercel production environment.
+  1381→    Conduct final security review (RLS policy verification, environment
+  1382→    variable audit, rate limiting). Launch beta with 3-5 pilot doctors.
+  1383→
+  1384→[]{#_Toc100047 .anchor}**7. UX Blueprint**
+  1385→
+  1386→The UX design prioritizes speed and clarity for a user base that is
+  1387→time-pressured, varies widely in technical literacy, and operates in an
+  1388→environment where internet connectivity is unreliable. Every design
+  1389→decision is tested against the benchmark of enabling a doctor to
+  1390→complete a prescription in under two minutes.
+  1391→
+  1392→[]{#_Toc100048 .anchor}**7.1 Composer Layout (Desktop)**
+  1393→
+  1394→The prescription composer uses a three-panel split-screen layout
+  1395→optimized for the clinical workflow of a chamber doctor. The Left
+  1396→Sidebar (25% width) displays the patient context: selected patient
+  1397→demographics, persistent medical notes (allergies, chronic conditions),
+  1398→and quick access to the last 5 prescriptions for returning patients. The
+  1399→Center Workspace (50% width) is the Rx Pad, containing the multi-section
+  1400→prescription form arranged in clinical order: Chief Complaints, Vitals,
+  1401→On Examination, Investigations, Diagnosis, Medications, Advice, and
+  1402→Follow-Up. Each section is collapsible to reduce visual clutter. The
+  1403→Right Sidebar (25% width) provides the medicine search input at the top,
+  1404→followed by a diagnosis template picker and a list of the doctor\'s
+  1405→frequently prescribed medications for quick access.
+  1406→
+  1407→[]{#_Toc100049 .anchor}**7.2 Composer Layout (Mobile & Tablet)**
+  1408→
+  1409→On screens narrower than 1024px, the three-panel layout transforms into
+  1410→a tabbed interface to preserve all functionality without horizontal
+  1411→scrolling. Three tabs are displayed at the bottom of the screen: Patient
+  1412→(left sidebar content), Rx Pad (center workspace), and Search (right
+  1413→sidebar content). The active tab takes the full screen width. The
+  1414→medication search results appear as a modal overlay from the Search tab,
+  1415→allowing the doctor to select a medication and be returned to the Rx Pad
+  1416→tab with the medication pre-filled. On phones narrower than 640px, the
+  1417→form sections within the Rx Pad are displayed as an accordion rather
+  1418→than collapsible panels, ensuring that only one section is expanded at a
+  1419→time to maximize usable screen space.
+  1420→
+  1421→[]{#_Toc100050 .anchor}**7.3 Print Layout**
+  1422→
+  1423→The prescription print layout adheres to the standard Bangladesh medical
+  1424→prescription format on A4 paper (210mm x 297mm). The header section
+  1425→occupies the top 15% of the page, displaying the doctor\'s name (in
+  1426→large bold font), degrees (comma-separated), specialty, chamber name and
+  1427→address, and optional logo aligned to the right. The left column (30%
+  1428→width) contains Chief Complaints, Vitals, On Examination, and
+  1429→Investigations, each with a labeled heading and the entered data. The
+  1430→main section (70% width) displays the Rx symbol followed by the
+  1431→medications list, where each medication is formatted with the brand
+  1432→name, generic name in parentheses (bold), dosage, frequency, duration,
+  1433→and any special instructions on subsequent lines. The advice section and
+  1434→follow-up date appear below the medications. The footer section contains
+  1435→the doctor\'s signature (or uploaded digital signature image for
+  1436→Premium), the prescription date, and the QR code (2cm x 2cm) in the
+  1437→bottom-right corner.
+  1438→
+  1439→[]{#_Toc100051 .anchor}**7.4 Onboarding & Trust**
+  1440→
+  1441→The onboarding experience is designed to achieve the \'Aha!\' moment
+  1442→within 5 minutes of signup. A 3-step guided walkthrough leads the new
+  1443→doctor through: Step 1 (Complete Your Profile) entering their name,
+  1444→degrees, specialty, and chamber information; Step 2 (Customize Your
+  1445→Prescription) uploading a logo and configuring the header layout with a
+  1446→live preview; Step 3 (Write Your First Prescription) completing a test
+  1447→prescription with a dummy patient to experience the full workflow. Each
+  1448→step includes contextual tooltips and a progress indicator. The
+  1449→walkthrough can be skipped and resumed later from the Settings page, but
+  1450→completing it unlocks a \'Verified Doctor\' badge on their prescription
+  1451→header.
+  1452→
+  1453→The QR code verification system serves as both a trust mechanism and an
+  1454→anti-forgery safeguard. Every prescription PDF includes a unique QR code
+  1455→in the footer that encodes the URL
+  1456→rxbd.com.bd/verify/\[prescription_id\]. Scanning the QR code opens a
+  1457→public, read-only verification page that displays the doctor\'s name,
+  1458→patient\'s name, visit date, and a tamper-evident status indicator
+  1459→(green checkmark for verified, red warning if the prescription has been
+  1460→modified since issuance). The verification page is implemented as a
+  1461→server-side rendered Next.js page with ISR (Incremental Static
+  1462→Regeneration) for performance, using a 60-second revalidation period to
+  1463→balance freshness with cache efficiency.
+  1464→
+  1465→[]{#_Toc100052 .anchor}**7.5 Internationalization (i18n)**
+  1466→
+  1467→RxBD supports two languages: English (default) and Bengali (Bangla). The
+  1468→interface language is determined first by the user\'s browser
+  1469→Accept-Language header, then by the locale preference stored in the
+  1470→doctor\'s profile, and finally by a manual toggle in the navigation bar.
+  1471→All UI strings, form labels, button text, error messages, and onboarding
+  1472→content are externalized into message catalogs using next-intl. The
+  1473→prescription content itself (chief complaints, diagnosis, medication
+  1474→instructions) is entered by the doctor in their preferred language and
+  1475→is not auto-translated, as medical terminology requires precision that
+  1476→machine translation cannot guarantee. The PDF template layout adapts to
+  1477→the selected locale, adjusting for Bengali text direction
+  1478→(left-to-right, same as English) and font rendering using Noto Sans
+  1479→Bengali.
+  1480→
+  1481→[]{#_Toc100053 .anchor}**8. Recommended Folder Structure**
+  1482→
+  1483→The project follows a feature-organized Next.js 15 App Router structure
+  1484→that groups related files by domain rather than by file type. This
+  1485→organization improves developer navigation and makes it easier to locate
+  1486→all files related to a specific feature.
+  1487→
+  1488→  -------------------------------------------------------------------------
+  1489→  **Directory**            **Contents**            **Purpose**
+  1490→  ------------------------ ----------------------- ------------------------
+  1491→  /app                     Next.js 15 App Router   Route definitions, page
+  1492→                           pages and layouts       components, loading
+  1493→                                                   states, error boundaries
+  1494→
+  1495→  /app/(auth)              Authentication pages    Login, register, forgot
+  1496→                                                   password, email
+  1497→                                                   verification
+  1498→
+  1499→  /app/(dashboard)         Authenticated doctor    Composer, patients,
+  1500→                           pages                   history, settings,
+  1501→                                                   subscription
+  1502→
+  1503→  /app/(public)            Public pages            Landing page,
+  1504→                                                   verification page
+  1505→                                                   (/verify/\[id\]),
+  1506→                                                   pricing
+  1507→
+  1508→  /app/api/prescriptions   Prescription CRUD       POST create, GET
+  1509→                           routes                  list/detail, PATCH
+  1510→                                                   update, DELETE
+  1511→
+  1512→  /app/api/patients        Patient CRUD routes     POST create, GET
+  1513→                                                   search/list/detail,
+  1514→                                                   PATCH update
+  1515→
+  1516→  /app/api/subscription    Subscription management GET status, POST
+  1517→                           routes                  upgrade, webhook handler
+  1518→
+  1519→  /app/api/webhooks        External webhook        SSLCommerz IPN handler,
+  1520→                           handlers                Supabase auth hooks
+  1521→
+  1522→  /app/api/export          Data export routes      GET CSV/JSON export for
+  1523→                                                   patient and prescription
+  1524→                                                   data
+  1525→
+  1526→  /components              Reusable UI components  shadcn/ui primitives,
+  1527→                                                   prescription widgets,
+  1528→                                                   layout components
+  1529→
+  1530→  /components/composer     Composer-specific       MedicationRow,
+  1531→                           components              VitalsInput,
+  1532→                                                   MedicineSearch,
+  1533→                                                   DiagnosisPicker
+  1534→
+  1535→  /components/pdf          PDF template components PrescriptionPDF,
+  1536→                                                   HeaderSection,
+  1537→                                                   MedicationList,
+  1538→                                                   QRCodeFooter
+  1539→
+  1540→  /hooks                   Custom React hooks      useAutoSave,
+  1541→                                                   useMedicineSearch,
+  1542→                                                   useSubscription,
+  1543→                                                   usePatientLookup
+  1544→
+  1545→  /lib                     Utility functions and   Supabase client, Fuse.js
+  1546→                           configuration           config, validation
+  1547→                                                   helpers, constants
+  1548→
+  1549→  /lib/supabase            Supabase client         Browser client
+  1550→                           instances               (createBrowserClient),
+  1551→                                                   server client
+  1552→                                                   (createServerClient)
+  1553→
+  1554→  /public/data             Static JSON datasets    medicines.json,
+  1555→                                                   generics.json,
+  1556→                                                   dgda-version.json
+  1557→
+  1558→  /public/locales          i18n message catalogs   en.json (English),
+  1559→                                                   bn.json (Bengali)
+  1560→
+  1561→  /store                   Zustand state           prescriptionStore.ts
+  1562→                           definitions             (composer state),
+  1563→                                                   settingsStore.ts (UI
+  1564→                                                   preferences)
+  1565→
+  1566→  /types                   TypeScript type         prescription.ts,
+  1567→                           definitions             patient.ts,
+  1568→                                                   subscription.ts,
+  1569→                                                   medicine.ts
+  1570→
+  1571→  /middleware.ts           Next.js Middleware      Auth protection,
+  1572→                                                   subscription gating,
+  1573→                                                   locale detection
+  1574→
+  1575→  /supabase/migrations     Database migration      Timestamped SQL files
+  1576→                           files                   for schema changes
+  1577→
+  1578→  /supabase/functions      Supabase Edge Functions Monthly counter reset,
+  1579→                                                   backup triggers
+  1580→  -------------------------------------------------------------------------
+  1581→
+  1582→[]{#_Toc100054 .anchor}**9. Data Privacy & Compliance**
+  1583→
+  1584→As a platform handling sensitive health information, RxBD must comply
+  1585→with Bangladesh\'s data protection regulations and adhere to
+  1586→international best practices for health data security. This section
+  1587→details the compliance framework, data handling policies, and technical
+  1588→safeguards implemented to protect patient and doctor data.
+  1589→
+  1590→[]{#_Toc100055 .anchor}**9.1 Regulatory Compliance**
+  1591→
+  1592→RxBD\'s data handling practices are designed to comply with the
+  1593→Bangladesh Digital Security Act 2018, which establishes legal
+  1594→requirements for the collection, processing, and storage of digital
+  1595→data, including provisions for data breach notification and penalties
+  1596→for unauthorized data access. Additionally, the platform aligns with the
+  1597→principles of the Bangladesh Personal Data Protection Bill (draft),
+  1598→which, while not yet enacted, is expected to establish data subject
+  1599→rights, consent requirements, and cross-border data transfer
+  1600→restrictions. By proactively adhering to these anticipated requirements,
+  1601→RxBD positions itself for compliance with minimal disruption when the
+  1602→bill becomes law.
+  1603→
+  1604→The platform also follows the technical guidance provided by the
+  1605→Bangladesh Medical and Dental Council (BMDC) regarding electronic
+  1606→medical records, which recommends that digital prescription systems
+  1607→maintain audit trails, enforce access controls, and ensure data
+  1608→portability. While the BMDC has not yet published binding regulations
+  1609→for digital prescriptions, RxBD\'s implementation of RLS, audit logging,
+  1610→and CSV/JSON export functionality exceeds current advisory standards.
+  1611→
+  1612→[]{#_Toc100056 .anchor}**9.2 Data Residency**
+  1613→
+  1614→All patient and prescription data is stored exclusively in Supabase\'s
+  1615→AWS ap-southeast-1 (Singapore) region, which is the closest available
+  1616→Supabase region to Bangladesh and provides sub-50ms latency for most
+  1617→Bangladeshi users. Supabase does not replicate data to other regions
+  1618→without explicit customer configuration, ensuring that health data
+  1619→remains within the Asia-Pacific jurisdiction. No data is transferred to
+  1620→servers in the United States, European Union, or any other jurisdiction
+  1621→with differing data protection standards. The choice of Singapore as the
+  1622→data residency location is documented in the platform\'s privacy policy
+  1623→and is non-negotiable, even if a different region would offer lower
+  1624→costs.
+  1625→
+  1626→[]{#_Toc100057 .anchor}**9.3 Encryption**
+  1627→
+  1628→Data at rest is protected by Supabase\'s default AES-256 encryption for
+  1629→all PostgreSQL data files and backups. Data in transit is encrypted via
+  1630→TLS 1.3 for all connections between the client, Vercel, and Supabase.
+  1631→Database backups generated by the GitHub Actions workflow are encrypted
+  1632→using AES-256-CBC with a 256-bit key stored in GitHub Secrets (separate
+  1633→from the backup repository). The encryption key is rotated every 90 days
+  1634→by generating a new key, updating the GitHub Secret, and performing a
+  1635→fresh encrypted backup before deleting backups encrypted with the old
+  1636→key.
+  1637→
+  1638→[]{#_Toc100058 .anchor}**9.4 Data Retention & Deletion**
+  1639→
+  1640→When a doctor deletes their account, a 30-day grace period begins during
+  1641→which the account can be restored by contacting support. During this
+  1642→period, the doctor\'s data remains in the database but is inaccessible
+  1643→(the RLS policy denies access to deleted users). After 30 days, an
+  1644→automated Edge Function permanently deletes all data associated with the
+  1645→doctor, including their profile, settings, patients, prescriptions, and
+  1646→uploaded assets from Supabase Storage. The audit_log entries for the
+  1647→deleted doctor are retained for 7 years with the doctor_id anonymized to
+  1648→a hash, as required by the Digital Security Act 2018 for financial and
+  1649→legal record-keeping purposes. Patients do not have direct accounts in
+  1650→the system and cannot self-service delete their data; however, a doctor
+  1651→can delete individual patient records, which are permanently removed
+  1652→after the 30-day grace period.
+  1653→
+  1654→[]{#_Toc100059 .anchor}**9.5 Patient Consent Mechanism**
+  1655→
+  1656→When a doctor creates a new patient record, the patient entry form
+  1657→includes a required checkbox: \'Patient has been informed that their
+  1658→prescription data will be stored digitally on the RxBD platform.\' This
+  1659→consent is recorded as a boolean field (consent_given) with a timestamp
+  1660→on the patient record. While the current implementation relies on the
+  1661→doctor to obtain verbal consent during the consultation, the future
+  1662→Patient Portal feature (see Section 12) will enable direct digital
+  1663→consent through a one-time SMS verification flow.
+  1664→
+  1665→[]{#_Toc100060 .anchor}**9.6 Data Portability**
+  1666→
+  1667→Doctors can export their complete patient list and prescription history
+  1668→at any time through the Settings page. Free-tier doctors can export in
+  1669→CSV format, which includes patient demographics and prescription
+  1670→summaries (date, diagnosis, medication count). Premium doctors can
+  1671→additionally export in JSON format, which includes the full prescription
+  1672→payload including the medications JSONB array, enabling migration to
+  1673→other EMR systems. The export is generated server-side as a streaming
+  1674→response to handle large datasets without memory issues, and a download
+  1675→link is emailed to the doctor upon completion.
+  1676→
+  1677→[]{#_Toc100061 .anchor}**9.7 Privacy Transparency**
+  1678→
+  1679→RxBD maintains a strict, non-negotiable policy against selling, sharing,
+  1680→or monetizing patient or doctor data with third parties for any purpose.
+  1681→This policy is enforced technically through RLS (no admin user has bulk
+  1682→access to patient data), organizationally through access controls on the
+  1683→Supabase dashboard (only the founding team has admin access), and
+  1684→contractually through the Terms of Service. Anonymized, aggregate
+  1685→analytics (e.g., total prescriptions created per day, most searched
+  1686→generic names) may be used for product improvement but are never shared
+  1687→externally.
+  1688→
+  1689→[]{#_Toc100062 .anchor}**10. Pre-Launch Checklist**
+  1690→
+  1691→The following checklist must be completed before the production launch.
+  1692→Each item includes the responsible party and the verification method.
+  1693→
+  1694→[]{#_Toc100063 .anchor}**10.1 Security**
+  1695→
+  1696→  -----------------------------------------------------------------------
+  1697→  **Item**                **Verification Method** **Owner**
+  1698→  ----------------------- ----------------------- -----------------------
+  1699→  RLS policies active on  Attempt data access     Backend
+  1700→  all tables              with unauthorized       
+  1701→                          auth.uid(); verify      
+  1702→                          denial                  
+  1703→
+  1704→  Authentication flows    Manual E2E test +       QA
+  1705→  tested (signup, login,  automated Playwright    
+  1706→  password reset, email   suite                   
+  1707→  verification)                                   
+  1708→
+  1709→  Environment variables   GitHub secret scanning  DevOps
+  1710→  hidden (no .env in      enabled; verify no      
+  1711→  repository)             secrets in git history  
+  1712→
+  1713→  JWT token expiration    Test with expired       Backend
+  1714→  and refresh working     tokens; verify graceful 
+  1715→  correctly               re-authentication       
+  1716→
+  1717→  SSLCommerz payment      Send test webhooks with Backend
+  1718→  webhook signature       invalid signatures;     
+  1719→  verification            verify rejection        
+  1720→
+  1721→  Rate limiting on API    Load test with          DevOps
+  1722→  routes (100 req/min per Artillery.js; verify    
+  1723→  user)                   429 responses above     
+  1724→                          threshold               
+  1725→
+  1726→  CORS headers restricted Attempt API calls from  DevOps
+  1727→  to rxbd.com.bd domain   unauthorized origins;   
+  1728→                          verify rejection        
+  1729→
+  1730→  Supabase service role   Audit all client-side   Security
+  1731→  key never exposed to    code for service role   
+  1732→  client                  key references          
+  1733→  -----------------------------------------------------------------------
+  1734→
+  1735→[]{#_Toc100064 .anchor}**10.2 Data & UX**
+  1736→
+  1737→  -----------------------------------------------------------------------
+  1738→  **Item**                **Verification Method** **Owner**
+  1739→  ----------------------- ----------------------- -----------------------
+  1740→  Medicine search returns Lighthouse + manual     Frontend
+  1741→  results within 200ms    timing with slow 3G     
+  1742→                          throttling              
+  1743→
+  1744→  PDF layout renders      Manual print preview on QA
+  1745→  correctly on A4 in      all 4 browsers; compare 
+  1746→  Chrome, Firefox,        to reference design     
+  1747→  Safari, Edge                                    
+  1748→
+  1749→  Print scaling correct   Print test on 3         QA
+  1750→  on desktop and mobile   printers; mobile        
+  1751→                          browser print test      
+  1752→
+  1753→  Bengali (Bangla) UI     Visual review of all    Frontend
+  1754→  renders correctly       pages in Bengali locale 
+  1755→  without text overflow                           
+  1756→
+  1757→  Responsive composer     Chrome DevTools         QA
+  1758→  works on tablet (768px) responsive mode + real  
+  1759→  and phone (375px)       device testing          
+  1760→
+  1761→  Auto-save restores      Disable network         Frontend
+  1762→  draft after simulated   mid-composition; verify 
+  1763→  connection loss         recovery prompt on      
+  1764→                          reconnect               
+  1765→
+  1766→  QR code links to        Scan QR from 5          QA
+  1767→  correct verification    different printed       
+  1768→  page                    prescriptions; verify   
+  1769→                          each resolves           
+  1770→  -----------------------------------------------------------------------
+  1771→
+  1772→[]{#_Toc100065 .anchor}**10.3 Deployment**
+  1773→
+  1774→  -----------------------------------------------------------------------
+  1775→  **Item**                **Verification Method** **Owner**
+  1776→  ----------------------- ----------------------- -----------------------
+  1777→  Custom domain           HTTPS check; SSL Labs   DevOps
+  1778→  (rxbd.com.bd)           A+ rating               
+  1779→  configured with SSL                             
+  1780→
+  1781→  Vercel Analytics        Visit site; verify data DevOps
+  1782→  enabled and tracking    appears in Vercel       
+  1783→  page views              dashboard within 5 min  
+  1784→
+  1785→  Supabase backup         Trigger workflow        DevOps
+  1786→  schedule verified       manually; verify        
+  1787→  (daily GitHub Actions)  encrypted backup in     
+  1788→                          private repo            
+  1789→
+  1790→  Supabase free tier      Check Supabase          DevOps
+  1791→  limits monitored (DB \< dashboard metrics; set  
+  1792→  400MB, Auth \< 40K MAU) up alert at 80%         
+  1793→                          threshold               
+  1794→
+  1795→  DNS propagation         Check from 3 geographic DevOps
+  1796→  complete and CDN        locations using         
+  1797→  caching working         dnschecker.org          
+  1798→
+  1799→  Error tracking (Sentry) Trigger a test error;   DevOps
+  1800→  capturing unhandled     verify it appears in    
+  1801→  exceptions              Sentry dashboard        
+  1802→
+  1803→  Load test: 100          Run Artillery.js load   QA
+  1804→  concurrent users        test; verify \<2s p95   
+  1805→  creating prescriptions  response time           
+  1806→  -----------------------------------------------------------------------
+  1807→
+  1808→[]{#_Toc100066 .anchor}**10.4 Accessibility**
+  1809→
+  1810→  -----------------------------------------------------------------------
+  1811→  **Item**                **Verification Method** **Owner**
+  1812→  ----------------------- ----------------------- -----------------------
+  1813→  All form inputs have    Automated axe-core      Frontend
+  1814→  associated labels       audit + manual screen   
+  1815→                          reader test             
+  1816→
+  1817→  Keyboard navigation     Tab through all         Frontend
+  1818→  works for composer and  interactive elements;   
+  1819→  search                  verify focus indicators 
+  1820→
+  1821→  Color contrast meets    Automated Lighthouse    Frontend
+  1822→  WCAG 2.1 AA (4.5:1 for  accessibility audit     
+  1823→  text)                                           
+  1824→
+  1825→  shadcn/ui components    Component-level audit   Frontend
+  1826→  maintain ARIA           with React Testing      
+  1827→  attributes              Library                 
+  1828→  -----------------------------------------------------------------------
+  1829→
+  1830→[]{#_Toc100067 .anchor}**11. Operational Readiness**
+  1831→
+  1832→Operational readiness ensures that the RxBD team has the tools,
+  1833→processes, and information needed to support doctors effectively from
+  1834→day one. This section covers support infrastructure, beta testing
+  1835→strategy, and analytics implementation.
+  1836→
+  1837→[]{#_Toc100068 .anchor}**11.1 Support Strategy**
+  1838→
+  1839→RxBD implements a tiered support model aligned with the subscription
+  1840→tiers. Free-tier doctors receive support through a community forum
+  1841→(built with GitHub Discussions for zero cost) and email support with a
+  1842→72-hour response SLA. Premium doctors receive priority support via
+  1843→WhatsApp Business API and email with a 24-hour response SLA.
+  1844→
+  1845→The WhatsApp Business API integration is implemented using the WhatsApp
+  1846→Business Platform (Cloud API, free tier: 1,000 conversations per month).
+  1847→A dedicated business number is configured through Meta\'s Business
+  1848→Manager. When a Premium doctor sends a WhatsApp message to the RxBD
+  1849→support number, the message is received via webhook, logged in a support
+  1850→tracking spreadsheet, and routed to the on-call support team member.
+  1851→Responses are sent through the same WhatsApp channel, maintaining a
+  1852→conversational context. For the launch phase, the support team consists
+  1853→of the founding members, with a plan to hire a dedicated support agent
+  1854→once Premium subscriptions exceed 50 active users.
+  1855→
+  1856→[]{#_Toc100069 .anchor}**11.2 Beta Feedback Loop**
+  1857→
+  1858→The beta program targets 3 to 5 pilot doctors selected through direct
+  1859→outreach to the founding team\'s professional network. Selection
+  1860→criteria include: active private chamber practice with a minimum of 20
+  1861→patients per day, willingness to provide structured feedback via a
+  1862→dedicated Google Form after each session, representation of at least 2
+  1863→different medical specialties (to test specialty-specific prescription
+  1864→patterns), and varying levels of technical literacy (from tech-savvy to
+  1865→minimal computer experience).
+  1866→
+  1867→Feedback is collected through three channels: a structured Google Form
+  1868→distributed after each day of use (covering ease of use, search
+  1869→accuracy, PDF quality, and feature requests), a dedicated WhatsApp group
+  1870→for real-time issues and suggestions, and automated analytics tracking
+  1871→of key usage metrics. The feedback is reviewed weekly by the founding
+  1872→team, prioritized using a RICE (Reach, Impact, Confidence, Effort)
+  1873→framework, and incorporated into the next sprint. A centralized feedback
+  1874→tracker spreadsheet maintains a public changelog visible to all beta
+  1875→participants, ensuring transparency and demonstrating responsiveness.
+  1876→
+  1877→[]{#_Toc100070 .anchor}**11.3 Analytics Strategy**
+  1878→
+  1879→PostHog is the primary analytics platform, chosen for its generous free
+  1880→tier (1 million events per month), session replay capability, and
+  1881→self-hosting option for future data sovereignty compliance. The
+  1882→following key events are tracked with associated properties:
+  1883→
+  1884→  -----------------------------------------------------------------------------
+  1885→  **Event Name**                **Properties Tracked**  **Business Purpose**
+  1886→  ----------------------------- ----------------------- -----------------------
+  1887→  prescription_created          plan_tier,              Core activation metric;
+  1888→                                medication_count,       measure product
+  1889→                                is_returning_patient    stickiness
+  1890→
+  1891→  medicine_search_used          query_length,           Measure search quality
+  1892→                                results_count,          and usage patterns
+  1893→                                selected_index          
+  1894→
+  1895→  pdf_generated                 plan_tier, has_qr,      Track PDF as the
+  1896→                                template_type           primary output action
+  1897→
+  1898→  upgrade_modal_shown           trigger_reason          Measure conversion
+  1899→                                (limit_reached,         funnel entry points
+  1900→                                feature_gated,          
+  1901→                                proactive)              
+  1902→
+  1903→  upgrade_completed             plan_from, plan_to,     Track conversion and
+  1904→                                payment_method          preferred payment
+  1905→                                                        methods
+  1906→
+  1907→  onboarding_step_completed     step_number,            Identify onboarding
+  1908→                                time_spent_seconds      drop-off points
+  1909→
+  1910→  auto_save_triggered           draft_size_kb,          Monitor auto-save
+  1911→                                connection_status       reliability
+  1912→
+  1913→  medicine_feedback_submitted   feedback_type,          Track crowdsourced
+  1914→                                medicine_name           improvement velocity
+  1915→  -----------------------------------------------------------------------------
+  1916→
+  1917→Funnel analysis is configured for three key flows: Signup to First
+  1918→Prescription (target: 80% completion within first session), First
+  1919→Prescription to Fifth Prescription (target: 60% within first week), and
+  1920→Free Tier Limit to Premium Upgrade (target: 15% conversion within 3
+  1921→months of hitting limit). These targets are based on benchmarks from
+  1922→similar SaaS products in emerging markets and will be adjusted based on
+  1923→actual data during the beta period.
+  1924→
+  1925→[]{#_Toc100071 .anchor}**12. Future Roadmap (Post-Launch)**
+  1926→
+  1927→The post-launch roadmap is organized into three priority tiers based on
+  1928→expected impact, implementation complexity, and alignment with the core
+  1929→product vision. Items in Tier 1 are planned for implementation within 3
+  1930→to 6 months after launch, Tier 2 within 6 to 12 months, and Tier 3
+  1931→beyond 12 months, subject to user demand and resource availability.
+  1932→
+  1933→[]{#_Toc100072 .anchor}**12.1 Tier 1: High Priority (3-6 Months)**
+  1934→
+  1935→  -------------------------------------------------------------------------
+  1936→  **Feature**       **Description**     **Business        **Estimated
+  1937→                                        Value**           Effort**
+  1938→  ----------------- ------------------- ----------------- -----------------
+  1939→  PWA Offline       Implement Service   Critical for      3 weeks
+  1940→  Support           Worker and Cache    rural areas with  
+  1941→                    API for offline     poor internet;    
+  1942→                    prescription        eliminates        
+  1943→                    creation; sync      biggest usage     
+  1944→                    drafts when         barrier           
+  1945→                    connectivity                          
+  1946→                    returns                               
+  1947→
+  1948→  Drug Interaction  Real-time warnings  Patient safety    4 weeks
+  1949→  Checker           for                 differentiator;   
+  1950→                    contraindications   builds trust with 
+  1951→                    between prescribed  doctors and       
+  1952→                    medications using a regulators        
+  1953→                    local interaction                     
+  1954→                    rules engine                          
+  1955→
+  1956→  Prescription      Create reusable     Major time-saver  2 weeks
+  1957→  Templates         clinical protocols  for high-volume   
+  1958→  (Macros)          (e.g., Gastritis,   doctors;          
+  1959→                    Flu, Cold) for      strongest Premium 
+  1960→                    1-click             conversion driver 
+  1961→                    prescription                          
+  1962→                    generation                            
+  1963→
+  1964→  Bengali Voice     Integrate Web       Reduces typing    2 weeks
+  1965→  Input             Speech API for      burden;           
+  1966→                    Bengali             especially        
+  1967→                    voice-to-text in    valuable for      
+  1968→                    the CC and Advice   older doctors     
+  1969→                    fields                                
+  1970→  -------------------------------------------------------------------------
+  1971→
+  1972→[]{#_Toc100073 .anchor}**12.2 Tier 2: Medium Priority (6-12 Months)**
+  1973→
+  1974→  -----------------------------------------------------------------------
+  1975→  **Feature**       **Description**   **Business        **Estimated
+  1976→                                      Value**           Effort**
+  1977→  ----------------- ----------------- ----------------- -----------------
+  1978→  Patient Portal    Secure link for   Patient           6 weeks
+  1979→                    patients to view  engagement;       
+  1980→                    their             reduces doctor\'s 
+  1981→                    prescriptions     manual            
+  1982→                    online via        prescription      
+  1983→                    SMS-delivered     sharing workload  
+  1984→                    one-time access                     
+  1985→                    token                               
+  1986→
+  1987→  SMS Integration   Automatically     Reduces paper     3 weeks
+  1988→                    send prescription usage; improves   
+  1989→                    PDF links to      patient           
+  1990→                    patient mobile    compliance and    
+  1991→                    numbers via       record-keeping    
+  1992→                    BulkSMSBD API                       
+  1993→
+  1994→  Visual History    Patient visit     Better            4 weeks
+  1995→  Timeline          timeline with     longitudinal care 
+  1996→                    graphical trend   tracking;         
+  1997→                    charts for vitals justifies Premium 
+  1998→                    (BP, weight,      subscription      
+  1999→                    blood sugar)                        
+  2000→                    across visits                       
+
+[showing lines 1-2000 of 2307; use offset=2001 with limit to continue reading]
