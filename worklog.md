@@ -328,3 +328,26 @@ Stage Summary:
 - 80+ source files across all feature areas
 - Full coverage of Master Blueprint Phases 1-5
 - Key features verified: Auth, Prescription CRUD, Patient CRUD, PDF Generation, Medicine Search, i18n, Verification Page, Onboarding, Responsive Design, Premium Features, Error Boundaries
+
+---
+Task ID: 20-25
+Agent: main
+Task: Integrate Supabase into RxBD
+
+Work Log:
+- Installed @supabase/supabase-js and @supabase/ssr packages
+- Created .env.local with Supabase URL and publishable key
+- Created src/utils/supabase/server.ts — Server-side Supabase client using createServerClient with cookie handling
+- Created src/utils/supabase/client.ts — Browser-side Supabase client using createBrowserClient
+- Created src/utils/supabase/middleware.ts — Middleware Supabase client that returns both supabase instance and response for cookie propagation
+- Updated src/middleware.ts — Integrated Supabase session refresh (supabase.auth.getUser()) alongside existing RxBD auth/subscription logic; middleware now async; Supabase cookies are set on every request to keep sessions fresh
+- Supabase agent skills install attempted but timed out (git clone too slow) — can be installed later with `npx skills add supabase/agent-skills`
+- Build verification: ✅ Production build passes with 0 errors
+- API smoke test: ✅ Signup, Login, and page rendering all work correctly with Supabase integrated
+
+Stage Summary:
+- Supabase client helpers created for server, browser, and middleware contexts
+- Middleware updated to refresh Supabase sessions on every request
+- Existing RxBD auth and subscription logic preserved and working alongside Supabase
+- Environment variables configured with Supabase project credentials
+- Build and API tests pass

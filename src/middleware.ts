@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { createClient as createSupabaseClient } from '@/utils/supabase/middleware'
 
 /**
  * RxBD Middleware
  *
+ * - Supabase session refresh: Keeps Supabase auth sessions fresh
  * - Auth protection: Redirects unauthenticated users to login for dashboard routes
  * - Subscription gating: Shows upgrade prompt for premium-only features
  * - Public route allowance: /verify/[id] and /api/verify/[id] are accessible without auth
@@ -72,22 +74,30 @@ function getSubscriptionPlan(request: NextRequest): string {
   return 'free'
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+
+  // ─── Supabase Session Refresh ─────────────────────────────────────
+  // Create a Supabase client for the middleware and refresh the session.
+  // This ensures the Supabase auth session stays fresh on every request.
+  const { supabase, response: supabaseResponse } = createSupabaseClient(request)
+
+  // Refresh the Supabase session (this sets cookies via setAll)
+  await supabase.auth.getUser()
 
   // Allow static assets through
   if (isStaticAsset(pathname)) {
-    return NextResponse.next()
+    return supabaseResponse
   }
 
-  // Allow public pages through
+  // Allow public pages through (but still refresh Supabase session)
   if (isPublicPage(pathname)) {
-    return NextResponse.next()
+    return supabaseResponse
   }
 
-  // Allow public API routes through
+  // Allow public API routes through (but still refresh Supabase session)
   if (pathname.startsWith('/api/') && isPublicApi(pathname)) {
-    return NextResponse.next()
+    return supabaseResponse
   }
 
   // Check authentication for API routes
@@ -114,7 +124,7 @@ export function middleware(request: NextRequest) {
       }
     }
 
-    return NextResponse.next()
+    return supabaseResponse
   }
 
   // For page routes, check auth
@@ -135,7 +145,7 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  return NextResponse.next()
+  return supabaseResponse
 }
 
 export const config = {
