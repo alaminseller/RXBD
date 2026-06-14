@@ -80,7 +80,7 @@ function getSubscriptionPlan(request: NextRequest): string {
   return 'free'
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // ─── Supabase Session Refresh ─────────────────────────────────────
