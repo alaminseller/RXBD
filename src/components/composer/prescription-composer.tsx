@@ -42,6 +42,7 @@ import {
   BookTemplate,
   User,
   Search,
+  FileText,
 } from 'lucide-react'
 import type { Medicine } from '@/types'
 import { authHeaders } from '@/store/auth-store'
